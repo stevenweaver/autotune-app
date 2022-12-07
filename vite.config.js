@@ -1,17 +1,20 @@
 import { sveltekit } from '@sveltejs/kit/vite';
-import copy from 'rollup-plugin-copy';
+import WindiCSS from 'vite-plugin-windicss'
+import {exec} from 'node:child_process';
+import { viteStaticCopy } from 'vite-plugin-static-copy';
 
 /** @type {import('vite').UserConfig} */
 const config = {
 	plugins: [
-    sveltekit(), 
-    copy({
+    WindiCSS(),
+    sveltekit(),
+    viteStaticCopy({
       targets: [
+        { src: './node_modules/**/files/*.tsv', dest: 'files' },
         { src: './node_modules/**/files/*.tsv', dest: './node_modules/.vite/deps/files' }
       ]
     })
-  ],
-  assetsInclude: ['./node_modules/**/files/*.tsv']
+  ]
 };
 
 export default config;

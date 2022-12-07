@@ -1,0 +1,158 @@
+.bg-nav {
+  color: #00a99d!important;
+  min-width: 200px;
+  background-image: url(http://datamonkey.org/assets/img/header-logo.svg);
+  background-repeat: no-repeat;
+  background-size: 150px 100px;
+  background-position: right;
+  background-origin: content-box;
+}
+
+.main-nav {
+    @apply flex items-center .justify-between flex-wrap .bg-grey-darkest .p-4 .inset-0;
+}
+
+.main-logo {
+    @apply block flex items-center flex-shrink-0 text-white;
+}
+
+.menu-item {
+    @apply no-underline block p-4 text-grey-darker;
+}
+
+html{
+    line-height: normal;
+}
+h1{
+    @apply text-xl font-semibold;
+}
+
+/* ###### Modal ###### */
+
+
+.modal-wrapper {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1050;
+    visibility: hidden;
+    opacity: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    outline: 0;
+    -webkit-transition: opacity 400ms;
+    transition: opacity 400ms;
+}
+
+.modal {
+    position: relative;
+    width: auto;
+    margin: .5rem;
+    pointer-events: none;
+    -webkit-transform: translateY(-20%);
+    -o-transform: translateY(-20%);
+            transform: translateY(-20%);
+    -webkit-transition: 300ms;
+            transition: 300ms;
+}
+
+.modal-wrapper .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: -1;
+}
+
+.modal-is-open{
+    visibility: visible;
+    opacity: 1;
+}
+.modal-is-open > .modal{
+    -webkit-transform: translateY(0);
+    -o-transform: translateY(0);
+            transform: translateY(0)
+}
+
+.modal-centered {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    min-height: calc(100% - (.5rem * 2));
+}
+
+@media (min-width: 576px){
+    .modal{
+        max-width: 500px;
+        margin: 1.75rem auto;
+    }
+    .modal.modal-lg{ max-width: 800px !important }
+    .modal-centered { min-height: calc(100% - (1.75rem * 2)) }
+}
+
+.modal-content {
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    width: 100%;
+    pointer-events: auto;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0,0,0,.2);
+    border-radius: .3rem;
+    outline: 0;
+}
+
+img {
+	display:inline;
+}
+
+th, td {
+	 font-weight: none; 
+	 text-align: left; 
+	 padding: 0px; 
+}
+
+.observablehq-viewof-render_site > div > form > div > select {
+  max-width:100%;
+}
+
+.observablehq-viewof-use_date > div > form > div > select {
+  max-width:100%;
+}
+
+.observablehq-viewof-filter_by_gene > div > form > div > select {
+  max-width:100%;
+}
+
+.observablehq-viewof-minimum_score > div > form > div > input {
+  max-width:100%;
+  text-align:right;
+}
+
+.observablehq-summary_table tr:hover {
+  background-color: #ECF0F1;
+  cursor: pointer;
+}
+
+.vega-embed-wrapper {
+  overflow:visible;
+}
+
+details {
+  display: none;
+}
+
+
