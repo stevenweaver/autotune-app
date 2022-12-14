@@ -1,3 +1,9 @@
+import "@fontsource/major-mono-display";
+
+.header-logo {
+  font-family: "Major Mono Display";
+}
+
 .bg-nav {
   color: #00a99d!important;
   min-width: 200px;

@@ -1,4 +1,5 @@
 <script>
+
     import * as Plot from "@observablehq/plot";
     
     export let options;
@@ -8,6 +9,7 @@
             Plot.plot(options)
         )
     }
+
 </script>
 
 {#key options}

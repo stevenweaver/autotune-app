@@ -1,3 +1,9 @@
+import "@fontsource/major-mono-display";
+
+.header-logo {
+  font-family: "Major Mono Display";
+}
+
 .btn {
   @apply font-bold py-2 px-4 rounded;
 }

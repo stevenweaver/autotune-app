@@ -1,5 +1,3 @@
-
-
 <script>
 
   import SvelteTable from "svelte-table";
@@ -20,8 +18,8 @@
   let a = 100;
 	let b = 0;
 
-let options; 
-
+  let options; 
+  let thresholdOptions; 
 
   onMount(async () => {
 
@@ -95,20 +93,76 @@ let options;
 
     }
 
+    const thresholdXy = Plot.normalizeY({z: "Sample", x: "Year", y: "Threshold"});
+
+    thresholdOptions = {
+
+      height: 300,
+      width: 1024,
+      grid: true,
+      x: {
+        axis: "top",
+        label: "Year →"
+      },
+      color: {
+        type: "ordinal",
+        scheme: "category10",
+        domain: allItems.Sample,
+        legend: true,
+        transform: d => parseInt(d)
+      },
+      marks: [
+        Plot.ruleX([0]),
+        Plot.ruleY(allItems, Plot.groupY({x1: "min", x2: "max"}, thresholdXy)),
+        Plot.dot(allItems, {...thresholdXy , fill: "Sample"}),
+        Plot.text(allItems, Plot.selectMinX({...thresholdXy, textAnchor: "end", dx: -6, text: "Year"}))
+      ]
+
+    }
+
+
 
 });
 
 </script>
 
-<div class="container">
+<div class="container px-5">
+
+  <div class="grid grid-cols-3 items-center my-5">
+    <div class="col-start-1 col-span-2">
+      <h1 class="text-6xl">Subsampling with LANL</h1>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-2 my-5">
+    <p> This is an analysis of a new algorithm designed to determine the most appropriate threshold for clustering HIV sequences to reconstruct potential transmission networks. The dataset used in this analysis is from the Los Alamos National Laboratory, and was partitioned by year. In order to assess the performance of the algorithm under different sampling conditions, the datasets were subsampled randomly at 75%, 50%, and 25% for each respective year. The algorithm was then run on each subsample to determine the variability of the inferred best threshold based on the sparsity of the resulting network. The results of this analysis will provide insight into the effectiveness of the algorithm under different sampling conditions. </p>
+  </div>
+
 	<div class="summary flex-1 p-3 overflow-hidden panel">
 
-    <h1>Scores</h1>
-    <h2>Plot</h2>
-    <RenderPlot options={options} />
+    <div class="thresholds">
+      <h1 class="text-xl py-2">Threshold</h1>
+
+      <h3>Plot</h3>
+      <RenderPlot options={thresholdOptions} />
+      <p class="py-5">Figure 1. In this figure, the x axis represents the year, while the y axis represents the optimal distance threshold used to link pairs of sequences into a cluster. The optimal distance threshold is determined by a heuristic score, which is described later in the page. Each dot in the figure is colored according to the sampling proportion of the original dataset for each respective year.</p>
+    </div>
 
 
-    <h2>Table</h2>
+    <div class="scores">
+
+      <h1 class="text-xl py-2">Scores</h1>
+
+      <h3>Plot</h3>
+      <RenderPlot options={options} />
+      <p class="py-5"> Figure 2. This figure shows a plot with years on the x-axis and a heuristic score on the y-axis. The heuristic score is based on the number of clusters and the ratio of the largest cluster to the second largest cluster. The points on the scatter plot are colored by proportion of random samples from original dataset. Each point represents the year and the corresponding heuristic score for each respective sample. </p>
+
+    </div>
+
+
+
+
+    <h3 class="py-2">Table</h3>
     <SvelteTable 
       columns="{cols}" 
       rows="{allItems}" 
@@ -116,8 +170,8 @@ let options;
       classNameThead={['table-warning']}
       />
   </div>
+
 	<div class="observable-notebook bg-white-300 flex-1 p-3 overflow-hidden panel" bind:this={notebookRef}></div>
+
 </div>
-
-
 
