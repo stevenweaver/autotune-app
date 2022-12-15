@@ -40,11 +40,12 @@
     <div class="items-center">
       <ul class="col-span-6 p-4">
         <li class="border-gray-400 mb-2"><a href="lanl">LANL</li>
-        <li class="border-gray-400 mb-2"><a href="china">China</li>
         <!-- <li><a href="combos">Combos</li> -->
         <li class="border-gray-400 mb-2"><a href="mexico">Mexico</li>
+        <li class="border-gray-400 mb-2"><a href="china">China</li>
         <li class="border-gray-400 mb-2"><a href="papers">Papers</li>
         <!-- <li><a href="singles">Singles</li> -->
+        <li class="border-gray-400 mb-2"><a href="about">About</li>
       </ul>
     </div>
 

@@ -23,7 +23,7 @@
     font-size: 20px;
   }
 
-  h1 {
+  :global(h1) {
       @apply text-xl font-semibold;
   }
 
