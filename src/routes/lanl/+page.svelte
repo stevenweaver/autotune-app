@@ -159,9 +159,6 @@
 
     </div>
 
-
-
-
     <h3 class="py-2">Table</h3>
     <SvelteTable 
       columns="{cols}" 
