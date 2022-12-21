@@ -35,10 +35,17 @@
   import notebook from "8f6e4b51e21a4d45";
   import {Cite} from '@citation-js/core';
   import "@citation-js/plugin-csl";
+  import * as Plot from "@observablehq/plot";
+  import RenderPlot from '../../Plot.svelte'
+
 
   let notebookRef;
+	let variableNames = [];
+	let totalReport;
   let viewFlag = true;
   let references = [];
+  let thresholdPlotOptions = {};
+	let clusterRatioOptions = {};
 
   onMount(async () => {
 
@@ -47,6 +54,7 @@
     let main = runtime.module(notebook, name => {
 
       const node = Inspector.into(notebookRef)(name);
+			variableNames.push(name);
 
       if(name == "thresholds") {
         viewFlag = false;
@@ -70,6 +78,57 @@
         }
 
     });
+
+
+		totalReport = await main.value("total_report");
+
+    thresholdPlotOptions = {
+        grid: true,
+        inset: 5,
+        width: 800,
+        //height: 5000,
+        paddingLeft:250,
+        facet: {
+          data: totalReport,
+          y: "location",
+          marginRight: 90
+        },
+        x: {
+          nice: true
+        },
+        marks: [
+          Plot.frame(),
+          Plot.dot(totalReport, {x: "Threshold", y: "Score", fill: d => d.Score, r: 3}),
+        ],
+        color: {
+          legend: true, 
+          label: "Threshold score",
+          type: "symlog"
+        }
+      };
+
+			clusterRatioOptions = {
+				y: {"type" : "log"},
+				className: "plot",
+				grid: true,
+				inset: 10,
+				facet: {
+					data: totalReport,
+					y: "location",
+					marginRight: 90
+				},
+				marks: [
+					Plot.frame(),
+					Plot.dot(totalReport, {x: "Threshold", y: "R1_2", fill: d => d.R1_2, r: 3}),
+				],
+				color: {
+					legend: true, 
+					label: "C1/C2 ratio",
+					type: "log"
+				}
+			};
+
+
 
     let items = await d3.json("https://api.zotero.org/groups/4394378/collections/9CK2HUNJ/items");
 
@@ -104,7 +163,7 @@
             template: 'wikipedia'
           })
 
-      return '<li><b>' + item.pmid + '</b> ' + formattedHTML + '</li>'
+      return '<li class="p-2"><b>' + item.pmid + '</b> ' + formattedHTML + '</li>'
 
     }
 
@@ -119,11 +178,17 @@
 
 <div class="container">
 
+
   <div class="notebook-container" bind:this={notebookRef}></div>
+
+  <div>
+    <h2 class="text-xl">Threshold Score Plots</h2>
+    <RenderPlot options={thresholdPlotOptions } />
+  </div>
 
   <div class="references">
     <h2 class="text-xl">References</h2>
-    <ul>
+    <ul class="list-disc ml-5">
       {@html references}
     </ul>
   </div>
