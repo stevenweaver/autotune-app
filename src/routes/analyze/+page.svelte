@@ -32,7 +32,7 @@
         ],
         color: {
           legend: true, 
-          label: "Threshold score",
+          label: "Score",
           type: "symlog"
         }
       };
@@ -57,7 +57,7 @@ function generateClusterPlot(totalReport) {
         ],
         color: {
           legend: true, 
-          label: "Number of Clusters",
+          label: "Score",
           type: "symlog"
         }
       };
@@ -82,7 +82,7 @@ function generateClusterPlot(totalReport) {
           ],
           color: {
             legend: true, 
-            label: "R1/R2",
+            label: "Score",
             type: "symlog"
           }
         };

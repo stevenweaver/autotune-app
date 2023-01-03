@@ -1,3 +1,18 @@
+<style>
+
+  :global(.container h1) {
+    @apply text-xxl font-semibold;
+    font-size: xx-large;
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+
+  :global(#data) {
+    display:none;
+  }
+
+</style>
+
 <script>
 
   import { onMount, beforeUpdate } from "svelte";
@@ -5,6 +20,8 @@
   import notebook from "afe656849efe7e5a";
 
   let notebookRef;
+	let variableNames = [];
+  let viewFlag = true;
 
   onMount(async () => {
 
@@ -13,11 +30,28 @@
     let main = runtime.module(notebook, name => {
 
       const node = Inspector.into(notebookRef)(name);
-      if(name == "viewof table1") {
-        node._node.classList.add('table')
-        node._node.classList.add('table-striped')
+			variableNames.push(name);
+
+      if(name != undefined) {
+        viewFlag = false;
       }
-      return node;
+
+      if(viewFlag) {
+
+        // Once we reach the "data" name, turn off appending
+
+        if(name == "viewof table1") {
+          node._node.classList.add('table')
+          node._node.classList.add('table-striped')
+        }
+
+        return node;
+
+      } else {
+
+          return null;
+
+        }
 
     });
 

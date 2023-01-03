@@ -8,6 +8,14 @@
       margin-top: 15px;
     } 
 
+  :global(.container h1) {
+    @apply text-xxl font-semibold;
+    font-size: xx-large;
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+
+
 
 </style>
 
@@ -26,6 +34,7 @@ To ensure that the transmission network is useful and informative, it is importa
 In general, the goal is to strike a balance between having enough links to accurately track the spread of the disease, while not having so many links that the network becomes difficult to interpret. This can be achieved through careful analysis and consideration of the specific disease and context.
 
 Overall, choosing an appropriate distance threshold is an important step in using a transmission network to track the spread of a contagious disease. It can help ensure that the network is useful and informative, and can ultimately aid in efforts to control and prevent the spread of the disease.
+
 
   `
 
