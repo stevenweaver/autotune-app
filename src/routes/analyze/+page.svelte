@@ -4,7 +4,11 @@
   import { Runtime, Inspector } from "@observablehq/runtime";
   import * as Plot from "@observablehq/plot";
   import * as d3 from 'd3';
+	import * as R from "ramda";
   import RenderPlot from '../../Plot.svelte'
+
+  import chiapasFile from '../../data/chiapas_seguro_report.tsv?raw'
+
 
   let files;
   let content;
@@ -19,11 +23,6 @@
         width: 800,
         //height: 5000,
         paddingLeft:250,
-        facet: {
-          data: totalReport,
-          y: "location",
-          marginRight: 90
-        },
         x: {
           nice: true
         },
@@ -49,11 +48,6 @@ function generateClusterPlot(totalReport) {
         width: 800,
         //height: 5000,
         paddingLeft:250,
-        facet: {
-          data: totalReport,
-          y: "location",
-          marginRight: 90
-        },
         x: {
           nice: true
         },
@@ -79,17 +73,12 @@ function generateClusterPlot(totalReport) {
           width: 800,
           //height: 5000,
           paddingLeft:250,
-          facet: {
-            data: totalReport,
-            y: "location",
-            marginRight: 90
-          },
           x: {
             nice: true
           },
           marks: [
             Plot.frame(),
-            Plot.dot(totalReport, {x: "Threshold", y: "Clusters", fill: d => d.Score, r: 3}),
+            Plot.dot(totalReport, {x: "Threshold", y: "R1_2", fill: d => d.Score, r: 3}),
           ],
           color: {
             legend: true, 
@@ -110,21 +99,45 @@ function generateClusterPlot(totalReport) {
     let file = files[0];
     file.text().then(fileContent => {
       let content = d3.tsvParse(fileContent, d3.autoType);
-      thresholdPlotOptions = generateThresholdPlot(content);
-      clusterPlotOptions = generateClusterPlot(content);
-      ratioPlotOptions = generateRatioPlot(content);
+
+      // map the content to include ratios
+
+			let mappedContent = R.map(d => { 
+				d["R1_2"] = d.LargestCluster/d.SecondLargestCluster; 
+				d["Degrees"] = d["Edges"]/d["Nodes"]; 
+				return d}, content);
+
+      thresholdPlotOptions = generateThresholdPlot(mappedContent);
+      clusterPlotOptions = generateClusterPlot(mappedContent);
+      ratioPlotOptions = generateRatioPlot(mappedContent);
 
       });
+	} else {
+
+		let content = d3.tsvParse(chiapasFile, d3.autoType);
+
+		// map the content to include ratios
+
+		let mappedContent = R.map(d => { 
+			d["R1_2"] = d.LargestCluster/d.SecondLargestCluster; 
+			d["Degrees"] = d["Edges"]/d["Nodes"]; 
+			return d}, content);
+
+		thresholdPlotOptions = generateThresholdPlot(mappedContent);
+		clusterPlotOptions = generateClusterPlot(mappedContent);
+		ratioPlotOptions = generateRatioPlot(mappedContent);
+
 	}
 
 </script>
 
 
-<div class="container">
+<div class="container pt-3">
+	<h2> Analyze your own Results </h2>
 
-  <input id="threshold-file" bind:files type=file accept="text/*">
+  <input class="pt-3" id="threshold-file" bind:files type=file accept="text/*">
 
-  <div>
+  <div class=pt-3>
     <h2 class="text-xl">Threshold Score Plot</h2>
     <RenderPlot options={thresholdPlotOptions} />
   </div>
