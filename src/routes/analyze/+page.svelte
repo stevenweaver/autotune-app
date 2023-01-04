@@ -1,3 +1,10 @@
+<style>
+
+code { 
+  white-space: pre; 
+  }
+
+</style>
 <script>
 
   import { onMount, beforeUpdate } from "svelte";
@@ -136,6 +143,22 @@ function generateClusterPlot(totalReport) {
 	<h2> Analyze your own Results </h2>
 
   <input class="pt-3" id="threshold-file" bind:files type=file accept="text/*">
+
+  <div class=pt-3>
+    <h2 class="text-xl">How</h2>
+    <div id="summary">
+      <p>To generate a results file that is compatible with this page, use a multiple sequence alignment with the <a href="https://github.com/veg/tn93">tn93</a> fast pairwise distance calculator.</p>
+      <p>Once a pairwise distance file is created, use the <a href="https://github.com/veg/hivclustering">hivnetworkcsv</a> script with the <code>-A</code> keyword argument to generate the tab-separated output compatible with this page.</p>
+      <p class="mt-2">An example workflow is as follows: </p>
+      <div class="bg-indigo-100 p-3 rounded">
+        <code>
+./tn93 -t 0.015 pol.fasta > pairwise_distances.15.tn93.csv
+hivnetworkcsv -i pairwise_distances.15.tn93.csv -f plain -A 0 > autotune_report.tsv
+        </code>
+      </div>
+    </div>
+  </div>
+ 
 
   <div class=pt-3>
     <h2 class="text-xl">Threshold Score Plot</h2>
