@@ -145,7 +145,7 @@ function generateClusterPlot(totalReport) {
   <input class="pt-3" id="threshold-file" bind:files type=file accept="text/*">
 
   <div class=pt-3>
-    <h2 class="text-xl">How</h2>
+    <h2 class="text-xl">Instructions</h2>
     <div id="summary">
       <p>To generate a results file that is compatible with this page, use a multiple sequence alignment with the <a href="https://github.com/veg/tn93">tn93</a> fast pairwise distance calculator.</p>
       <p>Once a pairwise distance file is created, use the <a href="https://github.com/veg/hivclustering">hivnetworkcsv</a> script with the <code>-A</code> keyword argument to generate the tab-separated output compatible with this page.</p>
