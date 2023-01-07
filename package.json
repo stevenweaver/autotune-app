@@ -48,8 +48,15 @@
 		"c6e199fd8a86cf46": "../autotune-notebooks/singles/c6e199fd8a86cf46-v556.0.0.tgz",
 		"d3": "^7.7.0",
 		"f2e663c52265f41c": "../autotune-notebooks/china/f2e663c52265f41c-v329.0.0.tgz",
+		"katex": "^0.16.4",
+		"marked-katex-extension": "^1.0.2",
+		"mdsvex": "^0.10.6",
 		"ramda": "^0.28.0",
+		"rehype-katex": "5",
+		"rehype-katex-svelte": "^1.1.2",
+		"remark-math": "3",
 		"svelte-markdown": "^0.2.3",
-		"svelte-table": "^0.5.2"
+		"svelte-table": "^0.5.2",
+		"unist-util-visit": "2"
 	}
 }

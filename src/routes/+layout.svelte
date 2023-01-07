@@ -1,6 +1,7 @@
 <svelte:head>
   <link rel="stylesheet" href="https://observablehq.com/_next/static/css/92c0a8010b575b66.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
   <!-- <link rel="stylesheet" href="https://datamonkey.org/assets/css/datamonkey.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous"> -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Major+Mono+Display">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fontdiner+Swanky">

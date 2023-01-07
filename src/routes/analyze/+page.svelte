@@ -156,6 +156,7 @@ function generateClusterPlot(totalReport) {
 hivnetworkcsv -i pairwise_distances.15.tn93.csv -f plain -A 0 > autotune_report.tsv
         </code>
       </div>
+      Please see <a class="underline text-blue-600 hover:text-blue-800 visited:text-purple-600" href="about">the About page</a> for documentation on how to interpret the results.
     </div>
   </div>
  
@@ -174,7 +175,5 @@ hivnetworkcsv -i pairwise_distances.15.tn93.csv -f plain -A 0 > autotune_report.
     <h2 class="text-xl">R1/R2 Plot</h2>
     <RenderPlot options={ratioPlotOptions} />
   </div>
-
-
 
 </div>
