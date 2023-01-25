@@ -47,6 +47,7 @@
     <div class="items-center">
       <ul class="col-span-6 p-2">
         <li class="border-gray-400 mb-2"><a href="analyze">Analyze your Own Results</li>
+        <li class="border-gray-400 mb-2"><a href="assortativity">Assortativity</li>
         <li class="border-gray-400 mb-2"><a href="lanl">LANL</li>
         <!-- <li><a href="combos">Combos</li> -->
         <li class="border-gray-400 mb-2"><a href="mexico">Mexico</li>

@@ -58,9 +58,9 @@
       item['Sample'] = sample;}, allItems)
 
     allItems = R.filter(item => { return item['Sample'] }, allItems);
-    console.log(allItems);
 
     cols = R.map( key =>  { return {key:key, title:key, value: v => v[key], sortable: true }  }, R.keys(allItems[0]));
+    console.log(cols);
 
     const xy = Plot.normalizeY({z: "Sample", x: "Year", y: "Score"});
 
