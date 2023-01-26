@@ -9,7 +9,7 @@
   import * as d3 from 'd3';
 	import * as R from "ramda";
   import RenderPlot from '../../Plot.svelte';
-  import {default as dwh} from 'dwh';
+  import {default as dwh, computeFractions} from 'dwh';
   import SvelteTable from "svelte-table";
 
   import resultsFile from '../../data/0.4-averaged-filtered.json';
@@ -25,6 +25,8 @@
   let allItems = [];
   let assortativity;
   let content;
+  let fractions;
+  let fractionOptions;
 
 
   let nodeCategoryRaw = (field, n) => {
@@ -72,6 +74,25 @@
       return r;
     }, records);
 
+    fractions = computeFractions(content, nodeCategory, false);
+    console.log(fractions);
+
+    const xy = Plot.normalizeY({basis: "sum", y: "count"});
+
+    fractionOptions = {
+      color: {
+          legend: true
+      },
+      x: {
+        type: "band",
+        label: null
+      },
+      facet: {data:fractions, x:"from", label:null},
+      marks: [
+        Plot.barY(fractions, {...xy, fill:"to"}),
+        Plot.ruleY([0])
+      ]
+    };
   
     cols = R.map( key =>  { return {key:key, title:key, value: v => v[key], sortable: true }  }, R.keys(assortativity));
 
@@ -85,8 +106,7 @@
 
 	}
 
-
-    // Get DWH for the default selection
+  // Get DWH for the default selection
 
   const onAttributeChange = (e) => {
     selectedKey = e.target.value;
@@ -126,5 +146,9 @@
       classNameThead={['table-warning']}
       />
   </div>
+
+  <h3>Plot</h3>
+  <RenderPlot options={fractionOptions} />
+
 
 </div>
