@@ -1,8 +1,13 @@
 <style>
 
   .container :global(p) {
-      margin-bottom: 5px;
+      margin-bottom: 10px;
     } 
+
+  .container :global(ul) {
+      margin-bottom: 10px;
+    } 
+
 
   .container {
       margin-top: 15px;
@@ -26,6 +31,35 @@
     margin-left: 20px;
   }
 
+  :global(a) {
+    outline: none;
+    text-decoration: none;
+    padding: 2px 1px 0;
+  }
+
+  :global(a:link) {
+    color: teal;
+  }
+
+  :global(a:visited) {
+    color: teal;
+  }
+
+  :global(a:focus) {
+    border-bottom: 1px solid;
+    background: #bae498;
+  }
+
+  :global(a:hover) {
+    border-bottom: 1px solid;
+    background: #cdfeaa;
+  }
+
+  :global(a:active) {
+    background: #265301;
+    color: #cdfeaa;
+  }
+
   :global(li>ol) {
     list-style-type: lower-alpha;
     margin-left: 20px;
@@ -38,9 +72,17 @@
 
   import { onMount, beforeUpdate } from "svelte";
   import About from '../../docs/about.md'
+  import Assortativity from '../../docs/assortativity.md'
+  import HIVTRACEInstructions from '../../docs/hivtrace_instructions.md'
 
 </script>
 
 <div class="container">
   <About />
+  <div id="assortativity">
+    <Assortativity />
+  </div>
+  <div id="annotation">
+    <HIVTRACEInstructions />
+  </div>
 </div>
