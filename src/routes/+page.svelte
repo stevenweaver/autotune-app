@@ -1,4 +1,5 @@
 <style>
+
   .container {
       font-family:"Fontdiner Swanky";
       font-size : x-large;
@@ -23,6 +24,21 @@
       max-width: 100% !important;
       width: 100%;
   }
+
+  .container :global(a) {
+    outline: none;
+    text-decoration: none;
+    padding: 2px 1px 0;
+  }
+
+  .container :global(a:link) {
+    color: black;
+  }
+
+  .container :global(a:visited) {
+    color: black;
+  }
+
 
 
 </style>

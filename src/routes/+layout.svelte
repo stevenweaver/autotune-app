@@ -45,4 +45,27 @@
       @apply text-xl font-semibold;
   }
 
+  :global(.container h1) {
+      @apply text-xxl font-semibold;
+      font-size: xx-large;
+      margin-top: 15px;
+      margin-bottom: 15px;
+    }
+
+  :global(a) {
+    outline: none;
+    text-decoration: none;
+    padding: 2px 1px 0;
+  }
+
+  :global(a:link) {
+    color: teal;
+  }
+
+  :global(a:visited) {
+    color: teal;
+  }
+
+
+
 </style>

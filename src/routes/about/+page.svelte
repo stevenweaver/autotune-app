@@ -13,54 +13,54 @@
       margin-top: 15px;
     } 
 
-  :global(.container h1) {
+  div :global(.container h1) {
     @apply text-xxl font-semibold;
     font-size: xx-large;
     margin-top: 15px;
     margin-bottom: 15px;
   }
 
-  :global(.container h2) {
+  div :global(.container h2) {
     margin-top: 15px;
     margin-bottom: 15px;
   }
 
 
-  :global(ol) {
+  div :global(ol) {
     list-style-type: decimal;
     margin-left: 20px;
   }
 
-  :global(a) {
+  div :global(a) {
     outline: none;
     text-decoration: none;
     padding: 2px 1px 0;
   }
 
-  :global(a:link) {
+  div :global(a:link) {
     color: teal;
   }
 
-  :global(a:visited) {
+  div :global(a:visited) {
     color: teal;
   }
 
-  :global(a:focus) {
+  div :global(a:focus) {
     border-bottom: 1px solid;
     background: #bae498;
   }
 
-  :global(a:hover) {
+  div :global(a:hover) {
     border-bottom: 1px solid;
     background: #cdfeaa;
   }
 
-  :global(a:active) {
+  div :global(a:active) {
     background: #265301;
     color: #cdfeaa;
   }
 
-  :global(li>ol) {
+  div :global(li>ol) {
     list-style-type: lower-alpha;
     margin-left: 20px;
   }

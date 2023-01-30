@@ -1,17 +1,17 @@
 <style>
 
-:global(.container h1) {
+div :global(.container h1) {
   @apply text-xxl font-semibold;
   font-size: xx-large;
 }
 
-:global(.container h2) {
+div :global(.container h2) {
   @apply text-l font-semibold;
   font-size: large;
 }
 
 
-:global(.container h3) {
+div :global(.container h3) {
   @apply text-l font-semibold;
   font-size: large;
 }
