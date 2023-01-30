@@ -64,9 +64,60 @@ div :global(.container h3) {
 		// Note that `files` is of type `FileList`, not an Array:
 		// https://developer.mozilla.org/en-US/docs/Web/API/FileList
     let file = files[0];
+
     file.text().then(fileContent => {
       content = JSON.parse(fileContent);
       });
+
+    // Read in all patient_attributes and get unique list
+    patientAttributeKeys = R.keys(content.Nodes[0].patient_attributes);
+
+
+    // Get unique values for each key
+    patientAttributes = R.zipObj(patientAttributeKeys, R.map(key => R.uniq(R.map(d => d.patient_attributes[key], content.Nodes)), patientAttributeKeys));
+
+    // calculate dwh for each risk group just to try
+    let records = patientAttributes[selectedKey];
+
+    const nodeCategory = R.partial(nodeCategoryRaw, [selectedKey]);
+
+    let f = d3.format(".3f");
+
+    assortativity = R.map((record) => {
+      const r = { "Record" : record, 
+                  "Field" : selectedKey, 
+                  "DWH" : f(dwh(content, nodeCategory , record)),
+                  "Panmictic range" : d3.extent(R.map ((r) => f(dwh(content, nodeCategory, record, true)), R.range (1, 200)))};
+      return r;
+    }, records);
+
+    fractions = computeFractions(content, nodeCategory, false);
+
+    const xy = Plot.normalizeY({basis: "sum", y: "count"});
+
+    fractionOptions = {
+      color: {
+          legend: true
+      },
+      x: {
+        type: "band",
+        label: null
+      },
+      facet: {data:fractions, x:"from", label:null},
+      marks: [
+        Plot.barY(fractions, {...xy, fill:"to"}),
+        Plot.ruleY([0])
+      ]
+    };
+  
+    cols = R.map( key =>  { return {key:key, title:key, value: v => v[key], sortable: true }  }, R.keys(assortativity));
+
+
+    cols = [ 
+              {key:"Record", title: selectedKey, value: v => v["Record"], sortable: true },
+              {key:"DWH", title:"DWH", value: v => v["DWH"], sortable: true },
+              {key:"Panmictic range", title:"Panmictic range", value: v => v["Panmictic range"], sortable: true }
+           ];
 
 	} else {
 
