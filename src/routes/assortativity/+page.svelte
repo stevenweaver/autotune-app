@@ -20,7 +20,8 @@ div :global(.container h3) {
 
 <script>
 
-  import { onMount, beforeUpdate } from "svelte";
+	import { Wave } from 'svelte-loading-spinners';
+  import { onMount, beforeUpdate, afterUpdate } from "svelte";
   import { Runtime, Inspector } from "@observablehq/runtime";
   import * as Plot from "@observablehq/plot";
   import * as d3 from 'd3';
@@ -45,6 +46,7 @@ div :global(.container h3) {
   let fractions;
   let fractionOptions;
 
+	//let loading = true;
 
   let nodeCategoryRaw = (field, n) => {
 
@@ -123,8 +125,7 @@ div :global(.container h3) {
 								{key:"Panmictic range", title:"Panmictic range", value: v => v["Panmictic range"], sortable: true }
 						 ];
 
-
-
+		//loading = false;
 	}
 
 	$: if (files) {
@@ -157,57 +158,61 @@ div :global(.container h3) {
 
   const onAttributeChange = (e) => {
     selectedKey = e.target.value;
-
   }
-
 
 </script>
 
 <div class="container pt-3">
 
-	<h1>Assortativity</h1>
+	<!-- <div class="loading"> -->
+	<!-- 	<Wave size="300" color="teal" unit="px" duration="2s" /> -->
+	<!-- </div> -->
 
-  <div>
-    <h2>Instructions</h2>
-    <div id="summary">
-      <p>Please see <a href="/about#annotation"> the annotation section</a> of the About page for more information on how to generate the results necessary to use this page.</p>
-      <p>Please see <a href="/about#assortativity"> the assortativity section</a> of the About page for more information on the algorithms (i.e. DWH) involved.</p>
-    </div>
-  </div>
- 
-  <h2>Select HIV-TRACE Results File</h2>
-  <input class="pt-3" id="results-file" bind:files type=file>
+	<div class="main">
+		<h1>Assortativity</h1>
 
-  <div class=pt-3>
-    <h2>Assortativity / homophily analysis </h2>
-    	<select bind:value={selected} on:change={onAttributeChange}>
-        {#each patientAttributeKeys as key}
-          <option value={key}>
-            {key}
-          </option>
-        {/each}
-      </select>
-  </div>
+		<div>
+			<h2>Instructions</h2>
+			<div id="summary">
+				<p>Please see <a href="/about#annotation"> the annotation section</a> of the About page for more information on how to generate the results necessary to use this page.</p>
+				<p>Please see <a href="/about#assortativity"> the assortativity section</a> of the About page for more information on the algorithms (i.e. DWH) involved.</p>
+			</div>
+		</div>
+	 
+		<h2>Select HIV-TRACE Results File</h2>
+		<input class="pt-3" id="results-file" bind:files type=file>
 
-  <div class=pt-3>
+		<div class=pt-3>
+			<h2>Assortativity / homophily analysis </h2>
+				<select bind:value={selected} on:change={onAttributeChange}>
+					{#each patientAttributeKeys as key}
+						<option value={key}>
+							{key}
+						</option>
+					{/each}
+				</select>
+		</div>
 
-    <h3 class="py-2">Table</h3>
-    <SvelteTable 
-      columns="{cols}" 
-      rows="{assortativity}" 
-      classNameTable={['table table-striped']}
-      classNameThead={['table-warning']}
-      />
-      
-    <p>DWH (Degree-weighted homophily) ranges from -1 to 1. A DWH value of 0 indicates that there is no more homophily than expected with chance, while a value of 1 indicates that there is perfect homophily (e.g. Birds always link to birds). A value of -1 is achieved for perfectly disassortative networks (e.g. Bird never linking with another bird).</p>
-    <p>Panmictic range is a label permutation test to compute the null distribution of DWH values.</p>
+		<div class=pt-3>
 
-  </div>
+			<h3 class="py-2">Table</h3>
+			<SvelteTable 
+				columns="{cols}" 
+				rows="{assortativity}" 
+				classNameTable={['table table-striped']}
+				classNameThead={['table-warning']}
+				/>
+				
+			<p>DWH (Degree-weighted homophily) ranges from -1 to 1. A DWH value of 0 indicates that there is no more homophily than expected with chance, while a value of 1 indicates that there is perfect homophily (e.g. Birds always link to birds). A value of -1 is achieved for perfectly disassortative networks (e.g. Bird never linking with another bird).</p>
+			<p>Panmictic range is a label permutation test to compute the null distribution of DWH values.</p>
 
-  <div class=pt-3>
-    <h3>Plot</h3>
-    <RenderPlot options={fractionOptions} />
-    <p class="py-1">Figure 1. Fractions of pairwise connections, scaled by degree, for each attribute that appears for the selected field.</p>
-  </div>
+		</div>
+
+		<div class=pt-3>
+			<h3>Plot</h3>
+			<RenderPlot options={fractionOptions} />
+			<p class="py-1">Figure 1. Fractions of pairwise connections, scaled by degree, for each attribute that appears for the selected field.</p>
+		</div>
+	</div>
 
 </div>
