@@ -16,8 +16,8 @@ div :global(.container h3) {
   font-size: large;
 }
 
-
 </style>
+
 <script>
 
   import { onMount, beforeUpdate } from "svelte";
@@ -26,7 +26,7 @@ div :global(.container h3) {
   import * as d3 from 'd3';
 	import * as R from "ramda";
   import RenderPlot from '../../Plot.svelte';
-  import {default as dwh, computeFractions} from 'dwh';
+  import {default as dwh, computeFractions, decompress} from 'dwh';
   import SvelteTable from "svelte-table";
 
   import resultsFile from '../../data/0.4-averaged-filtered.json';
@@ -48,6 +48,10 @@ div :global(.container h3) {
 
   let nodeCategoryRaw = (field, n) => {
 
+		if(!n['patient_attributes']) {
+				return null;
+		}
+
     var desc = n['patient_attributes'][field];
 
     if (desc == "MSM") {
@@ -59,6 +63,70 @@ div :global(.container h3) {
 
   }
 
+	$: {
+
+			let network = content;
+
+			// Read in all patient_attributes and get unique list
+			patientAttributeKeys = R.filter(k=> k != "ehars_uid", R.keys(network.Nodes[0].patient_attributes));
+
+			if(!R.includes(selectedKey, patientAttributeKeys)) {
+				selectedKey = patientAttributeKeys[0];
+				selected = patientAttributeKeys[0];
+			}
+
+			// Get unique values for each key
+			patientAttributes = R.zipObj(patientAttributeKeys, R.map(key => R.uniq(R.map(d => { try { return d.patient_attributes[key]} catch { return null } }, network.Nodes)), patientAttributeKeys));
+
+			// calculate dwh for each risk group just to try
+			let records = patientAttributes[selectedKey];
+
+			const nodeCategory = R.partial(nodeCategoryRaw, [selectedKey]);
+
+			let f = d3.format(".3f");
+
+			console.log('Computing Assortativity');
+
+			assortativity = R.map((record) => {
+				const r = { "Record" : record, 
+										"Field" : selectedKey, 
+										"DWH" : f(dwh(network, nodeCategory , record)),
+										"Panmictic range" : d3.extent(R.map ((r) => f(dwh(network, nodeCategory, record, true)), R.range (1, 200)))};
+				return r;
+			}, records);
+
+			fractions = computeFractions(network, nodeCategory, false);
+
+			const xy = Plot.normalizeY({basis: "sum", y: "count"});
+
+			fractionOptions = {
+				color: {
+						legend: true
+				},
+				x: {
+					type: "band",
+					label: null
+				},
+				facet: {data:fractions, x:"from", label:null},
+				marks: [
+					Plot.barY(fractions, {...xy, fill:"to"}),
+					Plot.ruleY([0])
+				]
+			};
+		
+			cols = R.map( key =>  { return {key:key, title:key, value: v => v[key], sortable: true }  }, R.keys(assortativity));
+
+
+			cols = [ 
+								{key:"Record", title: selectedKey, value: v => v["Record"], sortable: true },
+								{key:"DWH", title:"DWH", value: v => v["DWH"], sortable: true },
+								{key:"Panmictic range", title:"Panmictic range", value: v => v["Panmictic range"], sortable: true }
+						 ];
+
+
+
+	}
+
 	$: if (files) {
 
 		// Note that `files` is of type `FileList`, not an Array:
@@ -66,120 +134,30 @@ div :global(.container h3) {
     let file = files[0];
 
     file.text().then(fileContent => {
-      content = JSON.parse(fileContent);
-      });
 
-    // Read in all patient_attributes and get unique list
-    patientAttributeKeys = R.keys(content.Nodes[0].patient_attributes);
+      let network = JSON.parse(fileContent);
 
+  		if(network["trace_results"]) {
+				network = network["trace_results"];
+			}
 
-    // Get unique values for each key
-    patientAttributes = R.zipObj(patientAttributeKeys, R.map(key => R.uniq(R.map(d => d.patient_attributes[key], content.Nodes)), patientAttributeKeys));
+			if (network.Settings && network.Settings.compact_json) {
+				network = decompress(network);
+			}
 
-    // calculate dwh for each risk group just to try
-    let records = patientAttributes[selectedKey];
+			content = network;
 
-    const nodeCategory = R.partial(nodeCategoryRaw, [selectedKey]);
-
-    let f = d3.format(".3f");
-
-    assortativity = R.map((record) => {
-      const r = { "Record" : record, 
-                  "Field" : selectedKey, 
-                  "DWH" : f(dwh(content, nodeCategory , record)),
-                  "Panmictic range" : d3.extent(R.map ((r) => f(dwh(content, nodeCategory, record, true)), R.range (1, 200)))};
-      return r;
-    }, records);
-
-    fractions = computeFractions(content, nodeCategory, false);
-
-    const xy = Plot.normalizeY({basis: "sum", y: "count"});
-
-    fractionOptions = {
-      color: {
-          legend: true
-      },
-      x: {
-        type: "band",
-        label: null
-      },
-      facet: {data:fractions, x:"from", label:null},
-      marks: [
-        Plot.barY(fractions, {...xy, fill:"to"}),
-        Plot.ruleY([0])
-      ]
-    };
-  
-    cols = R.map( key =>  { return {key:key, title:key, value: v => v[key], sortable: true }  }, R.keys(assortativity));
-
-
-    cols = [ 
-              {key:"Record", title: selectedKey, value: v => v["Record"], sortable: true },
-              {key:"DWH", title:"DWH", value: v => v["DWH"], sortable: true },
-              {key:"Panmictic range", title:"Panmictic range", value: v => v["Panmictic range"], sortable: true }
-           ];
+		});
 
 	} else {
-
 		content = resultsFile;
-
-    // Read in all patient_attributes and get unique list
-    patientAttributeKeys = R.keys(content.Nodes[0].patient_attributes);
-
-
-    // Get unique values for each key
-    patientAttributes = R.zipObj(patientAttributeKeys, R.map(key => R.uniq(R.map(d => d.patient_attributes[key], content.Nodes)), patientAttributeKeys));
-
-    // calculate dwh for each risk group just to try
-    let records = patientAttributes[selectedKey];
-
-    const nodeCategory = R.partial(nodeCategoryRaw, [selectedKey]);
-
-    let f = d3.format(".3f");
-
-    assortativity = R.map((record) => {
-      const r = { "Record" : record, 
-                  "Field" : selectedKey, 
-                  "DWH" : f(dwh(content, nodeCategory , record)),
-                  "Panmictic range" : d3.extent(R.map ((r) => f(dwh(content, nodeCategory, record, true)), R.range (1, 200)))};
-      return r;
-    }, records);
-
-    fractions = computeFractions(content, nodeCategory, false);
-
-    const xy = Plot.normalizeY({basis: "sum", y: "count"});
-
-    fractionOptions = {
-      color: {
-          legend: true
-      },
-      x: {
-        type: "band",
-        label: null
-      },
-      facet: {data:fractions, x:"from", label:null},
-      marks: [
-        Plot.barY(fractions, {...xy, fill:"to"}),
-        Plot.ruleY([0])
-      ]
-    };
-  
-    cols = R.map( key =>  { return {key:key, title:key, value: v => v[key], sortable: true }  }, R.keys(assortativity));
-
-
-    cols = [ 
-              {key:"Record", title: selectedKey, value: v => v["Record"], sortable: true },
-              {key:"DWH", title:"DWH", value: v => v["DWH"], sortable: true },
-              {key:"Panmictic range", title:"Panmictic range", value: v => v["Panmictic range"], sortable: true }
-           ];
-
-
 	}
 
   // Get DWH for the default selection
 
   const onAttributeChange = (e) => {
     selectedKey = e.target.value;
+
   }
 
 
@@ -198,7 +176,7 @@ div :global(.container h3) {
   </div>
  
   <h2>Select HIV-TRACE Results File</h2>
-  <input class="pt-3" id="results-file" bind:files type=file accept="text/*">
+  <input class="pt-3" id="results-file" bind:files type=file>
 
   <div class=pt-3>
     <h2>Assortativity / homophily analysis </h2>
