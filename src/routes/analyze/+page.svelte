@@ -152,8 +152,8 @@ function generateClusterPlot(totalReport) {
       <p class="mt-2">An example workflow is as follows: </p>
       <div class="bg-indigo-100 p-3 rounded">
         <code>
-./tn93 -t 0.015 pol.fasta > pairwise_distances.15.tn93.csv
-hivnetworkcsv -i pairwise_distances.15.tn93.csv -f plain -A 0 > autotune_report.tsv
+./tn93 -t 0.03 pol.fasta > pairwise_distances.tn93.csv
+hivnetworkcsv -i pairwise_distances.tn93.csv -f plain -A 0 > autotune_report.tsv
         </code>
       </div>
       Please see <a class="underline text-blue-600 hover:text-blue-800 visited:text-purple-600" href="about">the About page</a> for documentation on how to interpret the results.
