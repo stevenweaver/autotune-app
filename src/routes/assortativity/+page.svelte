@@ -10,7 +10,6 @@ div :global(.container h2) {
   font-size: large;
 }
 
-
 div :global(.container h3) {
   @apply text-l font-semibold;
   font-size: large;
@@ -86,8 +85,6 @@ div :global(.container h3) {
 			const nodeCategory = R.partial(nodeCategoryRaw, [selectedKey]);
 
 			let f = d3.format(".3f");
-
-			console.log('Computing Assortativity');
 
 			assortativity = R.map((record) => {
 				const r = { "Record" : record, 
