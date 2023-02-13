@@ -66,7 +66,7 @@
         <li class="border-gray-400 mb-2"><a href="assortativity">Assortativity</li>
         <li class="border-gray-400 mb-2"><a href="lanl">LANL</li>
         <!-- <li><a href="combos">Combos</li> -->
-        <li class="border-gray-400 mb-2"><a href="mexico">Mexico</li>
+        <!-- <li class="border-gray-400 mb-2"><a href="mexico">Mexico</li> -->
         <li class="border-gray-400 mb-2"><a href="china">China</li>
         <li class="border-gray-400 mb-2"><a href="papers">Papers</li>
         <!-- <li><a href="singles">Singles</li> -->
