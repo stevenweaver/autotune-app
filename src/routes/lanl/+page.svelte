@@ -42,6 +42,7 @@
     });
 
 		let justData = R.filter(x => { if(x && x != "total_report") { return R.includes('report', x) } else { return false }} , variableNames);
+    console.log(justData)
 
 		// add data values to global view
 
@@ -60,7 +61,8 @@
     allItems = R.filter(item => { return item['Sample'] }, allItems);
 
     cols = R.map( key =>  { return {key:key, title:key, value: v => v[key], sortable: true }  }, R.keys(allItems[0]));
-    console.log(cols);
+
+    //console.log(cols);
 
     const xy = Plot.normalizeY({z: "Sample", x: "Year", y: "Score"});
 
@@ -119,8 +121,6 @@
       ]
 
     }
-
-
 
 });
 

@@ -13,9 +13,9 @@ let threshold = '';
 const threshold_text = decoder.decode(Deno.readFileSync(thresholdFn, 'utf-8'));
 
 // Check for Multiple thresholds 
-if (R.includes("Multiple candidate thresholds")) {
+if (R.includes("Multiple candidate thresholds", threshold_text)) {
   let txt = R.replace(/ +/g,' ', threshold_text)
-  threshold = R.split("Multiple candidate thresholds: %s ")(txt)[1].split(' ')[0].trim();
+  threshold = R.split("Multiple candidate thresholds: %s ")(txt)[1].split(', ')[0].trim();
 } else {
   try {
     threshold = R.split('guess ')(threshold_text)[1].split(' (')[0];
