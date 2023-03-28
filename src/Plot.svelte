@@ -5,6 +5,7 @@
     export let options;
 
     function myplot(node) {
+
         node.appendChild(
             Plot.plot(options)
         )

@@ -13,20 +13,47 @@
   let totalReport = [];
   let cols = [];
 
+  let summaryStatCols = [];
+  let summaryStatValues = [];
+  let allSummaryStats = [];
+
+
   let a = 100;
 	let b = 0;
 
-  let options; 
-  let thresholdOptions; 
-  let scoreOptions; 
-  let fullSamplingScoreOptions; 
+  let options;
+  let thresholdOptions;
+	let thresholdRangeOptions;
+  let scoreOptions;
+  let fullSamplingScoreOptions;
+	let thresholdRanges;
 
   // Get all data to import
   let paths = R.flatten(R.map(i => R.map( j =>  { return { "sample": i, "iteration": j, "name": `${i}_${j}`, "path": `../../data/30063225/${i}/${j}/sampled.tn93output.report.tsv?raw` } }, R.range(1,11)), [25,50,75]));
   let dataPromise = R.map(p => import(p['path']), paths);
 
+  // Get all summary stats to import
+  let summaryStatisticPaths = R.flatten(R.map(i => R.map( j =>  { return { "sample": i, "iteration": j, "name": `${i}_${j}`, "path": `../../data/30063225/${i}/${j}/sampledSummaryStatsTN93.json` } }, R.range(1,11)), [25,50,75]));
+  let summaryStatisticPromise = R.map(p => import(p['path']), summaryStatisticPaths);
+
   import fullSampleValuesRaw from '../../data/30063225/100/sequence.tn93output.report.tsv?raw';
   let fullSampleValues = d3.tsvParse(fullSampleValuesRaw , d3.autoType);
+
+  import totalSummaryStats from '../../data/30063225/100/summaryStats.json'
+
+	function getMinThreshold(data) {
+		return data.reduce((min, p) => p.Threshold < min ? p.Threshold : min, data[0].Threshold)
+	}
+
+	function getMaxThreshold(data) {
+		return data.reduce((max, p) => p.Threshold > max ? p.Threshold : max, data[0].Threshold)
+	}
+
+	function getThresholdRange(data) {
+		return [getMinThreshold(data), getMaxThreshold(data)]
+	}
+
+
 
   onMount(async () => {
 
@@ -46,7 +73,33 @@
       allItems = mapIndexed((item, i) => R.assoc('Sample', paths[i]['sample'], item), allItems);
       allItems = mapIndexed((item, i) => R.assoc('Iteration', paths[i]['iteration'], item), allItems);
 
+			let twentyFivePercents = R.filter(d => d.Sample == 25, allItems);
+			let twentyFivePercentRange = getThresholdRange(twentyFivePercents);
+
+			let fiftyPercents = R.filter(d => d.Sample == 50, allItems);
+			let fiftyPercentRange = getThresholdRange(fiftyPercents);
+
+			let seventyFivePercents = R.filter(d => d.Sample == 75, allItems);
+			let seventyFivePercentRange = getThresholdRange(seventyFivePercents);
+
+			thresholdRanges = {
+				"25": twentyFivePercentRange,
+				"50": fiftyPercentRange,
+				"75": seventyFivePercentRange
+			}
+
+
       const thresholdXy = {z: "Sample", x: "Iteration", y: "Threshold"};
+
+			thresholdRangeOptions = {
+				y: {
+					grid: true,
+					inset: 6
+				},
+				marks: [
+					Plot.boxY(allItems, {x: "Sample", y: "Threshold"})
+				]
+			};
 
       thresholdOptions = {
         height: 300,
@@ -74,6 +127,7 @@
       }
 
       cols = R.map( key =>  { return {key:key, title:key, value: v => v[key], sortable: true }  }, R.keys(allItems[0]));
+      summaryStatCols = R.map( key =>  { return {key:key, title:key, value: v => v[key], sortable: true }  }, R.keys(R.omit(['histogram'], totalSummaryStats)));
 
       const xy = {z: "Sample", x: "Iteration", y: "Score"};
 
@@ -152,6 +206,25 @@
     }
 
 
+    Promise.all(summaryStatisticPromise).then((values) => {
+
+      const mapIndexed = R.addIndex(R.map);
+
+      summaryStatValues = R.map(d => R.omit(['histogram'], d.default), values);
+      summaryStatValues = mapIndexed((item, i) => R.assoc('name', summaryStatisticPaths[i]['name'], item), summaryStatValues);
+      summaryStatValues = mapIndexed((item, i) => R.assoc('sample', summaryStatisticPaths[i]['sample'], item), summaryStatValues);
+      summaryStatValues = mapIndexed((item, i) => R.assoc('iteration', summaryStatisticPaths[i]['iteration'], item), summaryStatValues);
+
+      let ttotalSummaryStats = R.omit(['histogram'], totalSummaryStats);
+      ttotalSummaryStats = R.assoc('name', 'total', ttotalSummaryStats);
+      ttotalSummaryStats = R.assoc('sample', '100', ttotalSummaryStats);
+      ttotalSummaryStats = R.assoc('iteration', '', ttotalSummaryStats);
+
+      summaryStatCols = R.map( key =>  { return {key:key, title:key, value: v => v[key], sortable: true }  }, R.keys(R.omit(['histogram'], summaryStatValues[0])));
+      allSummaryStats = R.concat([ttotalSummaryStats], summaryStatValues);
+
+    });
+
 });
 
 </script>
@@ -169,11 +242,19 @@
     <div class="thresholds">
       <h1 class="text-xl py-2">Threshold</h1>
 
+      <h3>Range</h3>
+
+      <RenderPlot options={thresholdRangeOptions} />
+			{#if thresholdRanges}
+      <p class="py-5"> A plot of the ranges of inferred thresholds per subsampling percentage. The ranges are 25 : [{thresholdRanges["25"][0]}, {thresholdRanges["25"][1]}], 50 : [{thresholdRanges["50"][0]}, {thresholdRanges["50"][1]}], 75 : [{thresholdRanges["75"][0]}, {thresholdRanges["75"][1]}]</p>
+			{/if}
+
       <h3>Plot</h3>
       <RenderPlot options={thresholdOptions} />
-      <p class="py-5">Figure 1. In this figure, the x axis represents the sample iteration, while the y axis represents the optimal distance threshold used to link pairs of sequences into a cluster. The optimal distance threshold is determined by a heuristic score, which is described later in the page. Each dot in the figure is colored according to the sampling proportion of the original dataset for each respective iteration.</p>
-    </div>
+      <p class="py-5">In this figure, the x axis represents the sample iteration, while the y axis represents the optimal distance threshold used to link pairs of sequences into a cluster. The optimal distance threshold is determined by a heuristic score, which is described later in the page. Each dot in the figure is colored according to the sampling proportion of the original dataset for each respective iteration.</p>
 
+
+    </div>
 
     <div class="scores">
 
@@ -181,9 +262,23 @@
 
       <h3>Plot</h3>
       <RenderPlot options={options} />
-      <p class="py-5"> Figure 2. This figure shows a plot with years on the x-axis and a heuristic score on the y-axis. The heuristic score is based on the number of clusters and the ratio of the largest cluster to the second largest cluster. The points on the scatter plot are colored by proportion of random samples from original dataset. Each point represents the year and the corresponding heuristic score for each respective sample. </p>
+      <p class="py-5">This figure shows a plot with years on the x-axis and a heuristic score on the y-axis. The heuristic score is based on the number of clusters and the ratio of the largest cluster to the second largest cluster. The points on the scatter plot are colored by proportion of random samples from original dataset. Each point represents the year and the corresponding heuristic score for each respective sample. </p>
 
     </div>
+
+    <div class="summary-statistics">
+
+      <h1 class="text-xl py-2">Summary Statistics</h1>
+
+      <SvelteTable 
+        columns="{summaryStatCols}" 
+        rows="{allSummaryStats}" 
+        classNameTable={['table table-striped']}
+        classNameThead={['table-warning']}
+        />
+
+    </div>
+
 
     <div class="all-scores">
 
@@ -191,7 +286,7 @@
 
       <h3>Plot</h3>
       <RenderPlot options={scoreOptions} />
-      <p class="py-5"> Figure 2. This figure shows a plot with years on the x-axis and a heuristic score on the y-axis. The heuristic score is based on the number of clusters and the ratio of the largest cluster to the second largest cluster. The points on the scatter plot are colored by proportion of random samples from original dataset. Each point represents the year and the corresponding heuristic score for each respective sample. </p>
+      <p class="py-5"> This figure shows a plot with years on the x-axis and a heuristic score on the y-axis. The heuristic score is based on the number of clusters and the ratio of the largest cluster to the second largest cluster. The points on the scatter plot are colored by proportion of random samples from original dataset. Each point represents the year and the corresponding heuristic score for each respective sample. </p>
 
     </div>
 
@@ -201,7 +296,7 @@
 
       <h3>Plot</h3>
       <RenderPlot options={fullSamplingScoreOptions} />
-      <p class="py-5"> Figure 2. This figure shows a plot with years on the x-axis and a heuristic score on the y-axis. The heuristic score is based on the number of clusters and the ratio of the largest cluster to the second largest cluster. The points on the scatter plot are colored by proportion of random samples from original dataset. Each point represents the year and the corresponding heuristic score for each respective sample. </p>
+      <p class="py-5"> This figure shows a plot with years on the x-axis and a heuristic score on the y-axis. The heuristic score is based on the number of clusters and the ratio of the largest cluster to the second largest cluster. The points on the scatter plot are colored by proportion of random samples from original dataset. Each point represents the year and the corresponding heuristic score for each respective sample. </p>
 
     </div>
 
@@ -215,6 +310,8 @@
       classNameThead={['table-warning']}
       />
   </div>
+
+
 
 	<!-- <div class="observable-notebook bg-white-300 flex-1 p-3 overflow-hidden panel" bind:this={notebookRef}></div> -->
 
