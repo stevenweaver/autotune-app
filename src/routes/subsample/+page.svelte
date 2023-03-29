@@ -64,6 +64,17 @@
 
 	import totalSummaryStats from '../../data/30063225/100/summaryStats.json';
 
+  function isFloat(x) { return !!(x % 1); }
+
+  function formatValue(x) { 
+    if (isFloat(x)) {
+        return d3.format('.3f')(x);
+    } else {
+      return x
+    }
+
+  }
+
 	function getMinThreshold(data) {
 		return data.reduce((min, p) => (p.Threshold < min ? p.Threshold : min), data[0].Threshold);
 	}
@@ -136,10 +147,10 @@
 			};
 
 			cols = R.map((key) => {
-				return { key: key, title: key, value: (v) => v[key], sortable: true };
+				return { key: key, title: key, value: (v) => formatValue(v[key]), sortable: true };
 			}, R.keys(allItems[0]));
 			summaryStatCols = R.map((key) => {
-				return { key: key, title: key, value: (v) => v[key], sortable: true };
+				return { key: key, title: key, value: (v) => formatValue(v[key]), sortable: true };
 			}, R.keys(R.omit(['histogram'], totalSummaryStats)));
 
 			const xy = { z: 'Sample', x: 'Iteration', y: 'Score' };
@@ -225,7 +236,7 @@
 			ttotalSummaryStats = R.assoc('iteration', '', ttotalSummaryStats);
 
 			summaryStatCols = R.map((key) => {
-				return { key: key, title: key, value: (v) => v[key], sortable: true };
+				return { key: key, title: key, value: (v) => formatValue(v[key]), sortable: true };
 			}, R.keys(R.omit(['histogram'], summaryStatValues[0])));
 			allSummaryStats = R.concat([ttotalSummaryStats], summaryStatValues);
 		});
