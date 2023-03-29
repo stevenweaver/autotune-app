@@ -19,8 +19,7 @@
 	let a = 100;
 	let b = 0;
 
-	let options;
-	let thresholdOptions;
+	let scoreRangeOptions;
 	let thresholdRangeOptions;
 	let scoreOptions;
 	let fullSamplingScoreOptions;
@@ -136,27 +135,6 @@
 				marks: [Plot.boxY(allItems, { x: 'Sample', y: 'Threshold' })]
 			};
 
-			thresholdOptions = {
-				height: 300,
-				width: 1024,
-				grid: true,
-				x: {
-					axis: 'top',
-					label: 'Sample →'
-				},
-				y: {
-					transform: (d) => d * 100
-				},
-				color: {
-					type: 'ordinal',
-					scheme: 'category10',
-					domain: allItems.Sample,
-					legend: true,
-					transform: (d) => parseInt(d)
-				},
-				marks: [Plot.ruleX([0]), Plot.dot(allItems, { ...thresholdXy, fill: 'Sample' })]
-			};
-
 			cols = R.map((key) => {
 				return { key: key, title: key, value: (v) => v[key], sortable: true };
 			}, R.keys(allItems[0]));
@@ -166,22 +144,12 @@
 
 			const xy = { z: 'Sample', x: 'Iteration', y: 'Score' };
 
-			options = {
-				height: 300,
-				width: 1024,
-				grid: true,
-				x: {
-					axis: 'top',
-					label: 'Iteration →'
+			scoreRangeOptions = {
+				y: {
+					grid: true,
+					inset: 6
 				},
-				color: {
-					type: 'ordinal',
-					scheme: 'category10',
-					domain: allItems.Sample,
-					legend: true,
-					transform: (d) => parseInt(d)
-				},
-				marks: [Plot.ruleX([0]), Plot.dot(allItems, { ...xy, fill: 'Sample' })]
+				marks: [Plot.boxY(allItems, { x: 'Sample', y: 'Score' })]
 			};
 
 			scoreOptions = {
@@ -271,6 +239,14 @@
 		</div>
 	</div>
 
+	<div class="grid grid-cols-2 my-5">
+		<p>
+      This data is from Rhee et. all (1). The dataset in this study consists of 6,034 complete HIV-1 pol gene sequences, which were obtained from publicly available databases such as GenBank, the Los Alamos National Laboratories (LANL) HIV Sequence Database, and the HIV Drug Resistance Database. These sequences were annotated by country and year and were classified into 11 pure subtypes and 70 circulating recombinant forms (CRFs) using established taxonomic criteria.
+      To test the robustness of AUTO-TUNE, the researchers generated 10 random subsamples at 25%, 50%, and 75% each.
+		</p>
+	</div>
+
+
 	<div class="summary flex-1 p-3 overflow-hidden panel">
 		<div class="thresholds">
 			<h1 class="text-xl py-2">Threshold</h1>
@@ -278,6 +254,7 @@
 			<h3>Range</h3>
 
 			<RenderPlot options={thresholdRangeOptions} />
+
 			{#if thresholdRanges}
 				<p class="py-5">
 					A plot of the ranges of inferred thresholds per subsampling percentage. The ranges are 25
@@ -289,22 +266,13 @@
 				</p>
 			{/if}
 
-			<h3>Plot</h3>
-			<RenderPlot options={thresholdOptions} />
-			<p class="py-5">
-				In this figure, the x axis represents the sample iteration, while the y axis represents the
-				optimal distance threshold used to link pairs of sequences into a cluster. The optimal
-				distance threshold is determined by a heuristic score, which is described later in the page.
-				Each dot in the figure is colored according to the sampling proportion of the original
-				dataset for each respective iteration.
-			</p>
 		</div>
 
 		<div class="scores">
 			<h1 class="text-xl py-2">Scores</h1>
 
-			<h3>Plot</h3>
-			<RenderPlot {options} />
+			<h3>Range</h3>
+			<RenderPlot options={scoreRangeOptions} />
 			<p class="py-5">
 				This figure shows a plot with years on the x-axis and a heuristic score on the y-axis. The
 				heuristic score is based on the number of clusters and the ratio of the largest cluster to
@@ -361,6 +329,15 @@
 			classNameThead={['table-warning']}
 		/>
 	</div>
+
+	<div class="references">
+		<h2 class="text-xl">References</h2>
+		<ul class="list-disc ml-5">
+      <li>Rhee SY, Shafer RW. Geographically-stratified HIV-1 group M pol subtype and circulating recombinant form sequences. Sci Data. 2018 Jul 31;5:180148. doi: 10.1038/sdata.2018.148. PMID: 30063225; PMCID: PMC6067049.</li>
+		</ul>
+	</div>
+
+
 
 	<!-- <div class="observable-notebook bg-white-300 flex-1 p-3 overflow-hidden panel" bind:this={notebookRef}></div> -->
 </div>

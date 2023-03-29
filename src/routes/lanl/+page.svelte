@@ -42,7 +42,6 @@
 				return false;
 			}
 		}, variableNames);
-		console.log(justData);
 
 		// add data values to global view
 
@@ -54,6 +53,7 @@
 				}, {}),
 			values
 		);
+
 		const mapIndexed = R.addIndex(R.map);
 
 		allItems = mapIndexed((item, i) => R.assoc('Name', justData[i], item), maxItem);
@@ -72,8 +72,6 @@
 		cols = R.map((key) => {
 			return { key: key, title: key, value: (v) => v[key], sortable: true };
 		}, R.keys(allItems[0]));
-
-		//console.log(cols);
 
 		const xy = Plot.normalizeY({ z: 'Sample', x: 'Year', y: 'Score' });
 

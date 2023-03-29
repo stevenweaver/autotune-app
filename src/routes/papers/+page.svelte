@@ -18,6 +18,7 @@
 	let clusterRatioOptions = {};
 
 	onMount(async () => {
+
 		const runtime = new Runtime();
 
 		let main = runtime.module(notebook, (name) => {
@@ -129,6 +130,7 @@
 		let filteredZippedItems = R.filter((d) => d, zippedItems);
 
 		references = R.map(formatRef, filteredZippedItems).join('');
+
 	});
 </script>
 
