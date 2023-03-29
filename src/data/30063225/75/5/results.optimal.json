@@ -1,2722 +1,1303 @@
 {
-  "trace_results":{
-    "Network Summary":{
-      "Edges":129,
-      "Nodes":125,
-      "Sequences used to make links":125,
-      "Clusters":43,
-      "Singletons":1384
-    },
-    "Multiple sequences":{
-      "Subjects with":0,
-      "Followup, days":null
-    },
-    "Cluster sizes":[
-      4,
-      8,
-      2,
-      3,
-      2,
-      8,
-      4,
-      2,
-      4,
-      9,
-      2,
-      2,
-      2,
-      2,
-      2,
-      3,
-      2,
-      8,
-      2,
-      4,
-      2,
-      2,
-      2,
-      2,
-      2,
-      2,
-      2,
-      2,
-      2,
-      3,
-      2,
-      2,
-      2,
-      2,
-      5,
-      2,
-      2,
-      2,
-      2,
-      2,
-      2,
-      4
-    ],
-    "HIV Stages":{
-      "Unknown":125
-    },
-    "Directed Edges":{
-      "Count":0,
-      "Reasons for unresolved directions":{
-        "Missing dates":129
-      }
-    },
-    "Degrees":{
-      "Distribution":[
-        74,
-        13,
-        17,
-        9,
-        3,
-        7,
-        2
-      ],
-      "Model":"Waring",
-      "rho":7.0397330077882,
-      "rho CI":[
-        5.262727882280933,
-        9.547360627805665
-      ],
-      "BIC":365.6585739389769,
-      "fitted":[
-        0.5265536378798222,
-        0.22930382779709907,
-        0.10946710333829598,
-        0.05621190519922663,
-        0.030632790990259413,
-        0.0175397356043773,
-        0.010472026918802209
-      ]
-    },
-    "Settings":{
-      "threshold":0.013599999999999614,
-      "edge-filtering":null,
-      "contaminants":null,
-      "singletons":true,
-      "compact_json":true,
-      "created":"2023-03-17T21:51:45.836871+00:00"
-    },
-    "Nodes":{
-      "cluster":[
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        3,
-        3,
-        3,
-        3,
-        3,
-        3,
-        3,
-        3,
-        4,
-        4,
-        4,
-        4,
-        4,
-        4,
-        4,
-        4,
-        5,
-        5,
-        5,
-        5,
-        5,
-        6,
-        6,
-        6,
-        6,
-        7,
-        7,
-        7,
-        7,
-        8,
-        8,
-        8,
-        8,
-        9,
-        9,
-        9,
-        9,
-        10,
-        10,
-        10,
-        10,
-        11,
-        11,
-        11,
-        12,
-        12,
-        12,
-        13,
-        13,
-        13,
-        14,
-        14,
-        15,
-        15,
-        16,
-        16,
-        17,
-        17,
-        18,
-        18,
-        19,
-        19,
-        20,
-        20,
-        21,
-        21,
-        22,
-        22,
-        23,
-        23,
-        24,
-        24,
-        25,
-        25,
-        26,
-        26,
-        27,
-        27,
-        28,
-        28,
-        29,
-        29,
-        30,
-        30,
-        31,
-        31,
-        32,
-        32,
-        33,
-        33,
-        34,
-        34,
-        35,
-        35,
-        36,
-        36,
-        37,
-        37,
-        38,
-        38,
-        39,
-        39,
-        40,
-        40,
-        41,
-        41,
-        42,
-        42
-      ],
-      "patient_attributes":[
-        {
-          "ehars_uid":"FJ185229",
-          "Country":"Viet Nam",
-          "ISOCode":"VN",
-          "SampleYear":"1998",
-          "Subtype":"01_AE"
-        },
-        {
-          "ehars_uid":"FJ185234",
-          "Country":"Viet Nam",
-          "ISOCode":"VN",
-          "SampleYear":"1998",
-          "Subtype":"01_AE"
-        },
-        {
-          "ehars_uid":"FJ185245",
-          "Country":"Viet Nam",
-          "ISOCode":"VN",
-          "SampleYear":"1997",
-          "Subtype":"01_AE"
-        },
-        {
-          "ehars_uid":"FJ185253",
-          "Country":"Viet Nam",
-          "ISOCode":"VN",
-          "SampleYear":"1997",
-          "Subtype":"01_AE"
-        },
-        {
-          "ehars_uid":"FJ185257",
-          "Country":"Viet Nam",
-          "ISOCode":"VN",
-          "SampleYear":"1997",
-          "Subtype":"01_AE"
-        },
-        {
-          "ehars_uid":"JQ302594",
-          "Country":"China",
-          "ISOCode":"CN",
-          "SampleYear":"2009",
-          "Subtype":"01_AE"
-        },
-        {
-          "ehars_uid":"JX112812",
-          "Country":"China",
-          "ISOCode":"CN",
-          "SampleYear":"2007",
-          "Subtype":"01_AE"
-        },
-        {
-          "ehars_uid":"LC101032",
-          "Country":"Viet Nam",
-          "ISOCode":"VN",
-          "SampleYear":"2013",
-          "Subtype":"01_AE"
-        },
-        {
-          "ehars_uid":"FJ185259",
-          "Country":"Viet Nam",
-          "ISOCode":"VN",
-          "SampleYear":"1997",
-          "Subtype":"01_AE"
-        },
-        {
-          "ehars_uid":"GU564225",
-          "Country":"China",
-          "ISOCode":"CN",
-          "SampleYear":"2005",
-          "Subtype":"01_AE"
-        },
-        {
-          "ehars_uid":"JX112822",
-          "Country":"China",
-          "ISOCode":"CN",
-          "SampleYear":"2007",
-          "Subtype":"01_AE"
-        },
-        {
-          "ehars_uid":"JQ302698",
-          "Country":"China",
-          "ISOCode":"CN",
-          "SampleYear":"2009",
-          "Subtype":"01_AE"
-        },
-        {
-          "ehars_uid":"JX112811",
-          "Country":"China",
-          "ISOCode":"CN",
-          "SampleYear":"2007",
-          "Subtype":"01_AE"
-        },
-        {
-          "ehars_uid":"KP178420",
-          "Country":"China",
-          "ISOCode":"CN",
-          "SampleYear":"2005",
-          "Subtype":"01_AE"
-        },
-        {
-          "ehars_uid":"KU050214",
-          "Country":"China",
-          "ISOCode":"CN",
-          "SampleYear":"2009",
-          "Subtype":"01_AE"
-        },
-        {
-          "ehars_uid":"JX112828",
-          "Country":"China",
-          "ISOCode":"CN",
-          "SampleYear":"2007",
-          "Subtype":"01_AE"
-        },
-        {
-          "ehars_uid":"JQ302679",
-          "Country":"China",
-          "ISOCode":"CN",
-          "SampleYear":"2009",
-          "Subtype":"01_AE"
-        },
-        {
-          "ehars_uid":"HQ026498",
-          "Country":"South Korea",
-          "ISOCode":"KR",
-          "SampleYear":"1993",
-          "Subtype":"B"
-        },
-        {
-          "ehars_uid":"HQ026566",
-          "Country":"South Korea",
-          "ISOCode":"KR",
-          "SampleYear":"1992",
-          "Subtype":"B"
-        },
-        {
-          "ehars_uid":"HQ026536",
-          "Country":"South Korea",
-          "ISOCode":"KR",
-          "SampleYear":"1992",
-          "Subtype":"B"
-        },
-        {
-          "ehars_uid":"HQ026540",
-          "Country":"South Korea",
-          "ISOCode":"KR",
-          "SampleYear":"1991",
-          "Subtype":"B"
-        },
-        {
-          "ehars_uid":"KJ140260",
-          "Country":"South Korea",
-          "ISOCode":"KR",
-          "SampleYear":"2003",
-          "Subtype":"B"
-        },
-        {
-          "ehars_uid":"HQ026542",
-          "Country":"South Korea",
-          "ISOCode":"KR",
-          "SampleYear":"1992",
-          "Subtype":"B"
-        },
-        {
-          "ehars_uid":"KJ140247",
-          "Country":"South Korea",
-          "ISOCode":"KR",
-          "SampleYear":"1992",
-          "Subtype":"B"
-        },
-        {
-          "ehars_uid":"KJ140251",
-          "Country":"South Korea",
-          "ISOCode":"KR",
-          "SampleYear":"1992",
-          "Subtype":"B"
-        },
-        {
-          "ehars_uid":"JQ235014",
-          "Country":"China",
-          "ISOCode":"CN",
-          "SampleYear":"2010",
-          "Subtype":"07_BC"
-        },
-        {
-          "ehars_uid":"JQ901027",
-          "Country":"China",
-          "ISOCode":"CN",
-          "SampleYear":"2010",
-          "Subtype":"07_BC"
-        },
-        {
-          "ehars_uid":"JQ901073",
-          "Country":"China",
-          "ISOCode":"CN",
-          "SampleYear":"2008",
-          "Subtype":"07_BC"
-        },
-        {
-          "ehars_uid":"KP178424",
-          "Country":"China",
-          "ISOCode":"CN",
-          "SampleYear":"2010",
-          "Subtype":"07_BC"
-        },
-        {
-          "ehars_uid":"JX960600",
-          "Country":"China",
-          "ISOCode":"CN",
-          "SampleYear":"2009",
-          "Subtype":"07_BC"
-        },
-        {
-          "ehars_uid":"JX960601",
-          "Country":"China",
-          "ISOCode":"CN",
-          "SampleYear":"2008",
-          "Subtype":"07_BC"
-        },
-        {
-          "ehars_uid":"JX960602",
-          "Country":"China",
-          "ISOCode":"CN",
-          "SampleYear":"2009",
-          "Subtype":"07_BC"
-        },
-        {
-          "ehars_uid":"JQ302558",
-          "Country":"China",
-          "ISOCode":"CN",
-          "SampleYear":"2009",
-          "Subtype":"07_BC"
-        },
-        {
-          "ehars_uid":"KJ883137",
-          "Country":"Spain",
-          "ISOCode":"ES",
-          "SampleYear":"2010",
-          "Subtype":"F1"
-        },
-        {
-          "ehars_uid":"KJ883144",
-          "Country":"Spain",
-          "ISOCode":"ES",
-          "SampleYear":"2010",
-          "Subtype":"F1"
-        },
-        {
-          "ehars_uid":"KJ883145",
-          "Country":"Spain",
-          "ISOCode":"ES",
-          "SampleYear":"2010",
-          "Subtype":"F1"
-        },
-        {
-          "ehars_uid":"KJ883146",
-          "Country":"Spain",
-          "ISOCode":"ES",
-          "SampleYear":"2010",
-          "Subtype":"F1"
-        },
-        {
-          "ehars_uid":"KJ883148",
-          "Country":"Spain",
-          "ISOCode":"ES",
-          "SampleYear":"2011",
-          "Subtype":"F1"
-        },
-        {
-          "ehars_uid":"AY008715",
-          "Country":"China",
-          "ISOCode":"CN",
-          "SampleYear":"1997",
-          "Subtype":"08_BC"
-        },
-        {
-          "ehars_uid":"JF719818",
-          "Country":"China",
-          "ISOCode":"CN",
-          "SampleYear":"2007",
-          "Subtype":"08_BC"
-        },
-        {
-          "ehars_uid":"AB746344",
-          "Country":"China",
-          "ISOCode":"CN",
-          "SampleYear":"2000",
-          "Subtype":"08_BC"
-        },
-        {
-          "ehars_uid":"JQ302548",
-          "Country":"China",
-          "ISOCode":"CN",
-          "SampleYear":"2009",
-          "Subtype":"08_BC"
-        },
-        {
-          "ehars_uid":"AF042100",
-          "Country":"Australia",
-          "ISOCode":"AU",
-          "SampleYear":"1986",
-          "Subtype":"B"
-        },
-        {
-          "ehars_uid":"KJ704794",
-          "Country":"US",
-          "ISOCode":"US",
-          "SampleYear":"1978",
-          "Subtype":"B"
-        },
-        {
-          "ehars_uid":"JF689859",
-          "Country":"US",
-          "ISOCode":"US",
-          "SampleYear":"2005",
-          "Subtype":"B"
-        },
-        {
-          "ehars_uid":"EF363124",
-          "Country":"US",
-          "ISOCode":"US",
-          "SampleYear":"2004",
-          "Subtype":"B"
-        },
-        {
-          "ehars_uid":"AY829205",
-          "Country":"Uzbekistan",
-          "ISOCode":"UZ",
-          "SampleYear":"2002",
-          "Subtype":"A1"
-        },
-        {
-          "ehars_uid":"AY829206",
-          "Country":"Uzbekistan",
-          "ISOCode":"UZ",
-          "SampleYear":"2002",
-          "Subtype":"A1"
-        },
-        {
-          "ehars_uid":"AY829212",
-          "Country":"Uzbekistan",
-          "ISOCode":"UZ",
-          "SampleYear":"2002",
-          "Subtype":"A1"
-        },
-        {
-          "ehars_uid":"EF589039",
-          "Country":"Kazakhstan",
-          "ISOCode":"KZ",
-          "SampleYear":"2002",
-          "Subtype":"A1"
-        },
-        {
-          "ehars_uid":"EU170152",
-          "Country":"Luxembourg",
-          "ISOCode":"LU",
-          "SampleYear":"2003",
-          "Subtype":"42_BF"
-        },
-        {
-          "ehars_uid":"EU170137",
-          "Country":"Luxembourg",
-          "ISOCode":"LU",
-          "SampleYear":"2006",
-          "Subtype":"42_BF"
-        },
-        {
-          "ehars_uid":"EU170141",
-          "Country":"Luxembourg",
-          "ISOCode":"LU",
-          "SampleYear":"2006",
-          "Subtype":"42_BF"
-        },
-        {
-          "ehars_uid":"EU170148",
-          "Country":"Luxembourg",
-          "ISOCode":"LU",
-          "SampleYear":"2003",
-          "Subtype":"42_BF"
-        },
-        {
-          "ehars_uid":"KU820825",
-          "Country":"Myanmar",
-          "ISOCode":"MM",
-          "SampleYear":"2013",
-          "Subtype":"82_cpx"
-        },
-        {
-          "ehars_uid":"KU820836",
-          "Country":"Myanmar",
-          "ISOCode":"MM",
-          "SampleYear":"2013",
-          "Subtype":"82_cpx"
-        },
-        {
-          "ehars_uid":"KU820844",
-          "Country":"Myanmar",
-          "ISOCode":"MM",
-          "SampleYear":"2013",
-          "Subtype":"82_cpx"
-        },
-        {
-          "ehars_uid":"KU820845",
-          "Country":"Myanmar",
-          "ISOCode":"MM",
-          "SampleYear":"2013",
-          "Subtype":"82_cpx"
-        },
-        {
-          "ehars_uid":"AB874149",
-          "Country":"Japan",
-          "ISOCode":"JP",
-          "SampleYear":"2009",
-          "Subtype":"B"
-        },
-        {
-          "ehars_uid":"AB874269",
-          "Country":"Japan",
-          "ISOCode":"JP",
-          "SampleYear":"2009",
-          "Subtype":"B"
-        },
-        {
-          "ehars_uid":"AB874000",
-          "Country":"Japan",
-          "ISOCode":"JP",
-          "SampleYear":"2009",
-          "Subtype":"B"
-        },
-        {
-          "ehars_uid":"AF286230",
-          "Country":"China",
-          "ISOCode":"CN",
-          "SampleYear":"1998",
-          "Subtype":"07_BC"
-        },
-        {
-          "ehars_uid":"KJ820145",
-          "Country":"China",
-          "ISOCode":"CN",
-          "SampleYear":"2009",
-          "Subtype":"07_BC"
-        },
-        {
-          "ehars_uid":"KJ820305",
-          "Country":"China",
-          "ISOCode":"CN",
-          "SampleYear":"2009",
-          "Subtype":"07_BC"
-        },
-        {
-          "ehars_uid":"DQ823360",
-          "Country":"Ukraine",
-          "ISOCode":"UA",
-          "SampleYear":"2001",
-          "Subtype":"A1"
-        },
-        {
-          "ehars_uid":"EF589043",
-          "Country":"Kazakhstan",
-          "ISOCode":"KZ",
-          "SampleYear":"2002",
-          "Subtype":"A1"
-        },
-        {
-          "ehars_uid":"DQ823367",
-          "Country":"Ukraine",
-          "ISOCode":"UA",
-          "SampleYear":"2001",
-          "Subtype":"A1"
-        },
-        {
-          "ehars_uid":"AB874032",
-          "Country":"Japan",
-          "ISOCode":"JP",
-          "SampleYear":"2009",
-          "Subtype":"B"
-        },
-        {
-          "ehars_uid":"AB874173",
-          "Country":"Japan",
-          "ISOCode":"JP",
-          "SampleYear":"2009",
-          "Subtype":"B"
-        },
-        {
-          "ehars_uid":"FJ469736",
-          "Country":"US",
-          "ISOCode":"US",
-          "SampleYear":"2003",
-          "Subtype":"B"
-        },
-        {
-          "ehars_uid":"AB874166",
-          "Country":"Japan",
-          "ISOCode":"JP",
-          "SampleYear":"2009",
-          "Subtype":"B"
-        },
-        {
-          "ehars_uid":"AF170545",
-          "Country":"Thailand",
-          "ISOCode":"TH",
-          "SampleYear":"1994",
-          "Subtype":"01_AE"
-        },
-        {
-          "ehars_uid":"AF170547",
-          "Country":"Thailand",
-          "ISOCode":"TH",
-          "SampleYear":"1994",
-          "Subtype":"01_AE"
-        },
-        {
-          "ehars_uid":"AF423758",
-          "Country":"Spain",
-          "ISOCode":"ES",
-          "SampleYear":"2000",
-          "Subtype":"G"
-        },
-        {
-          "ehars_uid":"AF423760",
-          "Country":"Spain",
-          "ISOCode":"ES",
-          "SampleYear":"2000",
-          "Subtype":"G"
-        },
-        {
-          "ehars_uid":"AY358044",
-          "Country":"Thailand",
-          "ISOCode":"TH",
-          "SampleYear":"1999",
-          "Subtype":"01_AE"
-        },
-        {
-          "ehars_uid":"AY358045",
-          "Country":"Thailand",
-          "ISOCode":"TH",
-          "SampleYear":"1999",
-          "Subtype":"01_AE"
-        },
-        {
-          "ehars_uid":"D86069",
-          "Country":"France",
-          "ISOCode":"FR",
-          "SampleYear":"1983",
-          "Subtype":"B"
-        },
-        {
-          "ehars_uid":"U12055",
-          "Country":"France",
-          "ISOCode":"FR",
-          "SampleYear":"1985",
-          "Subtype":"B"
-        },
-        {
-          "ehars_uid":"FJ388919",
-          "Country":"Cyprus",
-          "ISOCode":"CY",
-          "SampleYear":"2005",
-          "Subtype":"B"
-        },
-        {
-          "ehars_uid":"FJ388920",
-          "Country":"Cyprus",
-          "ISOCode":"CY",
-          "SampleYear":"2005",
-          "Subtype":"B"
-        },
-        {
-          "ehars_uid":"GQ371855",
-          "Country":"US",
-          "ISOCode":"US",
-          "SampleYear":"2003",
-          "Subtype":"B"
-        },
-        {
-          "ehars_uid":"KC473824",
-          "Country":"US",
-          "ISOCode":"US",
-          "SampleYear":"2009",
-          "Subtype":"B"
-        },
-        {
-          "ehars_uid":"JQ028309",
-          "Country":"China",
-          "ISOCode":"CN",
-          "SampleYear":"2010",
-          "Subtype":"08_BC"
-        },
-        {
-          "ehars_uid":"JQ302608",
-          "Country":"China",
-          "ISOCode":"CN",
-          "SampleYear":"2009",
-          "Subtype":"08_BC"
-        },
-        {
-          "ehars_uid":"JQ302715",
-          "Country":"China",
-          "ISOCode":"CN",
-          "SampleYear":"2009",
-          "Subtype":"01_AE"
-        },
-        {
-          "ehars_uid":"JQ302716",
-          "Country":"China",
-          "ISOCode":"CN",
-          "SampleYear":"2009",
-          "Subtype":"01_AE"
-        },
-        {
-          "ehars_uid":"JQ302740",
-          "Country":"China",
-          "ISOCode":"CN",
-          "SampleYear":"2009",
-          "Subtype":"07_BC"
-        },
-        {
-          "ehars_uid":"JQ302741",
-          "Country":"China",
-          "ISOCode":"CN",
-          "SampleYear":"2009",
-          "Subtype":"07_BC"
-        },
-        {
-          "ehars_uid":"JX112860",
-          "Country":"China",
-          "ISOCode":"CN",
-          "SampleYear":"2002",
-          "Subtype":"01_AE"
-        },
-        {
-          "ehars_uid":"JX112862",
-          "Country":"China",
-          "ISOCode":"CN",
-          "SampleYear":"2002",
-          "Subtype":"01_AE"
-        },
-        {
-          "ehars_uid":"JX140647",
-          "Country":"Cameroon",
-          "ISOCode":"CM",
-          "SampleYear":"2008",
-          "Subtype":"02_AG"
-        },
-        {
-          "ehars_uid":"KX228823",
-          "Country":"Cameroon",
-          "ISOCode":"CM",
-          "SampleYear":"2008",
-          "Subtype":"02_AG"
-        },
-        {
-          "ehars_uid":"JX447833",
-          "Country":"Thailand",
-          "ISOCode":"TH",
-          "SampleYear":"2007",
-          "Subtype":"01_AE"
-        },
-        {
-          "ehars_uid":"JX447830",
-          "Country":"Thailand",
-          "ISOCode":"TH",
-          "SampleYear":"2005",
-          "Subtype":"01_AE"
-        },
-        {
-          "ehars_uid":"JX447901",
-          "Country":"Thailand",
-          "ISOCode":"TH",
-          "SampleYear":"2006",
-          "Subtype":"01_AE"
-        },
-        {
-          "ehars_uid":"JX448155",
-          "Country":"Thailand",
-          "ISOCode":"TH",
-          "SampleYear":"2005",
-          "Subtype":"01_AE"
-        },
-        {
-          "ehars_uid":"KC018752",
-          "Country":"Zambia",
-          "ISOCode":"ZM",
-          "SampleYear":"2006",
-          "Subtype":"C"
-        },
-        {
-          "ehars_uid":"KM050011",
-          "Country":"Zambia",
-          "ISOCode":"ZM",
-          "SampleYear":"2006",
-          "Subtype":"C"
-        },
-        {
-          "ehars_uid":"KC018825",
-          "Country":"Zambia",
-          "ISOCode":"ZM",
-          "SampleYear":"2005",
-          "Subtype":"C"
-        },
-        {
-          "ehars_uid":"KM050598",
-          "Country":"Zambia",
-          "ISOCode":"ZM",
-          "SampleYear":"2006",
-          "Subtype":"C"
-        },
-        {
-          "ehars_uid":"KC018846",
-          "Country":"Zambia",
-          "ISOCode":"ZM",
-          "SampleYear":"2006",
-          "Subtype":"C"
-        },
-        {
-          "ehars_uid":"KM049972",
-          "Country":"Zambia",
-          "ISOCode":"ZM",
-          "SampleYear":"2008",
-          "Subtype":"C"
-        },
-        {
-          "ehars_uid":"KC018942",
-          "Country":"Zambia",
-          "ISOCode":"ZM",
-          "SampleYear":"2005",
-          "Subtype":"C"
-        },
-        {
-          "ehars_uid":"KM050585",
-          "Country":"Zambia",
-          "ISOCode":"ZM",
-          "SampleYear":"2006",
-          "Subtype":"C"
-        },
-        {
-          "ehars_uid":"KC852172",
-          "Country":"France",
-          "ISOCode":"FR",
-          "SampleYear":"2010",
-          "Subtype":"56_cpx"
-        },
-        {
-          "ehars_uid":"KC852174",
-          "Country":"France",
-          "ISOCode":"FR",
-          "SampleYear":"2010",
-          "Subtype":"56_cpx"
-        },
-        {
-          "ehars_uid":"KM049900",
-          "Country":"Zambia",
-          "ISOCode":"ZM",
-          "SampleYear":"2000",
-          "Subtype":"C"
-        },
-        {
-          "ehars_uid":"KM049901",
-          "Country":"Zambia",
-          "ISOCode":"ZM",
-          "SampleYear":"2000",
-          "Subtype":"C"
-        },
-        {
-          "ehars_uid":"KM049944",
-          "Country":"Zambia",
-          "ISOCode":"ZM",
-          "SampleYear":"2005",
-          "Subtype":"C"
-        },
-        {
-          "ehars_uid":"KM049945",
-          "Country":"Zambia",
-          "ISOCode":"ZM",
-          "SampleYear":"2005",
-          "Subtype":"C"
-        },
-        {
-          "ehars_uid":"KM050372",
-          "Country":"Zambia",
-          "ISOCode":"ZM",
-          "SampleYear":"2003",
-          "Subtype":"C"
-        },
-        {
-          "ehars_uid":"KM050373",
-          "Country":"Zambia",
-          "ISOCode":"ZM",
-          "SampleYear":"2003",
-          "Subtype":"C"
-        },
-        {
-          "ehars_uid":"KR820430",
-          "Country":"Zambia",
-          "ISOCode":"ZM",
-          "SampleYear":"2011",
-          "Subtype":"C"
-        },
-        {
-          "ehars_uid":"KR820446",
-          "Country":"Zambia",
-          "ISOCode":"ZM",
-          "SampleYear":"2011",
-          "Subtype":"C"
-        },
-        {
-          "ehars_uid":"KU050211",
-          "Country":"China",
-          "ISOCode":"CN",
-          "SampleYear":"2008",
-          "Subtype":"01_AE"
-        },
-        {
-          "ehars_uid":"KU050283",
-          "Country":"China",
-          "ISOCode":"CN",
-          "SampleYear":"2003",
-          "Subtype":"01_AE"
-        },
-        {
-          "ehars_uid":"KU050271",
-          "Country":"China",
-          "ISOCode":"CN",
-          "SampleYear":"2004",
-          "Subtype":"01_AE"
-        },
-        {
-          "ehars_uid":"KU050674",
-          "Country":"China",
-          "ISOCode":"CN",
-          "SampleYear":"2009",
-          "Subtype":"01_AE"
-        },
-        {
-          "ehars_uid":"KX907430",
-          "Country":"Tanzania",
-          "ISOCode":"TZ",
-          "SampleYear":"2003",
-          "Subtype":"D"
-        },
-        {
-          "ehars_uid":"KX907417",
-          "Country":"Tanzania",
-          "ISOCode":"TZ",
-          "SampleYear":"2003",
-          "Subtype":"D"
-        },
-        {
-          "ehars_uid":"KY112432",
-          "Country":"US",
-          "ISOCode":"US",
-          "SampleYear":"2008",
-          "Subtype":"B"
-        },
-        {
-          "ehars_uid":"KY112135",
-          "Country":"US",
-          "ISOCode":"US",
-          "SampleYear":"2008",
-          "Subtype":"B"
-        },
-        {
-          "ehars_uid":"LC100936",
-          "Country":"Viet Nam",
-          "ISOCode":"VN",
-          "SampleYear":"2013",
-          "Subtype":"01_AE"
-        },
-        {
-          "ehars_uid":"LC101135",
-          "Country":"Viet Nam",
-          "ISOCode":"VN",
-          "SampleYear":"2013",
-          "Subtype":"01_AE"
-        }
-      ],
-      "id":[
-        "FJ185229",
-        "FJ185234",
-        "FJ185245",
-        "FJ185253",
-        "FJ185257",
-        "JQ302594",
-        "JX112812",
-        "LC101032",
-        "FJ185259",
-        "GU564225",
-        "JX112822",
-        "JQ302698",
-        "JX112811",
-        "KP178420",
-        "KU050214",
-        "JX112828",
-        "JQ302679",
-        "HQ026498",
-        "HQ026566",
-        "HQ026536",
-        "HQ026540",
-        "KJ140260",
-        "HQ026542",
-        "KJ140247",
-        "KJ140251",
-        "JQ235014",
-        "JQ901027",
-        "JQ901073",
-        "KP178424",
-        "JX960600",
-        "JX960601",
-        "JX960602",
-        "JQ302558",
-        "KJ883137",
-        "KJ883144",
-        "KJ883145",
-        "KJ883146",
-        "KJ883148",
-        "AY008715",
-        "JF719818",
-        "AB746344",
-        "JQ302548",
-        "AF042100",
-        "KJ704794",
-        "JF689859",
-        "EF363124",
-        "AY829205",
-        "AY829206",
-        "AY829212",
-        "EF589039",
-        "EU170152",
-        "EU170137",
-        "EU170141",
-        "EU170148",
-        "KU820825",
-        "KU820836",
-        "KU820844",
-        "KU820845",
-        "AB874149",
-        "AB874269",
-        "AB874000",
-        "AF286230",
-        "KJ820145",
-        "KJ820305",
-        "DQ823360",
-        "EF589043",
-        "DQ823367",
-        "AB874032",
-        "AB874173",
-        "FJ469736",
-        "AB874166",
-        "AF170545",
-        "AF170547",
-        "AF423758",
-        "AF423760",
-        "AY358044",
-        "AY358045",
-        "D86069",
-        "U12055",
-        "FJ388919",
-        "FJ388920",
-        "GQ371855",
-        "KC473824",
-        "JQ028309",
-        "JQ302608",
-        "JQ302715",
-        "JQ302716",
-        "JQ302740",
-        "JQ302741",
-        "JX112860",
-        "JX112862",
-        "JX140647",
-        "KX228823",
-        "JX447833",
-        "JX447830",
-        "JX447901",
-        "JX448155",
-        "KC018752",
-        "KM050011",
-        "KC018825",
-        "KM050598",
-        "KC018846",
-        "KM049972",
-        "KC018942",
-        "KM050585",
-        "KC852172",
-        "KC852174",
-        "KM049900",
-        "KM049901",
-        "KM049944",
-        "KM049945",
-        "KM050372",
-        "KM050373",
-        "KR820430",
-        "KR820446",
-        "KU050211",
-        "KU050283",
-        "KU050271",
-        "KU050674",
-        "KX907430",
-        "KX907417",
-        "KY112432",
-        "KY112135",
-        "LC100936",
-        "LC101135"
-      ]
-    },
-    "Edges":{
-      "target":[
-        38,
-        39,
-        58,
-        59,
-        68,
-        59,
-        69,
-        43,
-        72,
-        62,
-        63,
-        74,
-        39,
-        41,
-        76,
-        47,
-        48,
-        49,
-        48,
-        49,
-        49,
-        78,
-        65,
-        65,
-        43,
-        50,
-        53,
-        50,
-        50,
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        2,
-        4,
-        5,
-        6,
-        7,
-        3,
-        4,
-        8,
-        6,
-        4,
-        8,
-        6,
-        8,
-        6,
-        6,
-        80,
-        82,
-        10,
-        18,
-        20,
-        18,
-        21,
-        22,
-        18,
-        23,
-        24,
-        21,
-        18,
-        21,
-        23,
-        24,
-        21,
-        43,
-        41,
-        84,
-        26,
-        27,
-        28,
-        27,
-        12,
-        15,
-        12,
-        10,
-        86,
-        88,
-        27,
-        29,
-        31,
-        28,
-        29,
-        30,
-        31,
-        28,
-        10,
-        13,
-        14,
-        90,
-        92,
-        93,
-        96,
-        28,
-        98,
-        100,
-        102,
-        104,
-        106,
-        24,
-        21,
-        21,
-        34,
-        35,
-        36,
-        37,
-        35,
-        36,
-        37,
-        36,
-        37,
-        37,
-        108,
-        110,
-        112,
-        114,
-        116,
-        118,
-        55,
-        56,
-        57,
-        56,
-        57,
-        57,
-        119,
-        121,
-        124
-      ],
-      "attributes":{
-        "keys":{
-          "0":[
-            "BULK"
-          ]
-        },
-        "values":[
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0
-        ]
-      },
-      "length":[
-        0.010097,
-        0.0121468,
-        0.00876892,
-        0.00616732,
-        0.00679302,
-        0.0116885,
-        0.00267809,
-        0.0128962,
-        0.00066925,
-        0.013564,
-        0.0115124,
-        0.0135219,
-        0.00335049,
-        0.00879008,
-        0.00672749,
-        0.00268078,
-        0.00200834,
-        0.00944113,
-        0.000668814,
-        0.00672232,
-        0.00740212,
-        0.00267997,
-        0.0128422,
-        0.0121509,
-        0.0108209,
-        0.00965404,
-        0.00943665,
-        0.00616797,
-        0.00410107,
-        0.00807485,
-        0.0121547,
-        0.0135248,
-        0.0121437,
-        0.0121934,
-        0.0121437,
-        0.0135232,
-        0.0135067,
-        0.0135646,
-        0.0135067,
-        0.0115732,
-        0.01218,
-        0.00809732,
-        0.0108098,
-        0.00809732,
-        0.0121614,
-        0.0128333,
-        0.0121614,
-        0.0107935,
-        0.0,
-        0.0107935,
-        0.0108005,
-        0.0115282,
-        0.011515,
-        0.0135737,
-        0.0135745,
-        0.0121552,
-        0.0128807,
-        0.0128646,
-        0.00809167,
-        0.0128803,
-        0.0122041,
-        0.0102051,
-        0.0114824,
-        0.0121745,
-        0.0114696,
-        0.0121646,
-        0.00877548,
-        0.0115194,
-        0.0108546,
-        0.00671985,
-        0.01219,
-        0.0108344,
-        0.0128863,
-        0.0135385,
-        0.0135675,
-        0.0129039,
-        0.0135413,
-        0.0135575,
-        0.00675843,
-        0.00335527,
-        0.00673332,
-        0.0135424,
-        0.0128797,
-        0.0128905,
-        0.0121816,
-        0.0135839,
-        0.0128749,
-        0.0115059,
-        0.0135338,
-        0.0122448,
-        0.006782,
-        0.00674764,
-        0.0108327,
-        0.00269223,
-        0.0026826,
-        0.0135612,
-        0.00407641,
-        0.000669695,
-        0.00134158,
-        0.0,
-        0.00404663,
-        0.00604086,
-        0.0121884,
-        0.0128966,
-        0.00268495,
-        0.00268073,
-        0.0020126,
-        0.00876622,
-        0.00268075,
-        0.00201262,
-        0.00876641,
-        0.00200967,
-        0.00875776,
-        0.00605599,
-        0.00827174,
-        0.006142,
-        0.0101752,
-        0.00672874,
-        0.00542584,
-        0.00269333,
-        0.00269316,
-        0.00405121,
-        0.00812662,
-        0.00403511,
-        0.0081041,
-        0.00809928,
-        0.00469983,
-        0.00873774,
-        0.00877335
-      ],
-      "sequences":[
-        [
-          "AB746344",
-          "AY008715"
-        ],
-        [
-          "AB746344",
-          "JF719818"
-        ],
-        [
-          "AB874000",
-          "AB874149"
-        ],
-        [
-          "AB874000",
-          "AB874269"
-        ],
-        [
-          "AB874032",
-          "AB874173"
-        ],
-        [
-          "AB874149",
-          "AB874269"
-        ],
-        [
-          "AB874166",
-          "FJ469736"
-        ],
-        [
-          "AF042100",
-          "KJ704794"
-        ],
-        [
-          "AF170545",
-          "AF170547"
-        ],
-        [
-          "AF286230",
-          "KJ820145"
-        ],
-        [
-          "AF286230",
-          "KJ820305"
-        ],
-        [
-          "AF423758",
-          "AF423760"
-        ],
-        [
-          "AY008715",
-          "JF719818"
-        ],
-        [
-          "AY008715",
-          "JQ302548"
-        ],
-        [
-          "AY358044",
-          "AY358045"
-        ],
-        [
-          "AY829205",
-          "AY829206"
-        ],
-        [
-          "AY829205",
-          "AY829212"
-        ],
-        [
-          "AY829205",
-          "EF589039"
-        ],
-        [
-          "AY829206",
-          "AY829212"
-        ],
-        [
-          "AY829206",
-          "EF589039"
-        ],
-        [
-          "AY829212",
-          "EF589039"
-        ],
-        [
-          "D86069",
-          "U12055"
-        ],
-        [
-          "DQ823360",
-          "EF589043"
-        ],
-        [
-          "DQ823367",
-          "EF589043"
-        ],
-        [
-          "EF363124",
-          "KJ704794"
-        ],
-        [
-          "EU170137",
-          "EU170152"
-        ],
-        [
-          "EU170141",
-          "EU170148"
-        ],
-        [
-          "EU170141",
-          "EU170152"
-        ],
-        [
-          "EU170148",
-          "EU170152"
-        ],
-        [
-          "FJ185229",
-          "FJ185234"
-        ],
-        [
-          "FJ185229",
-          "FJ185245"
-        ],
-        [
-          "FJ185229",
-          "FJ185253"
-        ],
-        [
-          "FJ185229",
-          "FJ185257"
-        ],
-        [
-          "FJ185229",
-          "JQ302594"
-        ],
-        [
-          "FJ185229",
-          "JX112812"
-        ],
-        [
-          "FJ185234",
-          "FJ185245"
-        ],
-        [
-          "FJ185234",
-          "FJ185257"
-        ],
-        [
-          "FJ185234",
-          "JQ302594"
-        ],
-        [
-          "FJ185234",
-          "JX112812"
-        ],
-        [
-          "FJ185234",
-          "LC101032"
-        ],
-        [
-          "FJ185245",
-          "FJ185253"
-        ],
-        [
-          "FJ185245",
-          "FJ185257"
-        ],
-        [
-          "FJ185245",
-          "FJ185259"
-        ],
-        [
-          "FJ185245",
-          "JX112812"
-        ],
-        [
-          "FJ185253",
-          "FJ185257"
-        ],
-        [
-          "FJ185253",
-          "FJ185259"
-        ],
-        [
-          "FJ185253",
-          "JX112812"
-        ],
-        [
-          "FJ185257",
-          "FJ185259"
-        ],
-        [
-          "FJ185257",
-          "JX112812"
-        ],
-        [
-          "FJ185259",
-          "JX112812"
-        ],
-        [
-          "FJ388919",
-          "FJ388920"
-        ],
-        [
-          "GQ371855",
-          "KC473824"
-        ],
-        [
-          "GU564225",
-          "JX112822"
-        ],
-        [
-          "HQ026498",
-          "HQ026566"
-        ],
-        [
-          "HQ026536",
-          "HQ026540"
-        ],
-        [
-          "HQ026536",
-          "HQ026566"
-        ],
-        [
-          "HQ026536",
-          "KJ140260"
-        ],
-        [
-          "HQ026540",
-          "HQ026542"
-        ],
-        [
-          "HQ026540",
-          "HQ026566"
-        ],
-        [
-          "HQ026540",
-          "KJ140247"
-        ],
-        [
-          "HQ026540",
-          "KJ140251"
-        ],
-        [
-          "HQ026540",
-          "KJ140260"
-        ],
-        [
-          "HQ026542",
-          "HQ026566"
-        ],
-        [
-          "HQ026542",
-          "KJ140260"
-        ],
-        [
-          "HQ026566",
-          "KJ140247"
-        ],
-        [
-          "HQ026566",
-          "KJ140251"
-        ],
-        [
-          "HQ026566",
-          "KJ140260"
-        ],
-        [
-          "JF689859",
-          "KJ704794"
-        ],
-        [
-          "JF719818",
-          "JQ302548"
-        ],
-        [
-          "JQ028309",
-          "JQ302608"
-        ],
-        [
-          "JQ235014",
-          "JQ901027"
-        ],
-        [
-          "JQ235014",
-          "JQ901073"
-        ],
-        [
-          "JQ235014",
-          "KP178424"
-        ],
-        [
-          "JQ302558",
-          "JQ901073"
-        ],
-        [
-          "JQ302679",
-          "JX112811"
-        ],
-        [
-          "JQ302679",
-          "JX112828"
-        ],
-        [
-          "JQ302698",
-          "JX112811"
-        ],
-        [
-          "JQ302698",
-          "JX112822"
-        ],
-        [
-          "JQ302715",
-          "JQ302716"
-        ],
-        [
-          "JQ302740",
-          "JQ302741"
-        ],
-        [
-          "JQ901027",
-          "JQ901073"
-        ],
-        [
-          "JQ901027",
-          "JX960600"
-        ],
-        [
-          "JQ901027",
-          "JX960602"
-        ],
-        [
-          "JQ901027",
-          "KP178424"
-        ],
-        [
-          "JQ901073",
-          "JX960600"
-        ],
-        [
-          "JQ901073",
-          "JX960601"
-        ],
-        [
-          "JQ901073",
-          "JX960602"
-        ],
-        [
-          "JQ901073",
-          "KP178424"
-        ],
-        [
-          "JX112811",
-          "JX112822"
-        ],
-        [
-          "JX112811",
-          "KP178420"
-        ],
-        [
-          "JX112811",
-          "KU050214"
-        ],
-        [
-          "JX112860",
-          "JX112862"
-        ],
-        [
-          "JX140647",
-          "KX228823"
-        ],
-        [
-          "JX447830",
-          "JX447833"
-        ],
-        [
-          "JX447901",
-          "JX448155"
-        ],
-        [
-          "JX960600",
-          "KP178424"
-        ],
-        [
-          "KC018752",
-          "KM050011"
-        ],
-        [
-          "KC018825",
-          "KM050598"
-        ],
-        [
-          "KC018846",
-          "KM049972"
-        ],
-        [
-          "KC018942",
-          "KM050585"
-        ],
-        [
-          "KC852172",
-          "KC852174"
-        ],
-        [
-          "KJ140247",
-          "KJ140251"
-        ],
-        [
-          "KJ140247",
-          "KJ140260"
-        ],
-        [
-          "KJ140251",
-          "KJ140260"
-        ],
-        [
-          "KJ883137",
-          "KJ883144"
-        ],
-        [
-          "KJ883137",
-          "KJ883145"
-        ],
-        [
-          "KJ883137",
-          "KJ883146"
-        ],
-        [
-          "KJ883137",
-          "KJ883148"
-        ],
-        [
-          "KJ883144",
-          "KJ883145"
-        ],
-        [
-          "KJ883144",
-          "KJ883146"
-        ],
-        [
-          "KJ883144",
-          "KJ883148"
-        ],
-        [
-          "KJ883145",
-          "KJ883146"
-        ],
-        [
-          "KJ883145",
-          "KJ883148"
-        ],
-        [
-          "KJ883146",
-          "KJ883148"
-        ],
-        [
-          "KM049900",
-          "KM049901"
-        ],
-        [
-          "KM049944",
-          "KM049945"
-        ],
-        [
-          "KM050372",
-          "KM050373"
-        ],
-        [
-          "KR820430",
-          "KR820446"
-        ],
-        [
-          "KU050211",
-          "KU050283"
-        ],
-        [
-          "KU050271",
-          "KU050674"
-        ],
-        [
-          "KU820825",
-          "KU820836"
-        ],
-        [
-          "KU820825",
-          "KU820844"
-        ],
-        [
-          "KU820825",
-          "KU820845"
-        ],
-        [
-          "KU820836",
-          "KU820844"
-        ],
-        [
-          "KU820836",
-          "KU820845"
-        ],
-        [
-          "KU820844",
-          "KU820845"
-        ],
-        [
-          "KX907417",
-          "KX907430"
-        ],
-        [
-          "KY112135",
-          "KY112432"
-        ],
-        [
-          "LC100936",
-          "LC101135"
-        ]
-      ],
-      "directed":{
-        "keys":{
-          "0":false
-        },
-        "values":[
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0
-        ]
-      },
-      "source":[
-        40,
-        40,
-        60,
-        60,
-        67,
-        58,
-        70,
-        42,
-        71,
-        61,
-        61,
-        73,
-        38,
-        38,
-        75,
-        46,
-        46,
-        46,
-        47,
-        47,
-        48,
-        77,
-        64,
-        66,
-        45,
-        51,
-        52,
-        52,
-        53,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        1,
-        1,
-        1,
-        1,
-        1,
-        2,
-        2,
-        2,
-        2,
-        3,
-        3,
-        3,
-        4,
-        4,
-        8,
-        79,
-        81,
-        9,
-        17,
-        19,
-        19,
-        19,
-        20,
-        20,
-        20,
-        20,
-        20,
-        22,
-        22,
-        18,
-        18,
-        18,
-        44,
-        39,
-        83,
-        25,
-        25,
-        25,
-        32,
-        16,
-        16,
-        11,
-        11,
-        85,
-        87,
-        26,
-        26,
-        26,
-        26,
-        27,
-        27,
-        27,
-        27,
-        12,
-        12,
-        12,
-        89,
-        91,
-        94,
-        95,
-        29,
-        97,
-        99,
-        101,
-        103,
-        105,
-        23,
-        23,
-        24,
-        33,
-        33,
-        33,
-        33,
-        34,
-        34,
-        34,
-        35,
-        35,
-        36,
-        107,
-        109,
-        111,
-        113,
-        115,
-        117,
-        54,
-        54,
-        54,
-        55,
-        55,
-        56,
-        120,
-        122,
-        123
-      ],
-      "support":{
-        "keys":{
-          "0":0.0
-        },
-        "values":[
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0
-        ]
-      },
-      "removed":{
-        "keys":{
-          "0":false
-        },
-        "values":[
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0
-        ]
-      }
-    },
-    "patient_attribute_schema":{
-      "ehars_uid":{
-        "name":"ehars_uid",
-        "type":"String",
-        "label":"ehars_uid"
-      },
-      "ISOCode":{
-        "name":"ISOCode",
-        "type":"String",
-        "label":"ISOCode"
-      },
-      "Country":{
-        "name":"Country",
-        "type":"String",
-        "label":"Country"
-      },
-      "SampleYear":{
-        "name":"SampleYear",
-        "type":"String",
-        "label":"SampleYear"
-      },
-      "Subtype":{
-        "name":"Subtype",
-        "type":"String",
-        "label":"Subtype"
-      }
-    }
-  }
+	"trace_results": {
+		"Network Summary": {
+			"Edges": 129,
+			"Nodes": 125,
+			"Sequences used to make links": 125,
+			"Clusters": 43,
+			"Singletons": 1384
+		},
+		"Multiple sequences": {
+			"Subjects with": 0,
+			"Followup, days": null
+		},
+		"Cluster sizes": [
+			4, 8, 2, 3, 2, 8, 4, 2, 4, 9, 2, 2, 2, 2, 2, 3, 2, 8, 2, 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 2,
+			2, 2, 2, 5, 2, 2, 2, 2, 2, 2, 4
+		],
+		"HIV Stages": {
+			"Unknown": 125
+		},
+		"Directed Edges": {
+			"Count": 0,
+			"Reasons for unresolved directions": {
+				"Missing dates": 129
+			}
+		},
+		"Degrees": {
+			"Distribution": [74, 13, 17, 9, 3, 7, 2],
+			"Model": "Waring",
+			"rho": 7.0397330077882,
+			"rho CI": [5.262727882280933, 9.547360627805665],
+			"BIC": 365.6585739389769,
+			"fitted": [
+				0.5265536378798222, 0.22930382779709907, 0.10946710333829598, 0.05621190519922663,
+				0.030632790990259413, 0.0175397356043773, 0.010472026918802209
+			]
+		},
+		"Settings": {
+			"threshold": 0.013599999999999614,
+			"edge-filtering": null,
+			"contaminants": null,
+			"singletons": true,
+			"compact_json": true,
+			"created": "2023-03-17T21:51:45.836871+00:00"
+		},
+		"Nodes": {
+			"cluster": [
+				1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4,
+				4, 4, 5, 5, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 7, 8, 8, 8, 8, 9, 9, 9, 9, 10, 10, 10, 10, 11, 11,
+				11, 12, 12, 12, 13, 13, 13, 14, 14, 15, 15, 16, 16, 17, 17, 18, 18, 19, 19, 20, 20, 21, 21,
+				22, 22, 23, 23, 24, 24, 25, 25, 26, 26, 27, 27, 28, 28, 29, 29, 30, 30, 31, 31, 32, 32, 33,
+				33, 34, 34, 35, 35, 36, 36, 37, 37, 38, 38, 39, 39, 40, 40, 41, 41, 42, 42
+			],
+			"patient_attributes": [
+				{
+					"ehars_uid": "FJ185229",
+					"Country": "Viet Nam",
+					"ISOCode": "VN",
+					"SampleYear": "1998",
+					"Subtype": "01_AE"
+				},
+				{
+					"ehars_uid": "FJ185234",
+					"Country": "Viet Nam",
+					"ISOCode": "VN",
+					"SampleYear": "1998",
+					"Subtype": "01_AE"
+				},
+				{
+					"ehars_uid": "FJ185245",
+					"Country": "Viet Nam",
+					"ISOCode": "VN",
+					"SampleYear": "1997",
+					"Subtype": "01_AE"
+				},
+				{
+					"ehars_uid": "FJ185253",
+					"Country": "Viet Nam",
+					"ISOCode": "VN",
+					"SampleYear": "1997",
+					"Subtype": "01_AE"
+				},
+				{
+					"ehars_uid": "FJ185257",
+					"Country": "Viet Nam",
+					"ISOCode": "VN",
+					"SampleYear": "1997",
+					"Subtype": "01_AE"
+				},
+				{
+					"ehars_uid": "JQ302594",
+					"Country": "China",
+					"ISOCode": "CN",
+					"SampleYear": "2009",
+					"Subtype": "01_AE"
+				},
+				{
+					"ehars_uid": "JX112812",
+					"Country": "China",
+					"ISOCode": "CN",
+					"SampleYear": "2007",
+					"Subtype": "01_AE"
+				},
+				{
+					"ehars_uid": "LC101032",
+					"Country": "Viet Nam",
+					"ISOCode": "VN",
+					"SampleYear": "2013",
+					"Subtype": "01_AE"
+				},
+				{
+					"ehars_uid": "FJ185259",
+					"Country": "Viet Nam",
+					"ISOCode": "VN",
+					"SampleYear": "1997",
+					"Subtype": "01_AE"
+				},
+				{
+					"ehars_uid": "GU564225",
+					"Country": "China",
+					"ISOCode": "CN",
+					"SampleYear": "2005",
+					"Subtype": "01_AE"
+				},
+				{
+					"ehars_uid": "JX112822",
+					"Country": "China",
+					"ISOCode": "CN",
+					"SampleYear": "2007",
+					"Subtype": "01_AE"
+				},
+				{
+					"ehars_uid": "JQ302698",
+					"Country": "China",
+					"ISOCode": "CN",
+					"SampleYear": "2009",
+					"Subtype": "01_AE"
+				},
+				{
+					"ehars_uid": "JX112811",
+					"Country": "China",
+					"ISOCode": "CN",
+					"SampleYear": "2007",
+					"Subtype": "01_AE"
+				},
+				{
+					"ehars_uid": "KP178420",
+					"Country": "China",
+					"ISOCode": "CN",
+					"SampleYear": "2005",
+					"Subtype": "01_AE"
+				},
+				{
+					"ehars_uid": "KU050214",
+					"Country": "China",
+					"ISOCode": "CN",
+					"SampleYear": "2009",
+					"Subtype": "01_AE"
+				},
+				{
+					"ehars_uid": "JX112828",
+					"Country": "China",
+					"ISOCode": "CN",
+					"SampleYear": "2007",
+					"Subtype": "01_AE"
+				},
+				{
+					"ehars_uid": "JQ302679",
+					"Country": "China",
+					"ISOCode": "CN",
+					"SampleYear": "2009",
+					"Subtype": "01_AE"
+				},
+				{
+					"ehars_uid": "HQ026498",
+					"Country": "South Korea",
+					"ISOCode": "KR",
+					"SampleYear": "1993",
+					"Subtype": "B"
+				},
+				{
+					"ehars_uid": "HQ026566",
+					"Country": "South Korea",
+					"ISOCode": "KR",
+					"SampleYear": "1992",
+					"Subtype": "B"
+				},
+				{
+					"ehars_uid": "HQ026536",
+					"Country": "South Korea",
+					"ISOCode": "KR",
+					"SampleYear": "1992",
+					"Subtype": "B"
+				},
+				{
+					"ehars_uid": "HQ026540",
+					"Country": "South Korea",
+					"ISOCode": "KR",
+					"SampleYear": "1991",
+					"Subtype": "B"
+				},
+				{
+					"ehars_uid": "KJ140260",
+					"Country": "South Korea",
+					"ISOCode": "KR",
+					"SampleYear": "2003",
+					"Subtype": "B"
+				},
+				{
+					"ehars_uid": "HQ026542",
+					"Country": "South Korea",
+					"ISOCode": "KR",
+					"SampleYear": "1992",
+					"Subtype": "B"
+				},
+				{
+					"ehars_uid": "KJ140247",
+					"Country": "South Korea",
+					"ISOCode": "KR",
+					"SampleYear": "1992",
+					"Subtype": "B"
+				},
+				{
+					"ehars_uid": "KJ140251",
+					"Country": "South Korea",
+					"ISOCode": "KR",
+					"SampleYear": "1992",
+					"Subtype": "B"
+				},
+				{
+					"ehars_uid": "JQ235014",
+					"Country": "China",
+					"ISOCode": "CN",
+					"SampleYear": "2010",
+					"Subtype": "07_BC"
+				},
+				{
+					"ehars_uid": "JQ901027",
+					"Country": "China",
+					"ISOCode": "CN",
+					"SampleYear": "2010",
+					"Subtype": "07_BC"
+				},
+				{
+					"ehars_uid": "JQ901073",
+					"Country": "China",
+					"ISOCode": "CN",
+					"SampleYear": "2008",
+					"Subtype": "07_BC"
+				},
+				{
+					"ehars_uid": "KP178424",
+					"Country": "China",
+					"ISOCode": "CN",
+					"SampleYear": "2010",
+					"Subtype": "07_BC"
+				},
+				{
+					"ehars_uid": "JX960600",
+					"Country": "China",
+					"ISOCode": "CN",
+					"SampleYear": "2009",
+					"Subtype": "07_BC"
+				},
+				{
+					"ehars_uid": "JX960601",
+					"Country": "China",
+					"ISOCode": "CN",
+					"SampleYear": "2008",
+					"Subtype": "07_BC"
+				},
+				{
+					"ehars_uid": "JX960602",
+					"Country": "China",
+					"ISOCode": "CN",
+					"SampleYear": "2009",
+					"Subtype": "07_BC"
+				},
+				{
+					"ehars_uid": "JQ302558",
+					"Country": "China",
+					"ISOCode": "CN",
+					"SampleYear": "2009",
+					"Subtype": "07_BC"
+				},
+				{
+					"ehars_uid": "KJ883137",
+					"Country": "Spain",
+					"ISOCode": "ES",
+					"SampleYear": "2010",
+					"Subtype": "F1"
+				},
+				{
+					"ehars_uid": "KJ883144",
+					"Country": "Spain",
+					"ISOCode": "ES",
+					"SampleYear": "2010",
+					"Subtype": "F1"
+				},
+				{
+					"ehars_uid": "KJ883145",
+					"Country": "Spain",
+					"ISOCode": "ES",
+					"SampleYear": "2010",
+					"Subtype": "F1"
+				},
+				{
+					"ehars_uid": "KJ883146",
+					"Country": "Spain",
+					"ISOCode": "ES",
+					"SampleYear": "2010",
+					"Subtype": "F1"
+				},
+				{
+					"ehars_uid": "KJ883148",
+					"Country": "Spain",
+					"ISOCode": "ES",
+					"SampleYear": "2011",
+					"Subtype": "F1"
+				},
+				{
+					"ehars_uid": "AY008715",
+					"Country": "China",
+					"ISOCode": "CN",
+					"SampleYear": "1997",
+					"Subtype": "08_BC"
+				},
+				{
+					"ehars_uid": "JF719818",
+					"Country": "China",
+					"ISOCode": "CN",
+					"SampleYear": "2007",
+					"Subtype": "08_BC"
+				},
+				{
+					"ehars_uid": "AB746344",
+					"Country": "China",
+					"ISOCode": "CN",
+					"SampleYear": "2000",
+					"Subtype": "08_BC"
+				},
+				{
+					"ehars_uid": "JQ302548",
+					"Country": "China",
+					"ISOCode": "CN",
+					"SampleYear": "2009",
+					"Subtype": "08_BC"
+				},
+				{
+					"ehars_uid": "AF042100",
+					"Country": "Australia",
+					"ISOCode": "AU",
+					"SampleYear": "1986",
+					"Subtype": "B"
+				},
+				{
+					"ehars_uid": "KJ704794",
+					"Country": "US",
+					"ISOCode": "US",
+					"SampleYear": "1978",
+					"Subtype": "B"
+				},
+				{
+					"ehars_uid": "JF689859",
+					"Country": "US",
+					"ISOCode": "US",
+					"SampleYear": "2005",
+					"Subtype": "B"
+				},
+				{
+					"ehars_uid": "EF363124",
+					"Country": "US",
+					"ISOCode": "US",
+					"SampleYear": "2004",
+					"Subtype": "B"
+				},
+				{
+					"ehars_uid": "AY829205",
+					"Country": "Uzbekistan",
+					"ISOCode": "UZ",
+					"SampleYear": "2002",
+					"Subtype": "A1"
+				},
+				{
+					"ehars_uid": "AY829206",
+					"Country": "Uzbekistan",
+					"ISOCode": "UZ",
+					"SampleYear": "2002",
+					"Subtype": "A1"
+				},
+				{
+					"ehars_uid": "AY829212",
+					"Country": "Uzbekistan",
+					"ISOCode": "UZ",
+					"SampleYear": "2002",
+					"Subtype": "A1"
+				},
+				{
+					"ehars_uid": "EF589039",
+					"Country": "Kazakhstan",
+					"ISOCode": "KZ",
+					"SampleYear": "2002",
+					"Subtype": "A1"
+				},
+				{
+					"ehars_uid": "EU170152",
+					"Country": "Luxembourg",
+					"ISOCode": "LU",
+					"SampleYear": "2003",
+					"Subtype": "42_BF"
+				},
+				{
+					"ehars_uid": "EU170137",
+					"Country": "Luxembourg",
+					"ISOCode": "LU",
+					"SampleYear": "2006",
+					"Subtype": "42_BF"
+				},
+				{
+					"ehars_uid": "EU170141",
+					"Country": "Luxembourg",
+					"ISOCode": "LU",
+					"SampleYear": "2006",
+					"Subtype": "42_BF"
+				},
+				{
+					"ehars_uid": "EU170148",
+					"Country": "Luxembourg",
+					"ISOCode": "LU",
+					"SampleYear": "2003",
+					"Subtype": "42_BF"
+				},
+				{
+					"ehars_uid": "KU820825",
+					"Country": "Myanmar",
+					"ISOCode": "MM",
+					"SampleYear": "2013",
+					"Subtype": "82_cpx"
+				},
+				{
+					"ehars_uid": "KU820836",
+					"Country": "Myanmar",
+					"ISOCode": "MM",
+					"SampleYear": "2013",
+					"Subtype": "82_cpx"
+				},
+				{
+					"ehars_uid": "KU820844",
+					"Country": "Myanmar",
+					"ISOCode": "MM",
+					"SampleYear": "2013",
+					"Subtype": "82_cpx"
+				},
+				{
+					"ehars_uid": "KU820845",
+					"Country": "Myanmar",
+					"ISOCode": "MM",
+					"SampleYear": "2013",
+					"Subtype": "82_cpx"
+				},
+				{
+					"ehars_uid": "AB874149",
+					"Country": "Japan",
+					"ISOCode": "JP",
+					"SampleYear": "2009",
+					"Subtype": "B"
+				},
+				{
+					"ehars_uid": "AB874269",
+					"Country": "Japan",
+					"ISOCode": "JP",
+					"SampleYear": "2009",
+					"Subtype": "B"
+				},
+				{
+					"ehars_uid": "AB874000",
+					"Country": "Japan",
+					"ISOCode": "JP",
+					"SampleYear": "2009",
+					"Subtype": "B"
+				},
+				{
+					"ehars_uid": "AF286230",
+					"Country": "China",
+					"ISOCode": "CN",
+					"SampleYear": "1998",
+					"Subtype": "07_BC"
+				},
+				{
+					"ehars_uid": "KJ820145",
+					"Country": "China",
+					"ISOCode": "CN",
+					"SampleYear": "2009",
+					"Subtype": "07_BC"
+				},
+				{
+					"ehars_uid": "KJ820305",
+					"Country": "China",
+					"ISOCode": "CN",
+					"SampleYear": "2009",
+					"Subtype": "07_BC"
+				},
+				{
+					"ehars_uid": "DQ823360",
+					"Country": "Ukraine",
+					"ISOCode": "UA",
+					"SampleYear": "2001",
+					"Subtype": "A1"
+				},
+				{
+					"ehars_uid": "EF589043",
+					"Country": "Kazakhstan",
+					"ISOCode": "KZ",
+					"SampleYear": "2002",
+					"Subtype": "A1"
+				},
+				{
+					"ehars_uid": "DQ823367",
+					"Country": "Ukraine",
+					"ISOCode": "UA",
+					"SampleYear": "2001",
+					"Subtype": "A1"
+				},
+				{
+					"ehars_uid": "AB874032",
+					"Country": "Japan",
+					"ISOCode": "JP",
+					"SampleYear": "2009",
+					"Subtype": "B"
+				},
+				{
+					"ehars_uid": "AB874173",
+					"Country": "Japan",
+					"ISOCode": "JP",
+					"SampleYear": "2009",
+					"Subtype": "B"
+				},
+				{
+					"ehars_uid": "FJ469736",
+					"Country": "US",
+					"ISOCode": "US",
+					"SampleYear": "2003",
+					"Subtype": "B"
+				},
+				{
+					"ehars_uid": "AB874166",
+					"Country": "Japan",
+					"ISOCode": "JP",
+					"SampleYear": "2009",
+					"Subtype": "B"
+				},
+				{
+					"ehars_uid": "AF170545",
+					"Country": "Thailand",
+					"ISOCode": "TH",
+					"SampleYear": "1994",
+					"Subtype": "01_AE"
+				},
+				{
+					"ehars_uid": "AF170547",
+					"Country": "Thailand",
+					"ISOCode": "TH",
+					"SampleYear": "1994",
+					"Subtype": "01_AE"
+				},
+				{
+					"ehars_uid": "AF423758",
+					"Country": "Spain",
+					"ISOCode": "ES",
+					"SampleYear": "2000",
+					"Subtype": "G"
+				},
+				{
+					"ehars_uid": "AF423760",
+					"Country": "Spain",
+					"ISOCode": "ES",
+					"SampleYear": "2000",
+					"Subtype": "G"
+				},
+				{
+					"ehars_uid": "AY358044",
+					"Country": "Thailand",
+					"ISOCode": "TH",
+					"SampleYear": "1999",
+					"Subtype": "01_AE"
+				},
+				{
+					"ehars_uid": "AY358045",
+					"Country": "Thailand",
+					"ISOCode": "TH",
+					"SampleYear": "1999",
+					"Subtype": "01_AE"
+				},
+				{
+					"ehars_uid": "D86069",
+					"Country": "France",
+					"ISOCode": "FR",
+					"SampleYear": "1983",
+					"Subtype": "B"
+				},
+				{
+					"ehars_uid": "U12055",
+					"Country": "France",
+					"ISOCode": "FR",
+					"SampleYear": "1985",
+					"Subtype": "B"
+				},
+				{
+					"ehars_uid": "FJ388919",
+					"Country": "Cyprus",
+					"ISOCode": "CY",
+					"SampleYear": "2005",
+					"Subtype": "B"
+				},
+				{
+					"ehars_uid": "FJ388920",
+					"Country": "Cyprus",
+					"ISOCode": "CY",
+					"SampleYear": "2005",
+					"Subtype": "B"
+				},
+				{
+					"ehars_uid": "GQ371855",
+					"Country": "US",
+					"ISOCode": "US",
+					"SampleYear": "2003",
+					"Subtype": "B"
+				},
+				{
+					"ehars_uid": "KC473824",
+					"Country": "US",
+					"ISOCode": "US",
+					"SampleYear": "2009",
+					"Subtype": "B"
+				},
+				{
+					"ehars_uid": "JQ028309",
+					"Country": "China",
+					"ISOCode": "CN",
+					"SampleYear": "2010",
+					"Subtype": "08_BC"
+				},
+				{
+					"ehars_uid": "JQ302608",
+					"Country": "China",
+					"ISOCode": "CN",
+					"SampleYear": "2009",
+					"Subtype": "08_BC"
+				},
+				{
+					"ehars_uid": "JQ302715",
+					"Country": "China",
+					"ISOCode": "CN",
+					"SampleYear": "2009",
+					"Subtype": "01_AE"
+				},
+				{
+					"ehars_uid": "JQ302716",
+					"Country": "China",
+					"ISOCode": "CN",
+					"SampleYear": "2009",
+					"Subtype": "01_AE"
+				},
+				{
+					"ehars_uid": "JQ302740",
+					"Country": "China",
+					"ISOCode": "CN",
+					"SampleYear": "2009",
+					"Subtype": "07_BC"
+				},
+				{
+					"ehars_uid": "JQ302741",
+					"Country": "China",
+					"ISOCode": "CN",
+					"SampleYear": "2009",
+					"Subtype": "07_BC"
+				},
+				{
+					"ehars_uid": "JX112860",
+					"Country": "China",
+					"ISOCode": "CN",
+					"SampleYear": "2002",
+					"Subtype": "01_AE"
+				},
+				{
+					"ehars_uid": "JX112862",
+					"Country": "China",
+					"ISOCode": "CN",
+					"SampleYear": "2002",
+					"Subtype": "01_AE"
+				},
+				{
+					"ehars_uid": "JX140647",
+					"Country": "Cameroon",
+					"ISOCode": "CM",
+					"SampleYear": "2008",
+					"Subtype": "02_AG"
+				},
+				{
+					"ehars_uid": "KX228823",
+					"Country": "Cameroon",
+					"ISOCode": "CM",
+					"SampleYear": "2008",
+					"Subtype": "02_AG"
+				},
+				{
+					"ehars_uid": "JX447833",
+					"Country": "Thailand",
+					"ISOCode": "TH",
+					"SampleYear": "2007",
+					"Subtype": "01_AE"
+				},
+				{
+					"ehars_uid": "JX447830",
+					"Country": "Thailand",
+					"ISOCode": "TH",
+					"SampleYear": "2005",
+					"Subtype": "01_AE"
+				},
+				{
+					"ehars_uid": "JX447901",
+					"Country": "Thailand",
+					"ISOCode": "TH",
+					"SampleYear": "2006",
+					"Subtype": "01_AE"
+				},
+				{
+					"ehars_uid": "JX448155",
+					"Country": "Thailand",
+					"ISOCode": "TH",
+					"SampleYear": "2005",
+					"Subtype": "01_AE"
+				},
+				{
+					"ehars_uid": "KC018752",
+					"Country": "Zambia",
+					"ISOCode": "ZM",
+					"SampleYear": "2006",
+					"Subtype": "C"
+				},
+				{
+					"ehars_uid": "KM050011",
+					"Country": "Zambia",
+					"ISOCode": "ZM",
+					"SampleYear": "2006",
+					"Subtype": "C"
+				},
+				{
+					"ehars_uid": "KC018825",
+					"Country": "Zambia",
+					"ISOCode": "ZM",
+					"SampleYear": "2005",
+					"Subtype": "C"
+				},
+				{
+					"ehars_uid": "KM050598",
+					"Country": "Zambia",
+					"ISOCode": "ZM",
+					"SampleYear": "2006",
+					"Subtype": "C"
+				},
+				{
+					"ehars_uid": "KC018846",
+					"Country": "Zambia",
+					"ISOCode": "ZM",
+					"SampleYear": "2006",
+					"Subtype": "C"
+				},
+				{
+					"ehars_uid": "KM049972",
+					"Country": "Zambia",
+					"ISOCode": "ZM",
+					"SampleYear": "2008",
+					"Subtype": "C"
+				},
+				{
+					"ehars_uid": "KC018942",
+					"Country": "Zambia",
+					"ISOCode": "ZM",
+					"SampleYear": "2005",
+					"Subtype": "C"
+				},
+				{
+					"ehars_uid": "KM050585",
+					"Country": "Zambia",
+					"ISOCode": "ZM",
+					"SampleYear": "2006",
+					"Subtype": "C"
+				},
+				{
+					"ehars_uid": "KC852172",
+					"Country": "France",
+					"ISOCode": "FR",
+					"SampleYear": "2010",
+					"Subtype": "56_cpx"
+				},
+				{
+					"ehars_uid": "KC852174",
+					"Country": "France",
+					"ISOCode": "FR",
+					"SampleYear": "2010",
+					"Subtype": "56_cpx"
+				},
+				{
+					"ehars_uid": "KM049900",
+					"Country": "Zambia",
+					"ISOCode": "ZM",
+					"SampleYear": "2000",
+					"Subtype": "C"
+				},
+				{
+					"ehars_uid": "KM049901",
+					"Country": "Zambia",
+					"ISOCode": "ZM",
+					"SampleYear": "2000",
+					"Subtype": "C"
+				},
+				{
+					"ehars_uid": "KM049944",
+					"Country": "Zambia",
+					"ISOCode": "ZM",
+					"SampleYear": "2005",
+					"Subtype": "C"
+				},
+				{
+					"ehars_uid": "KM049945",
+					"Country": "Zambia",
+					"ISOCode": "ZM",
+					"SampleYear": "2005",
+					"Subtype": "C"
+				},
+				{
+					"ehars_uid": "KM050372",
+					"Country": "Zambia",
+					"ISOCode": "ZM",
+					"SampleYear": "2003",
+					"Subtype": "C"
+				},
+				{
+					"ehars_uid": "KM050373",
+					"Country": "Zambia",
+					"ISOCode": "ZM",
+					"SampleYear": "2003",
+					"Subtype": "C"
+				},
+				{
+					"ehars_uid": "KR820430",
+					"Country": "Zambia",
+					"ISOCode": "ZM",
+					"SampleYear": "2011",
+					"Subtype": "C"
+				},
+				{
+					"ehars_uid": "KR820446",
+					"Country": "Zambia",
+					"ISOCode": "ZM",
+					"SampleYear": "2011",
+					"Subtype": "C"
+				},
+				{
+					"ehars_uid": "KU050211",
+					"Country": "China",
+					"ISOCode": "CN",
+					"SampleYear": "2008",
+					"Subtype": "01_AE"
+				},
+				{
+					"ehars_uid": "KU050283",
+					"Country": "China",
+					"ISOCode": "CN",
+					"SampleYear": "2003",
+					"Subtype": "01_AE"
+				},
+				{
+					"ehars_uid": "KU050271",
+					"Country": "China",
+					"ISOCode": "CN",
+					"SampleYear": "2004",
+					"Subtype": "01_AE"
+				},
+				{
+					"ehars_uid": "KU050674",
+					"Country": "China",
+					"ISOCode": "CN",
+					"SampleYear": "2009",
+					"Subtype": "01_AE"
+				},
+				{
+					"ehars_uid": "KX907430",
+					"Country": "Tanzania",
+					"ISOCode": "TZ",
+					"SampleYear": "2003",
+					"Subtype": "D"
+				},
+				{
+					"ehars_uid": "KX907417",
+					"Country": "Tanzania",
+					"ISOCode": "TZ",
+					"SampleYear": "2003",
+					"Subtype": "D"
+				},
+				{
+					"ehars_uid": "KY112432",
+					"Country": "US",
+					"ISOCode": "US",
+					"SampleYear": "2008",
+					"Subtype": "B"
+				},
+				{
+					"ehars_uid": "KY112135",
+					"Country": "US",
+					"ISOCode": "US",
+					"SampleYear": "2008",
+					"Subtype": "B"
+				},
+				{
+					"ehars_uid": "LC100936",
+					"Country": "Viet Nam",
+					"ISOCode": "VN",
+					"SampleYear": "2013",
+					"Subtype": "01_AE"
+				},
+				{
+					"ehars_uid": "LC101135",
+					"Country": "Viet Nam",
+					"ISOCode": "VN",
+					"SampleYear": "2013",
+					"Subtype": "01_AE"
+				}
+			],
+			"id": [
+				"FJ185229",
+				"FJ185234",
+				"FJ185245",
+				"FJ185253",
+				"FJ185257",
+				"JQ302594",
+				"JX112812",
+				"LC101032",
+				"FJ185259",
+				"GU564225",
+				"JX112822",
+				"JQ302698",
+				"JX112811",
+				"KP178420",
+				"KU050214",
+				"JX112828",
+				"JQ302679",
+				"HQ026498",
+				"HQ026566",
+				"HQ026536",
+				"HQ026540",
+				"KJ140260",
+				"HQ026542",
+				"KJ140247",
+				"KJ140251",
+				"JQ235014",
+				"JQ901027",
+				"JQ901073",
+				"KP178424",
+				"JX960600",
+				"JX960601",
+				"JX960602",
+				"JQ302558",
+				"KJ883137",
+				"KJ883144",
+				"KJ883145",
+				"KJ883146",
+				"KJ883148",
+				"AY008715",
+				"JF719818",
+				"AB746344",
+				"JQ302548",
+				"AF042100",
+				"KJ704794",
+				"JF689859",
+				"EF363124",
+				"AY829205",
+				"AY829206",
+				"AY829212",
+				"EF589039",
+				"EU170152",
+				"EU170137",
+				"EU170141",
+				"EU170148",
+				"KU820825",
+				"KU820836",
+				"KU820844",
+				"KU820845",
+				"AB874149",
+				"AB874269",
+				"AB874000",
+				"AF286230",
+				"KJ820145",
+				"KJ820305",
+				"DQ823360",
+				"EF589043",
+				"DQ823367",
+				"AB874032",
+				"AB874173",
+				"FJ469736",
+				"AB874166",
+				"AF170545",
+				"AF170547",
+				"AF423758",
+				"AF423760",
+				"AY358044",
+				"AY358045",
+				"D86069",
+				"U12055",
+				"FJ388919",
+				"FJ388920",
+				"GQ371855",
+				"KC473824",
+				"JQ028309",
+				"JQ302608",
+				"JQ302715",
+				"JQ302716",
+				"JQ302740",
+				"JQ302741",
+				"JX112860",
+				"JX112862",
+				"JX140647",
+				"KX228823",
+				"JX447833",
+				"JX447830",
+				"JX447901",
+				"JX448155",
+				"KC018752",
+				"KM050011",
+				"KC018825",
+				"KM050598",
+				"KC018846",
+				"KM049972",
+				"KC018942",
+				"KM050585",
+				"KC852172",
+				"KC852174",
+				"KM049900",
+				"KM049901",
+				"KM049944",
+				"KM049945",
+				"KM050372",
+				"KM050373",
+				"KR820430",
+				"KR820446",
+				"KU050211",
+				"KU050283",
+				"KU050271",
+				"KU050674",
+				"KX907430",
+				"KX907417",
+				"KY112432",
+				"KY112135",
+				"LC100936",
+				"LC101135"
+			]
+		},
+		"Edges": {
+			"target": [
+				38, 39, 58, 59, 68, 59, 69, 43, 72, 62, 63, 74, 39, 41, 76, 47, 48, 49, 48, 49, 49, 78, 65,
+				65, 43, 50, 53, 50, 50, 1, 2, 3, 4, 5, 6, 2, 4, 5, 6, 7, 3, 4, 8, 6, 4, 8, 6, 8, 6, 6, 80,
+				82, 10, 18, 20, 18, 21, 22, 18, 23, 24, 21, 18, 21, 23, 24, 21, 43, 41, 84, 26, 27, 28, 27,
+				12, 15, 12, 10, 86, 88, 27, 29, 31, 28, 29, 30, 31, 28, 10, 13, 14, 90, 92, 93, 96, 28, 98,
+				100, 102, 104, 106, 24, 21, 21, 34, 35, 36, 37, 35, 36, 37, 36, 37, 37, 108, 110, 112, 114,
+				116, 118, 55, 56, 57, 56, 57, 57, 119, 121, 124
+			],
+			"attributes": {
+				"keys": {
+					"0": ["BULK"]
+				},
+				"values": [
+					0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+					0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+					0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+					0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+					0, 0, 0, 0, 0, 0, 0, 0, 0
+				]
+			},
+			"length": [
+				0.010097, 0.0121468, 0.00876892, 0.00616732, 0.00679302, 0.0116885, 0.00267809, 0.0128962,
+				0.00066925, 0.013564, 0.0115124, 0.0135219, 0.00335049, 0.00879008, 0.00672749, 0.00268078,
+				0.00200834, 0.00944113, 0.000668814, 0.00672232, 0.00740212, 0.00267997, 0.0128422,
+				0.0121509, 0.0108209, 0.00965404, 0.00943665, 0.00616797, 0.00410107, 0.00807485, 0.0121547,
+				0.0135248, 0.0121437, 0.0121934, 0.0121437, 0.0135232, 0.0135067, 0.0135646, 0.0135067,
+				0.0115732, 0.01218, 0.00809732, 0.0108098, 0.00809732, 0.0121614, 0.0128333, 0.0121614,
+				0.0107935, 0.0, 0.0107935, 0.0108005, 0.0115282, 0.011515, 0.0135737, 0.0135745, 0.0121552,
+				0.0128807, 0.0128646, 0.00809167, 0.0128803, 0.0122041, 0.0102051, 0.0114824, 0.0121745,
+				0.0114696, 0.0121646, 0.00877548, 0.0115194, 0.0108546, 0.00671985, 0.01219, 0.0108344,
+				0.0128863, 0.0135385, 0.0135675, 0.0129039, 0.0135413, 0.0135575, 0.00675843, 0.00335527,
+				0.00673332, 0.0135424, 0.0128797, 0.0128905, 0.0121816, 0.0135839, 0.0128749, 0.0115059,
+				0.0135338, 0.0122448, 0.006782, 0.00674764, 0.0108327, 0.00269223, 0.0026826, 0.0135612,
+				0.00407641, 0.000669695, 0.00134158, 0.0, 0.00404663, 0.00604086, 0.0121884, 0.0128966,
+				0.00268495, 0.00268073, 0.0020126, 0.00876622, 0.00268075, 0.00201262, 0.00876641,
+				0.00200967, 0.00875776, 0.00605599, 0.00827174, 0.006142, 0.0101752, 0.00672874, 0.00542584,
+				0.00269333, 0.00269316, 0.00405121, 0.00812662, 0.00403511, 0.0081041, 0.00809928,
+				0.00469983, 0.00873774, 0.00877335
+			],
+			"sequences": [
+				["AB746344", "AY008715"],
+				["AB746344", "JF719818"],
+				["AB874000", "AB874149"],
+				["AB874000", "AB874269"],
+				["AB874032", "AB874173"],
+				["AB874149", "AB874269"],
+				["AB874166", "FJ469736"],
+				["AF042100", "KJ704794"],
+				["AF170545", "AF170547"],
+				["AF286230", "KJ820145"],
+				["AF286230", "KJ820305"],
+				["AF423758", "AF423760"],
+				["AY008715", "JF719818"],
+				["AY008715", "JQ302548"],
+				["AY358044", "AY358045"],
+				["AY829205", "AY829206"],
+				["AY829205", "AY829212"],
+				["AY829205", "EF589039"],
+				["AY829206", "AY829212"],
+				["AY829206", "EF589039"],
+				["AY829212", "EF589039"],
+				["D86069", "U12055"],
+				["DQ823360", "EF589043"],
+				["DQ823367", "EF589043"],
+				["EF363124", "KJ704794"],
+				["EU170137", "EU170152"],
+				["EU170141", "EU170148"],
+				["EU170141", "EU170152"],
+				["EU170148", "EU170152"],
+				["FJ185229", "FJ185234"],
+				["FJ185229", "FJ185245"],
+				["FJ185229", "FJ185253"],
+				["FJ185229", "FJ185257"],
+				["FJ185229", "JQ302594"],
+				["FJ185229", "JX112812"],
+				["FJ185234", "FJ185245"],
+				["FJ185234", "FJ185257"],
+				["FJ185234", "JQ302594"],
+				["FJ185234", "JX112812"],
+				["FJ185234", "LC101032"],
+				["FJ185245", "FJ185253"],
+				["FJ185245", "FJ185257"],
+				["FJ185245", "FJ185259"],
+				["FJ185245", "JX112812"],
+				["FJ185253", "FJ185257"],
+				["FJ185253", "FJ185259"],
+				["FJ185253", "JX112812"],
+				["FJ185257", "FJ185259"],
+				["FJ185257", "JX112812"],
+				["FJ185259", "JX112812"],
+				["FJ388919", "FJ388920"],
+				["GQ371855", "KC473824"],
+				["GU564225", "JX112822"],
+				["HQ026498", "HQ026566"],
+				["HQ026536", "HQ026540"],
+				["HQ026536", "HQ026566"],
+				["HQ026536", "KJ140260"],
+				["HQ026540", "HQ026542"],
+				["HQ026540", "HQ026566"],
+				["HQ026540", "KJ140247"],
+				["HQ026540", "KJ140251"],
+				["HQ026540", "KJ140260"],
+				["HQ026542", "HQ026566"],
+				["HQ026542", "KJ140260"],
+				["HQ026566", "KJ140247"],
+				["HQ026566", "KJ140251"],
+				["HQ026566", "KJ140260"],
+				["JF689859", "KJ704794"],
+				["JF719818", "JQ302548"],
+				["JQ028309", "JQ302608"],
+				["JQ235014", "JQ901027"],
+				["JQ235014", "JQ901073"],
+				["JQ235014", "KP178424"],
+				["JQ302558", "JQ901073"],
+				["JQ302679", "JX112811"],
+				["JQ302679", "JX112828"],
+				["JQ302698", "JX112811"],
+				["JQ302698", "JX112822"],
+				["JQ302715", "JQ302716"],
+				["JQ302740", "JQ302741"],
+				["JQ901027", "JQ901073"],
+				["JQ901027", "JX960600"],
+				["JQ901027", "JX960602"],
+				["JQ901027", "KP178424"],
+				["JQ901073", "JX960600"],
+				["JQ901073", "JX960601"],
+				["JQ901073", "JX960602"],
+				["JQ901073", "KP178424"],
+				["JX112811", "JX112822"],
+				["JX112811", "KP178420"],
+				["JX112811", "KU050214"],
+				["JX112860", "JX112862"],
+				["JX140647", "KX228823"],
+				["JX447830", "JX447833"],
+				["JX447901", "JX448155"],
+				["JX960600", "KP178424"],
+				["KC018752", "KM050011"],
+				["KC018825", "KM050598"],
+				["KC018846", "KM049972"],
+				["KC018942", "KM050585"],
+				["KC852172", "KC852174"],
+				["KJ140247", "KJ140251"],
+				["KJ140247", "KJ140260"],
+				["KJ140251", "KJ140260"],
+				["KJ883137", "KJ883144"],
+				["KJ883137", "KJ883145"],
+				["KJ883137", "KJ883146"],
+				["KJ883137", "KJ883148"],
+				["KJ883144", "KJ883145"],
+				["KJ883144", "KJ883146"],
+				["KJ883144", "KJ883148"],
+				["KJ883145", "KJ883146"],
+				["KJ883145", "KJ883148"],
+				["KJ883146", "KJ883148"],
+				["KM049900", "KM049901"],
+				["KM049944", "KM049945"],
+				["KM050372", "KM050373"],
+				["KR820430", "KR820446"],
+				["KU050211", "KU050283"],
+				["KU050271", "KU050674"],
+				["KU820825", "KU820836"],
+				["KU820825", "KU820844"],
+				["KU820825", "KU820845"],
+				["KU820836", "KU820844"],
+				["KU820836", "KU820845"],
+				["KU820844", "KU820845"],
+				["KX907417", "KX907430"],
+				["KY112135", "KY112432"],
+				["LC100936", "LC101135"]
+			],
+			"directed": {
+				"keys": {
+					"0": false
+				},
+				"values": [
+					0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+					0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+					0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+					0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+					0, 0, 0, 0, 0, 0, 0, 0, 0
+				]
+			},
+			"source": [
+				40, 40, 60, 60, 67, 58, 70, 42, 71, 61, 61, 73, 38, 38, 75, 46, 46, 46, 47, 47, 48, 77, 64,
+				66, 45, 51, 52, 52, 53, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 4, 4, 8, 79,
+				81, 9, 17, 19, 19, 19, 20, 20, 20, 20, 20, 22, 22, 18, 18, 18, 44, 39, 83, 25, 25, 25, 32,
+				16, 16, 11, 11, 85, 87, 26, 26, 26, 26, 27, 27, 27, 27, 12, 12, 12, 89, 91, 94, 95, 29, 97,
+				99, 101, 103, 105, 23, 23, 24, 33, 33, 33, 33, 34, 34, 34, 35, 35, 36, 107, 109, 111, 113,
+				115, 117, 54, 54, 54, 55, 55, 56, 120, 122, 123
+			],
+			"support": {
+				"keys": {
+					"0": 0.0
+				},
+				"values": [
+					0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+					0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+					0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+					0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+					0, 0, 0, 0, 0, 0, 0, 0, 0
+				]
+			},
+			"removed": {
+				"keys": {
+					"0": false
+				},
+				"values": [
+					0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+					0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+					0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+					0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+					0, 0, 0, 0, 0, 0, 0, 0, 0
+				]
+			}
+		},
+		"patient_attribute_schema": {
+			"ehars_uid": {
+				"name": "ehars_uid",
+				"type": "String",
+				"label": "ehars_uid"
+			},
+			"ISOCode": {
+				"name": "ISOCode",
+				"type": "String",
+				"label": "ISOCode"
+			},
+			"Country": {
+				"name": "Country",
+				"type": "String",
+				"label": "Country"
+			},
+			"SampleYear": {
+				"name": "SampleYear",
+				"type": "String",
+				"label": "SampleYear"
+			},
+			"Subtype": {
+				"name": "Subtype",
+				"type": "String",
+				"label": "Subtype"
+			}
+		}
+	}
 }

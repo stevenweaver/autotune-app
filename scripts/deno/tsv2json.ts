@@ -1,8 +1,8 @@
-import * as R from "https://deno.land/x/ramda@v0.27.2/mod.ts";
-import  __ from 'https://deno.land/x/dirname/mod.ts';
-import { DB } from "https://deno.land/x/sqlite/mod.ts";
-import { readCSV, writeCSV, readCSVObjects, writeCSVObjects } from "https://deno.land/x/csv/mod.ts";
-import * as d3Dsv from "https://cdn.skypack.dev/d3-dsv";
+import * as R from 'https://deno.land/x/ramda@v0.27.2/mod.ts';
+import __ from 'https://deno.land/x/dirname/mod.ts';
+import { DB } from 'https://deno.land/x/sqlite/mod.ts';
+import { readCSV, writeCSV, readCSVObjects, writeCSVObjects } from 'https://deno.land/x/csv/mod.ts';
+import * as d3Dsv from 'https://cdn.skypack.dev/d3-dsv';
 
 const decoder = new TextDecoder();
 

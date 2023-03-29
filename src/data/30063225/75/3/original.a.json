@@ -1,1543 +1,1327 @@
 {
-  "Country": {
-    "field": "Country",
-    "fractions": [
-      {
-        "from": "Japan",
-        "to": "Japan",
-        "count": 10.42222222222222
-      },
-      {
-        "from": "Japan",
-        "to": "US",
-        "count": 0.508080808080808
-      },
-      {
-        "from": "Japan",
-        "to": "Viet Nam",
-        "count": 0.0715151515151515
-      },
-      {
-        "from": "US",
-        "to": "Japan",
-        "count": 0.5080808080808081
-      },
-      {
-        "from": "US",
-        "to": "Thailand",
-        "count": 0.13636363636363635
-      },
-      {
-        "from": "US",
-        "to": "Viet Nam",
-        "count": 0.09168692270296548
-      },
-      {
-        "from": "US",
-        "to": "US",
-        "count": 4.222222222222222
-      },
-      {
-        "from": "Viet Nam",
-        "to": "Japan",
-        "count": 0.07151515151515152
-      },
-      {
-        "from": "Viet Nam",
-        "to": "US",
-        "count": 0.09168692270296548
-      },
-      {
-        "from": "Viet Nam",
-        "to": "Viet Nam",
-        "count": 5.778038316931051
-      },
-      {
-        "from": "Viet Nam",
-        "to": "China",
-        "count": 0.3766806722689075
-      },
-      {
-        "from": "Viet Nam",
-        "to": "Thailand",
-        "count": 0.045454545454545456
-      },
-      {
-        "from": "India",
-        "to": "India",
-        "count": 2
-      },
-      {
-        "from": "Russia",
-        "to": "Russia",
-        "count": 4
-      },
-      {
-        "from": "Thailand",
-        "to": "US",
-        "count": 0.13636363636363635
-      },
-      {
-        "from": "Thailand",
-        "to": "Thailand",
-        "count": 4
-      },
-      {
-        "from": "Thailand",
-        "to": "Viet Nam",
-        "count": 0.045454545454545456
-      },
-      {
-        "from": "China",
-        "to": "China",
-        "count": 29.706805555555555
-      },
-      {
-        "from": "China",
-        "to": "Viet Nam",
-        "count": 0.3766806722689075
-      },
-      {
-        "from": "Uzbekistan",
-        "to": "Uzbekistan",
-        "count": 2
-      },
-      {
-        "from": "Ukraine",
-        "to": "Ukraine",
-        "count": 2
-      },
-      {
-        "from": "Luxembourg",
-        "to": "Luxembourg",
-        "count": 1.25
-      },
-      {
-        "from": "Cyprus",
-        "to": "Cyprus",
-        "count": 4
-      },
-      {
-        "from": "South Korea",
-        "to": "South Korea",
-        "count": 2.145591676841676
-      },
-      {
-        "from": "Germany",
-        "to": "Germany",
-        "count": 2
-      },
-      {
-        "from": "Brazil",
-        "to": "Brazil",
-        "count": 2
-      },
-      {
-        "from": "Zambia",
-        "to": "Zambia",
-        "count": 11.5
-      },
-      {
-        "from": "Spain",
-        "to": "Spain",
-        "count": 1.3333333333333337
-      },
-      {
-        "from": "Myanmar",
-        "to": "Myanmar",
-        "count": 1.5
-      },
-      {
-        "from": "Pakistan",
-        "to": "Pakistan",
-        "count": 2
-      }
-    ],
-    "assortativity": [
-      {
-        "Record": "Viet Nam",
-        "Field": "Country",
-        "DWH": "0.321",
-        "Panmictic range": [
-          "0.000",
-          "−0.185"
-        ]
-      },
-      {
-        "Record": "China",
-        "Field": "Country",
-        "DWH": "0.354",
-        "Panmictic range": [
-          "−0.024",
-          "−0.366"
-        ]
-      },
-      {
-        "Record": "Thailand",
-        "Field": "Country",
-        "DWH": "0.362",
-        "Panmictic range": [
-          "0.000",
-          "−0.067"
-        ]
-      },
-      {
-        "Record": "US",
-        "Field": "Country",
-        "DWH": "0.337",
-        "Panmictic range": [
-          "0.004",
-          "−0.110"
-        ]
-      },
-      {
-        "Record": "Japan",
-        "Field": "Country",
-        "DWH": "0.446",
-        "Panmictic range": [
-          "0.000",
-          "−0.129"
-        ]
-      },
-      {
-        "Record": "South Korea",
-        "Field": "Country",
-        "DWH": "0.239",
-        "Panmictic range": [
-          "0.001",
-          "−0.153"
-        ]
-      },
-      {
-        "Record": "Luxembourg",
-        "Field": "Country",
-        "DWH": "0.492",
-        "Panmictic range": [
-          "0.001",
-          "−0.059"
-        ]
-      },
-      {
-        "Record": "Spain",
-        "Field": "Country",
-        "DWH": "0.495",
-        "Panmictic range": [
-          "0.002",
-          "−0.049"
-        ]
-      },
-      {
-        "Record": "India",
-        "Field": "Country",
-        "DWH": "0.400",
-        "Panmictic range": [
-          "0.000",
-          "−0.053"
-        ]
-      },
-      {
-        "Record": "Ukraine",
-        "Field": "Country",
-        "DWH": "0.400",
-        "Panmictic range": [
-          "0.000",
-          "−0.047"
-        ]
-      },
-      {
-        "Record": "Zambia",
-        "Field": "Country",
-        "DWH": "0.473",
-        "Panmictic range": [
-          "0.000",
-          "−0.143"
-        ]
-      },
-      {
-        "Record": "Myanmar",
-        "Field": "Country",
-        "DWH": "0.498",
-        "Panmictic range": [
-          "0.000",
-          "−0.040"
-        ]
-      },
-      {
-        "Record": "Russia",
-        "Field": "Country",
-        "DWH": "0.498",
-        "Panmictic range": [
-          "0.000",
-          "−0.046"
-        ]
-      },
-      {
-        "Record": "Uzbekistan",
-        "Field": "Country",
-        "DWH": "0.499",
-        "Panmictic range": [
-          "0.000",
-          "−0.045"
-        ]
-      },
-      {
-        "Record": "Cyprus",
-        "Field": "Country",
-        "DWH": "0.498",
-        "Panmictic range": [
-          "0.001",
-          "−0.048"
-        ]
-      },
-      {
-        "Record": "Germany",
-        "Field": "Country",
-        "DWH": "0.499",
-        "Panmictic range": [
-          "0.000",
-          "−0.033"
-        ]
-      },
-      {
-        "Record": "Brazil",
-        "Field": "Country",
-        "DWH": "0.499",
-        "Panmictic range": [
-          "0.000",
-          "−0.048"
-        ]
-      },
-      {
-        "Record": "Pakistan",
-        "Field": "Country",
-        "DWH": "0.499",
-        "Panmictic range": [
-          "0.000",
-          "−0.039"
-        ]
-      }
-    ]
-  },
-  "ISOCode": {
-    "field": "ISOCode",
-    "fractions": [
-      {
-        "from": "JP",
-        "to": "JP",
-        "count": 10.42222222222222
-      },
-      {
-        "from": "JP",
-        "to": "US",
-        "count": 0.508080808080808
-      },
-      {
-        "from": "JP",
-        "to": "VN",
-        "count": 0.0715151515151515
-      },
-      {
-        "from": "US",
-        "to": "JP",
-        "count": 0.5080808080808081
-      },
-      {
-        "from": "US",
-        "to": "TH",
-        "count": 0.13636363636363635
-      },
-      {
-        "from": "US",
-        "to": "VN",
-        "count": 0.09168692270296548
-      },
-      {
-        "from": "US",
-        "to": "US",
-        "count": 4.222222222222222
-      },
-      {
-        "from": "VN",
-        "to": "JP",
-        "count": 0.07151515151515152
-      },
-      {
-        "from": "VN",
-        "to": "US",
-        "count": 0.09168692270296548
-      },
-      {
-        "from": "VN",
-        "to": "VN",
-        "count": 5.778038316931051
-      },
-      {
-        "from": "VN",
-        "to": "CN",
-        "count": 0.3766806722689075
-      },
-      {
-        "from": "VN",
-        "to": "TH",
-        "count": 0.045454545454545456
-      },
-      {
-        "from": "IN",
-        "to": "IN",
-        "count": 2
-      },
-      {
-        "from": "RU",
-        "to": "RU",
-        "count": 4
-      },
-      {
-        "from": "TH",
-        "to": "US",
-        "count": 0.13636363636363635
-      },
-      {
-        "from": "TH",
-        "to": "TH",
-        "count": 4
-      },
-      {
-        "from": "TH",
-        "to": "VN",
-        "count": 0.045454545454545456
-      },
-      {
-        "from": "CN",
-        "to": "CN",
-        "count": 29.706805555555555
-      },
-      {
-        "from": "CN",
-        "to": "VN",
-        "count": 0.3766806722689075
-      },
-      {
-        "from": "UZ",
-        "to": "UZ",
-        "count": 2
-      },
-      {
-        "from": "UA",
-        "to": "UA",
-        "count": 2
-      },
-      {
-        "from": "LU",
-        "to": "LU",
-        "count": 1.25
-      },
-      {
-        "from": "CY",
-        "to": "CY",
-        "count": 4
-      },
-      {
-        "from": "KR",
-        "to": "KR",
-        "count": 2.145591676841676
-      },
-      {
-        "from": "DE",
-        "to": "DE",
-        "count": 2
-      },
-      {
-        "from": "BR",
-        "to": "BR",
-        "count": 2
-      },
-      {
-        "from": "ZM",
-        "to": "ZM",
-        "count": 11.5
-      },
-      {
-        "from": "ES",
-        "to": "ES",
-        "count": 1.3333333333333337
-      },
-      {
-        "from": "MM",
-        "to": "MM",
-        "count": 1.5
-      },
-      {
-        "from": "PK",
-        "to": "PK",
-        "count": 2
-      }
-    ],
-    "assortativity": [
-      {
-        "Record": "VN",
-        "Field": "ISOCode",
-        "DWH": "0.321",
-        "Panmictic range": [
-          "0.002",
-          "−0.185"
-        ]
-      },
-      {
-        "Record": "CN",
-        "Field": "ISOCode",
-        "DWH": "0.354",
-        "Panmictic range": [
-          "0.031",
-          "−0.347"
-        ]
-      },
-      {
-        "Record": "TH",
-        "Field": "ISOCode",
-        "DWH": "0.362",
-        "Panmictic range": [
-          "0.000",
-          "−0.065"
-        ]
-      },
-      {
-        "Record": "US",
-        "Field": "ISOCode",
-        "DWH": "0.337",
-        "Panmictic range": [
-          "0.012",
-          "−0.097"
-        ]
-      },
-      {
-        "Record": "JP",
-        "Field": "ISOCode",
-        "DWH": "0.446",
-        "Panmictic range": [
-          "0.001",
-          "−0.133"
-        ]
-      },
-      {
-        "Record": "KR",
-        "Field": "ISOCode",
-        "DWH": "0.239",
-        "Panmictic range": [
-          "0.000",
-          "−0.146"
-        ]
-      },
-      {
-        "Record": "LU",
-        "Field": "ISOCode",
-        "DWH": "0.492",
-        "Panmictic range": [
-          "0.001",
-          "−0.076"
-        ]
-      },
-      {
-        "Record": "ES",
-        "Field": "ISOCode",
-        "DWH": "0.495",
-        "Panmictic range": [
-          "0.002",
-          "−0.055"
-        ]
-      },
-      {
-        "Record": "IN",
-        "Field": "ISOCode",
-        "DWH": "0.400",
-        "Panmictic range": [
-          "0.000",
-          "−0.043"
-        ]
-      },
-      {
-        "Record": "UA",
-        "Field": "ISOCode",
-        "DWH": "0.400",
-        "Panmictic range": [
-          "0.000",
-          "−0.044"
-        ]
-      },
-      {
-        "Record": "ZM",
-        "Field": "ISOCode",
-        "DWH": "0.473",
-        "Panmictic range": [
-          "0.003",
-          "−0.130"
-        ]
-      },
-      {
-        "Record": "MM",
-        "Field": "ISOCode",
-        "DWH": "0.498",
-        "Panmictic range": [
-          "0.000",
-          "−0.047"
-        ]
-      },
-      {
-        "Record": "RU",
-        "Field": "ISOCode",
-        "DWH": "0.498",
-        "Panmictic range": [
-          "0.000",
-          "−0.049"
-        ]
-      },
-      {
-        "Record": "UZ",
-        "Field": "ISOCode",
-        "DWH": "0.499",
-        "Panmictic range": [
-          "0.000",
-          "−0.039"
-        ]
-      },
-      {
-        "Record": "CY",
-        "Field": "ISOCode",
-        "DWH": "0.498",
-        "Panmictic range": [
-          "0.000",
-          "−0.047"
-        ]
-      },
-      {
-        "Record": "DE",
-        "Field": "ISOCode",
-        "DWH": "0.499",
-        "Panmictic range": [
-          "0.000",
-          "−0.111"
-        ]
-      },
-      {
-        "Record": "BR",
-        "Field": "ISOCode",
-        "DWH": "0.499",
-        "Panmictic range": [
-          "0.000",
-          "−0.052"
-        ]
-      },
-      {
-        "Record": "PK",
-        "Field": "ISOCode",
-        "DWH": "0.499",
-        "Panmictic range": [
-          "0.000",
-          "−0.036"
-        ]
-      }
-    ]
-  },
-  "SampleYear": {
-    "field": "SampleYear",
-    "fractions": [
-      {
-        "from": "1978",
-        "to": "1984",
-        "count": 0.3333333333333333
-      },
-      {
-        "from": "1978",
-        "to": "2004",
-        "count": 0.3333333333333333
-      },
-      {
-        "from": "1978",
-        "to": "2011",
-        "count": 0.3333333333333333
-      },
-      {
-        "from": "1984",
-        "to": "1978",
-        "count": 0.3333333333333333
-      },
-      {
-        "from": "1984",
-        "to": "2003",
-        "count": 0.1111111111111111
-      },
-      {
-        "from": "1984",
-        "to": "2009",
-        "count": 0.2222222222222222
-      },
-      {
-        "from": "1990",
-        "to": "1993",
-        "count": 0.1090909090909091
-      },
-      {
-        "from": "1990",
-        "to": "1996",
-        "count": 0.09090909090909091
-      },
-      {
-        "from": "1990",
-        "to": "1997",
-        "count": 0.08099173553719008
-      },
-      {
-        "from": "1990",
-        "to": "1998",
-        "count": 0.0106951871657754
-      },
-      {
-        "from": "1991",
-        "to": "1992",
-        "count": 0.07142857142857142
-      },
-      {
-        "from": "1992",
-        "to": "1991",
-        "count": 0.07142857142857142
-      },
-      {
-        "from": "1992",
-        "to": "1992",
-        "count": 1.4121515059015053
-      },
-      {
-        "from": "1992",
-        "to": "1993",
-        "count": 0.20880392755392752
-      },
-      {
-        "from": "1992",
-        "to": "2004",
-        "count": 0.08648758648758648
-      },
-      {
-        "from": "1993",
-        "to": "1990",
-        "count": 0.10909090909090909
-      },
-      {
-        "from": "1993",
-        "to": "1992",
-        "count": 0.20880392755392757
-      },
-      {
-        "from": "1993",
-        "to": "1993",
-        "count": 1.2
-      },
-      {
-        "from": "1993",
-        "to": "1994",
-        "count": 0.5
-      },
-      {
-        "from": "1993",
-        "to": "1997",
-        "count": 0.11696969696969696
-      },
-      {
-        "from": "1994",
-        "to": "1993",
-        "count": 0.5
-      },
-      {
-        "from": "1996",
-        "to": "1990",
-        "count": 0.09090909090909091
-      },
-      {
-        "from": "1997",
-        "to": "1990",
-        "count": 0.08099173553719008
-      },
-      {
-        "from": "1997",
-        "to": "1993",
-        "count": 0.11696969696969697
-      },
-      {
-        "from": "1997",
-        "to": "1997",
-        "count": 0.5339393939393939
-      },
-      {
-        "from": "1997",
-        "to": "1998",
-        "count": 1.0576648841354723
-      },
-      {
-        "from": "1997",
-        "to": "2009",
-        "count": 0.05
-      },
-      {
-        "from": "1998",
-        "to": "1990",
-        "count": 0.010695187165775402
-      },
-      {
-        "from": "1998",
-        "to": "1997",
-        "count": 1.0576648841354723
-      },
-      {
-        "from": "1998",
-        "to": "1998",
-        "count": 0.023727137913989123
-      },
-      {
-        "from": "1998",
-        "to": "1999",
-        "count": 0.016666666666666666
-      },
-      {
-        "from": "1998",
-        "to": "2006",
-        "count": 0.06944444444444445
-      },
-      {
-        "from": "1998",
-        "to": "2007",
-        "count": 0.06302521008403361
-      },
-      {
-        "from": "1998",
-        "to": "2009",
-        "count": 0.4580999066293183
-      },
-      {
-        "from": "1998",
-        "to": "2013",
-        "count": 0.38585434173669475
-      },
-      {
-        "from": "1999",
-        "to": "1998",
-        "count": 0.016666666666666666
-      },
-      {
-        "from": "1999",
-        "to": "2000",
-        "count": 1
-      },
-      {
-        "from": "1999",
-        "to": "2006",
-        "count": 0.04166666666666667
-      },
-      {
-        "from": "1999",
-        "to": "2009",
-        "count": 0.4666666666666667
-      },
-      {
-        "from": "2000",
-        "to": "1999",
-        "count": 1
-      },
-      {
-        "from": "2001",
-        "to": "2001",
-        "count": 2
-      },
-      {
-        "from": "2002",
-        "to": "2002",
-        "count": 2
-      },
-      {
-        "from": "2003",
-        "to": "1984",
-        "count": 0.1111111111111111
-      },
-      {
-        "from": "2003",
-        "to": "2003",
-        "count": 0.75
-      },
-      {
-        "from": "2003",
-        "to": "2004",
-        "count": 1
-      },
-      {
-        "from": "2003",
-        "to": "2005",
-        "count": 0.25
-      },
-      {
-        "from": "2003",
-        "to": "2009",
-        "count": 0.2222222222222222
-      },
-      {
-        "from": "2004",
-        "to": "1978",
-        "count": 0.3333333333333333
-      },
-      {
-        "from": "2004",
-        "to": "1992",
-        "count": 0.08648758648758649
-      },
-      {
-        "from": "2004",
-        "to": "2003",
-        "count": 1
-      },
-      {
-        "from": "2004",
-        "to": "2004",
-        "count": 2
-      },
-      {
-        "from": "2004",
-        "to": "2005",
-        "count": 1
-      },
-      {
-        "from": "2004",
-        "to": "2006",
-        "count": 1
-      },
-      {
-        "from": "2004",
-        "to": "2009",
-        "count": 1
-      },
-      {
-        "from": "2005",
-        "to": "2003",
-        "count": 0.25
-      },
-      {
-        "from": "2005",
-        "to": "2004",
-        "count": 1
-      },
-      {
-        "from": "2005",
-        "to": "2005",
-        "count": 9.1125
-      },
-      {
-        "from": "2005",
-        "to": "2006",
-        "count": 0.546875
-      },
-      {
-        "from": "2005",
-        "to": "2007",
-        "count": 0.10208333333333333
-      },
-      {
-        "from": "2005",
-        "to": "2009",
-        "count": 2.40375
-      },
-      {
-        "from": "2005",
-        "to": "2010",
-        "count": 0.2104166666666667
-      },
-      {
-        "from": "2006",
-        "to": "1998",
-        "count": 0.06944444444444445
-      },
-      {
-        "from": "2006",
-        "to": "1999",
-        "count": 0.04166666666666667
-      },
-      {
-        "from": "2006",
-        "to": "2004",
-        "count": 1
-      },
-      {
-        "from": "2006",
-        "to": "2005",
-        "count": 0.546875
-      },
-      {
-        "from": "2006",
-        "to": "2006",
-        "count": 0.7083333333333333
-      },
-      {
-        "from": "2006",
-        "to": "2007",
-        "count": 0.07291666666666666
-      },
-      {
-        "from": "2006",
-        "to": "2009",
-        "count": 0.25069444444444444
-      },
-      {
-        "from": "2006",
-        "to": "2010",
-        "count": 0.03125
-      },
-      {
-        "from": "2007",
-        "to": "1998",
-        "count": 0.06302521008403361
-      },
-      {
-        "from": "2007",
-        "to": "2005",
-        "count": 0.10208333333333333
-      },
-      {
-        "from": "2007",
-        "to": "2006",
-        "count": 0.07291666666666666
-      },
-      {
-        "from": "2007",
-        "to": "2007",
-        "count": 3.5
-      },
-      {
-        "from": "2007",
-        "to": "2009",
-        "count": 3.5625
-      },
-      {
-        "from": "2007",
-        "to": "2010",
-        "count": 0.3333333333333333
-      },
-      {
-        "from": "2009",
-        "to": "1984",
-        "count": 0.2222222222222222
-      },
-      {
-        "from": "2009",
-        "to": "1997",
-        "count": 0.05
-      },
-      {
-        "from": "2009",
-        "to": "1998",
-        "count": 0.4580999066293183
-      },
-      {
-        "from": "2009",
-        "to": "1999",
-        "count": 0.4666666666666667
-      },
-      {
-        "from": "2009",
-        "to": "2003",
-        "count": 0.2222222222222222
-      },
-      {
-        "from": "2009",
-        "to": "2004",
-        "count": 1
-      },
-      {
-        "from": "2009",
-        "to": "2005",
-        "count": 2.40375
-      },
-      {
-        "from": "2009",
-        "to": "2006",
-        "count": 0.25069444444444444
-      },
-      {
-        "from": "2009",
-        "to": "2007",
-        "count": 3.5625
-      },
-      {
-        "from": "2009",
-        "to": "2009",
-        "count": 14.147222222222219
-      },
-      {
-        "from": "2009",
-        "to": "2010",
-        "count": 3.3444444444444446
-      },
-      {
-        "from": "2010",
-        "to": "2005",
-        "count": 0.2104166666666667
-      },
-      {
-        "from": "2010",
-        "to": "2006",
-        "count": 0.03125
-      },
-      {
-        "from": "2010",
-        "to": "2007",
-        "count": 0.3333333333333333
-      },
-      {
-        "from": "2010",
-        "to": "2009",
-        "count": 3.3444444444444446
-      },
-      {
-        "from": "2010",
-        "to": "2010",
-        "count": 0.6666666666666667
-      },
-      {
-        "from": "2010",
-        "to": "2011",
-        "count": 2.111111111111111
-      },
-      {
-        "from": "2010",
-        "to": "2014",
-        "count": 0.2222222222222222
-      },
-      {
-        "from": "2011",
-        "to": "1978",
-        "count": 0.3333333333333333
-      },
-      {
-        "from": "2011",
-        "to": "2010",
-        "count": 2.111111111111111
-      },
-      {
-        "from": "2011",
-        "to": "2014",
-        "count": 0.2222222222222222
-      },
-      {
-        "from": "2013",
-        "to": "1998",
-        "count": 0.38585434173669475
-      },
-      {
-        "from": "2013",
-        "to": "2013",
-        "count": 5.833333333333334
-      },
-      {
-        "from": "2014",
-        "to": "2010",
-        "count": 0.2222222222222222
-      },
-      {
-        "from": "2014",
-        "to": "2011",
-        "count": 0.2222222222222222
-      },
-      {
-        "from": "2014",
-        "to": "2014",
-        "count": 0.2222222222222222
-      },
-      {
-        "from": "2015",
-        "to": "2015",
-        "count": 2
-      }
-    ],
-    "assortativity": [
-      {
-        "Record": "1998",
-        "Field": "SampleYear",
-        "DWH": "−0.047",
-        "Panmictic range": [
-          "0.001",
-          "−0.060"
-        ]
-      },
-      {
-        "Record": "1997",
-        "Field": "SampleYear",
-        "DWH": "0.076",
-        "Panmictic range": [
-          "0.002",
-          "−0.075"
-        ]
-      },
-      {
-        "Record": "2009",
-        "Field": "SampleYear",
-        "DWH": "0.042",
-        "Panmictic range": [
-          "0.011",
-          "−0.317"
-        ]
-      },
-      {
-        "Record": "2007",
-        "Field": "SampleYear",
-        "DWH": "0.145",
-        "Panmictic range": [
-          "0.012",
-          "−0.126"
-        ]
-      },
-      {
-        "Record": "2013",
-        "Field": "SampleYear",
-        "DWH": "0.346",
-        "Panmictic range": [
-          "0.000",
-          "−0.140"
-        ]
-      },
-      {
-        "Record": "1996",
-        "Field": "SampleYear",
-        "DWH": "0.000",
-        "Panmictic range": [
-          "0.000",
-          "−0.096"
-        ]
-      },
-      {
-        "Record": "1990",
-        "Field": "SampleYear",
-        "DWH": "−0.019",
-        "Panmictic range": [
-          "0.000",
-          "−0.042"
-        ]
-      },
-      {
-        "Record": "1993",
-        "Field": "SampleYear",
-        "DWH": "0.181",
-        "Panmictic range": [
-          "0.011",
-          "−0.075"
-        ]
-      },
-      {
-        "Record": "2010",
-        "Field": "SampleYear",
-        "DWH": "−0.041",
-        "Panmictic range": [
-          "0.001",
-          "−0.144"
-        ]
-      },
-      {
-        "Record": "2006",
-        "Field": "SampleYear",
-        "DWH": "0.063",
-        "Panmictic range": [
-          "0.005",
-          "−0.088"
-        ]
-      },
-      {
-        "Record": "2005",
-        "Field": "SampleYear",
-        "DWH": "0.268",
-        "Panmictic range": [
-          "0.000",
-          "−0.162"
-        ]
-      },
-      {
-        "Record": "1992",
-        "Field": "SampleYear",
-        "DWH": "0.220",
-        "Panmictic range": [
-          "0.002",
-          "−0.120"
-        ]
-      },
-      {
-        "Record": "2004",
-        "Field": "SampleYear",
-        "DWH": "0.091",
-        "Panmictic range": [
-          "0.018",
-          "−0.089"
-        ]
-      },
-      {
-        "Record": "1991",
-        "Field": "SampleYear",
-        "DWH": "0.001",
-        "Panmictic range": [
-          "0.000",
-          "−0.096"
-        ]
-      },
-      {
-        "Record": "1999",
-        "Field": "SampleYear",
-        "DWH": "−0.025",
-        "Panmictic range": [
-          "0.000",
-          "−0.069"
-        ]
-      },
-      {
-        "Record": "2003",
-        "Field": "SampleYear",
-        "DWH": "0.130",
-        "Panmictic range": [
-          "0.003",
-          "−0.065"
-        ]
-      },
-      {
-        "Record": "1984",
-        "Field": "SampleYear",
-        "DWH": "−0.007",
-        "Panmictic range": [
-          "0.000",
-          "−0.033"
-        ]
-      },
-      {
-        "Record": "1978",
-        "Field": "SampleYear",
-        "DWH": "−0.028",
-        "Panmictic range": [
-          "0.000",
-          "−0.096"
-        ]
-      },
-      {
-        "Record": "2011",
-        "Field": "SampleYear",
-        "DWH": "−0.028",
-        "Panmictic range": [
-          "0.000",
-          "−0.063"
-        ]
-      },
-      {
-        "Record": "2014",
-        "Field": "SampleYear",
-        "DWH": "0.157",
-        "Panmictic range": [
-          "0.000",
-          "−0.030"
-        ]
-      },
-      {
-        "Record": "1994",
-        "Field": "SampleYear",
-        "DWH": "−0.004",
-        "Panmictic range": [
-          "0.000",
-          "−0.096"
-        ]
-      },
-      {
-        "Record": "2001",
-        "Field": "SampleYear",
-        "DWH": "0.400",
-        "Panmictic range": [
-          "0.000",
-          "−0.040"
-        ]
-      },
-      {
-        "Record": "2000",
-        "Field": "SampleYear",
-        "DWH": "−0.009",
-        "Panmictic range": [
-          "0.000",
-          "−0.096"
-        ]
-      },
-      {
-        "Record": "2002",
-        "Field": "SampleYear",
-        "DWH": "0.499",
-        "Panmictic range": [
-          "0.000",
-          "−0.041"
-        ]
-      },
-      {
-        "Record": "2015",
-        "Field": "SampleYear",
-        "DWH": "0.499",
-        "Panmictic range": [
-          "0.000",
-          "−0.045"
-        ]
-      }
-    ]
-  },
-  "Subtype": {
-    "field": "Subtype",
-    "fractions": [
-      {
-        "from": "01_AE",
-        "to": "01_AE",
-        "count": 28.038851789703077
-      },
-      {
-        "from": "B",
-        "to": "B",
-        "count": 25.47892501017503
-      },
-      {
-        "from": "C",
-        "to": "C",
-        "count": 17.5
-      },
-      {
-        "from": "03_AB",
-        "to": "03_AB",
-        "count": 2
-      },
-      {
-        "from": "07_BC",
-        "to": "07_BC",
-        "count": 5.216666666666667
-      },
-      {
-        "from": "A1",
-        "to": "A1",
-        "count": 8
-      },
-      {
-        "from": "42_BF",
-        "to": "42_BF",
-        "count": 1.25
-      },
-      {
-        "from": "63_02A1",
-        "to": "63_02A1",
-        "count": 2
-      },
-      {
-        "from": "68_01B",
-        "to": "68_01B",
-        "count": 2
-      },
-      {
-        "from": "F1",
-        "to": "F1",
-        "count": 1.3333333333333337
-      },
-      {
-        "from": "83_cpx",
-        "to": "83_cpx",
-        "count": 1.5
-      }
-    ],
-    "assortativity": [
-      {
-        "Record": "01_AE",
-        "Field": "Subtype",
-        "DWH": "0.363",
-        "Panmictic range": [
-          "0.035",
-          "−0.390"
-        ]
-      },
-      {
-        "Record": "B",
-        "Field": "Subtype",
-        "DWH": "0.415",
-        "Panmictic range": [
-          "0.003",
-          "−0.305"
-        ]
-      },
-      {
-        "Record": "07_BC",
-        "Field": "Subtype",
-        "DWH": "0.306",
-        "Panmictic range": [
-          "0.003",
-          "−0.184"
-        ]
-      },
-      {
-        "Record": "42_BF",
-        "Field": "Subtype",
-        "DWH": "0.492",
-        "Panmictic range": [
-          "0.000",
-          "−0.058"
-        ]
-      },
-      {
-        "Record": "F1",
-        "Field": "Subtype",
-        "DWH": "0.495",
-        "Panmictic range": [
-          "0.000",
-          "−0.058"
-        ]
-      },
-      {
-        "Record": "C",
-        "Field": "Subtype",
-        "DWH": "0.465",
-        "Panmictic range": [
-          "0.000",
-          "−0.191"
-        ]
-      },
-      {
-        "Record": "A1",
-        "Field": "Subtype",
-        "DWH": "0.468",
-        "Panmictic range": [
-          "0.004",
-          "−0.101"
-        ]
-      },
-      {
-        "Record": "83_cpx",
-        "Field": "Subtype",
-        "DWH": "0.498",
-        "Panmictic range": [
-          "0.000",
-          "−0.044"
-        ]
-      },
-      {
-        "Record": "03_AB",
-        "Field": "Subtype",
-        "DWH": "0.499",
-        "Panmictic range": [
-          "0.000",
-          "−0.110"
-        ]
-      },
-      {
-        "Record": "63_02A1",
-        "Field": "Subtype",
-        "DWH": "0.499",
-        "Panmictic range": [
-          "0.000",
-          "−0.032"
-        ]
-      },
-      {
-        "Record": "68_01B",
-        "Field": "Subtype",
-        "DWH": "0.499",
-        "Panmictic range": [
-          "0.000",
-          "−0.069"
-        ]
-      }
-    ]
-  }
+	"Country": {
+		"field": "Country",
+		"fractions": [
+			{
+				"from": "Japan",
+				"to": "Japan",
+				"count": 10.42222222222222
+			},
+			{
+				"from": "Japan",
+				"to": "US",
+				"count": 0.508080808080808
+			},
+			{
+				"from": "Japan",
+				"to": "Viet Nam",
+				"count": 0.0715151515151515
+			},
+			{
+				"from": "US",
+				"to": "Japan",
+				"count": 0.5080808080808081
+			},
+			{
+				"from": "US",
+				"to": "Thailand",
+				"count": 0.13636363636363635
+			},
+			{
+				"from": "US",
+				"to": "Viet Nam",
+				"count": 0.09168692270296548
+			},
+			{
+				"from": "US",
+				"to": "US",
+				"count": 4.222222222222222
+			},
+			{
+				"from": "Viet Nam",
+				"to": "Japan",
+				"count": 0.07151515151515152
+			},
+			{
+				"from": "Viet Nam",
+				"to": "US",
+				"count": 0.09168692270296548
+			},
+			{
+				"from": "Viet Nam",
+				"to": "Viet Nam",
+				"count": 5.778038316931051
+			},
+			{
+				"from": "Viet Nam",
+				"to": "China",
+				"count": 0.3766806722689075
+			},
+			{
+				"from": "Viet Nam",
+				"to": "Thailand",
+				"count": 0.045454545454545456
+			},
+			{
+				"from": "India",
+				"to": "India",
+				"count": 2
+			},
+			{
+				"from": "Russia",
+				"to": "Russia",
+				"count": 4
+			},
+			{
+				"from": "Thailand",
+				"to": "US",
+				"count": 0.13636363636363635
+			},
+			{
+				"from": "Thailand",
+				"to": "Thailand",
+				"count": 4
+			},
+			{
+				"from": "Thailand",
+				"to": "Viet Nam",
+				"count": 0.045454545454545456
+			},
+			{
+				"from": "China",
+				"to": "China",
+				"count": 29.706805555555555
+			},
+			{
+				"from": "China",
+				"to": "Viet Nam",
+				"count": 0.3766806722689075
+			},
+			{
+				"from": "Uzbekistan",
+				"to": "Uzbekistan",
+				"count": 2
+			},
+			{
+				"from": "Ukraine",
+				"to": "Ukraine",
+				"count": 2
+			},
+			{
+				"from": "Luxembourg",
+				"to": "Luxembourg",
+				"count": 1.25
+			},
+			{
+				"from": "Cyprus",
+				"to": "Cyprus",
+				"count": 4
+			},
+			{
+				"from": "South Korea",
+				"to": "South Korea",
+				"count": 2.145591676841676
+			},
+			{
+				"from": "Germany",
+				"to": "Germany",
+				"count": 2
+			},
+			{
+				"from": "Brazil",
+				"to": "Brazil",
+				"count": 2
+			},
+			{
+				"from": "Zambia",
+				"to": "Zambia",
+				"count": 11.5
+			},
+			{
+				"from": "Spain",
+				"to": "Spain",
+				"count": 1.3333333333333337
+			},
+			{
+				"from": "Myanmar",
+				"to": "Myanmar",
+				"count": 1.5
+			},
+			{
+				"from": "Pakistan",
+				"to": "Pakistan",
+				"count": 2
+			}
+		],
+		"assortativity": [
+			{
+				"Record": "Viet Nam",
+				"Field": "Country",
+				"DWH": "0.321",
+				"Panmictic range": ["0.000", "−0.185"]
+			},
+			{
+				"Record": "China",
+				"Field": "Country",
+				"DWH": "0.354",
+				"Panmictic range": ["−0.024", "−0.366"]
+			},
+			{
+				"Record": "Thailand",
+				"Field": "Country",
+				"DWH": "0.362",
+				"Panmictic range": ["0.000", "−0.067"]
+			},
+			{
+				"Record": "US",
+				"Field": "Country",
+				"DWH": "0.337",
+				"Panmictic range": ["0.004", "−0.110"]
+			},
+			{
+				"Record": "Japan",
+				"Field": "Country",
+				"DWH": "0.446",
+				"Panmictic range": ["0.000", "−0.129"]
+			},
+			{
+				"Record": "South Korea",
+				"Field": "Country",
+				"DWH": "0.239",
+				"Panmictic range": ["0.001", "−0.153"]
+			},
+			{
+				"Record": "Luxembourg",
+				"Field": "Country",
+				"DWH": "0.492",
+				"Panmictic range": ["0.001", "−0.059"]
+			},
+			{
+				"Record": "Spain",
+				"Field": "Country",
+				"DWH": "0.495",
+				"Panmictic range": ["0.002", "−0.049"]
+			},
+			{
+				"Record": "India",
+				"Field": "Country",
+				"DWH": "0.400",
+				"Panmictic range": ["0.000", "−0.053"]
+			},
+			{
+				"Record": "Ukraine",
+				"Field": "Country",
+				"DWH": "0.400",
+				"Panmictic range": ["0.000", "−0.047"]
+			},
+			{
+				"Record": "Zambia",
+				"Field": "Country",
+				"DWH": "0.473",
+				"Panmictic range": ["0.000", "−0.143"]
+			},
+			{
+				"Record": "Myanmar",
+				"Field": "Country",
+				"DWH": "0.498",
+				"Panmictic range": ["0.000", "−0.040"]
+			},
+			{
+				"Record": "Russia",
+				"Field": "Country",
+				"DWH": "0.498",
+				"Panmictic range": ["0.000", "−0.046"]
+			},
+			{
+				"Record": "Uzbekistan",
+				"Field": "Country",
+				"DWH": "0.499",
+				"Panmictic range": ["0.000", "−0.045"]
+			},
+			{
+				"Record": "Cyprus",
+				"Field": "Country",
+				"DWH": "0.498",
+				"Panmictic range": ["0.001", "−0.048"]
+			},
+			{
+				"Record": "Germany",
+				"Field": "Country",
+				"DWH": "0.499",
+				"Panmictic range": ["0.000", "−0.033"]
+			},
+			{
+				"Record": "Brazil",
+				"Field": "Country",
+				"DWH": "0.499",
+				"Panmictic range": ["0.000", "−0.048"]
+			},
+			{
+				"Record": "Pakistan",
+				"Field": "Country",
+				"DWH": "0.499",
+				"Panmictic range": ["0.000", "−0.039"]
+			}
+		]
+	},
+	"ISOCode": {
+		"field": "ISOCode",
+		"fractions": [
+			{
+				"from": "JP",
+				"to": "JP",
+				"count": 10.42222222222222
+			},
+			{
+				"from": "JP",
+				"to": "US",
+				"count": 0.508080808080808
+			},
+			{
+				"from": "JP",
+				"to": "VN",
+				"count": 0.0715151515151515
+			},
+			{
+				"from": "US",
+				"to": "JP",
+				"count": 0.5080808080808081
+			},
+			{
+				"from": "US",
+				"to": "TH",
+				"count": 0.13636363636363635
+			},
+			{
+				"from": "US",
+				"to": "VN",
+				"count": 0.09168692270296548
+			},
+			{
+				"from": "US",
+				"to": "US",
+				"count": 4.222222222222222
+			},
+			{
+				"from": "VN",
+				"to": "JP",
+				"count": 0.07151515151515152
+			},
+			{
+				"from": "VN",
+				"to": "US",
+				"count": 0.09168692270296548
+			},
+			{
+				"from": "VN",
+				"to": "VN",
+				"count": 5.778038316931051
+			},
+			{
+				"from": "VN",
+				"to": "CN",
+				"count": 0.3766806722689075
+			},
+			{
+				"from": "VN",
+				"to": "TH",
+				"count": 0.045454545454545456
+			},
+			{
+				"from": "IN",
+				"to": "IN",
+				"count": 2
+			},
+			{
+				"from": "RU",
+				"to": "RU",
+				"count": 4
+			},
+			{
+				"from": "TH",
+				"to": "US",
+				"count": 0.13636363636363635
+			},
+			{
+				"from": "TH",
+				"to": "TH",
+				"count": 4
+			},
+			{
+				"from": "TH",
+				"to": "VN",
+				"count": 0.045454545454545456
+			},
+			{
+				"from": "CN",
+				"to": "CN",
+				"count": 29.706805555555555
+			},
+			{
+				"from": "CN",
+				"to": "VN",
+				"count": 0.3766806722689075
+			},
+			{
+				"from": "UZ",
+				"to": "UZ",
+				"count": 2
+			},
+			{
+				"from": "UA",
+				"to": "UA",
+				"count": 2
+			},
+			{
+				"from": "LU",
+				"to": "LU",
+				"count": 1.25
+			},
+			{
+				"from": "CY",
+				"to": "CY",
+				"count": 4
+			},
+			{
+				"from": "KR",
+				"to": "KR",
+				"count": 2.145591676841676
+			},
+			{
+				"from": "DE",
+				"to": "DE",
+				"count": 2
+			},
+			{
+				"from": "BR",
+				"to": "BR",
+				"count": 2
+			},
+			{
+				"from": "ZM",
+				"to": "ZM",
+				"count": 11.5
+			},
+			{
+				"from": "ES",
+				"to": "ES",
+				"count": 1.3333333333333337
+			},
+			{
+				"from": "MM",
+				"to": "MM",
+				"count": 1.5
+			},
+			{
+				"from": "PK",
+				"to": "PK",
+				"count": 2
+			}
+		],
+		"assortativity": [
+			{
+				"Record": "VN",
+				"Field": "ISOCode",
+				"DWH": "0.321",
+				"Panmictic range": ["0.002", "−0.185"]
+			},
+			{
+				"Record": "CN",
+				"Field": "ISOCode",
+				"DWH": "0.354",
+				"Panmictic range": ["0.031", "−0.347"]
+			},
+			{
+				"Record": "TH",
+				"Field": "ISOCode",
+				"DWH": "0.362",
+				"Panmictic range": ["0.000", "−0.065"]
+			},
+			{
+				"Record": "US",
+				"Field": "ISOCode",
+				"DWH": "0.337",
+				"Panmictic range": ["0.012", "−0.097"]
+			},
+			{
+				"Record": "JP",
+				"Field": "ISOCode",
+				"DWH": "0.446",
+				"Panmictic range": ["0.001", "−0.133"]
+			},
+			{
+				"Record": "KR",
+				"Field": "ISOCode",
+				"DWH": "0.239",
+				"Panmictic range": ["0.000", "−0.146"]
+			},
+			{
+				"Record": "LU",
+				"Field": "ISOCode",
+				"DWH": "0.492",
+				"Panmictic range": ["0.001", "−0.076"]
+			},
+			{
+				"Record": "ES",
+				"Field": "ISOCode",
+				"DWH": "0.495",
+				"Panmictic range": ["0.002", "−0.055"]
+			},
+			{
+				"Record": "IN",
+				"Field": "ISOCode",
+				"DWH": "0.400",
+				"Panmictic range": ["0.000", "−0.043"]
+			},
+			{
+				"Record": "UA",
+				"Field": "ISOCode",
+				"DWH": "0.400",
+				"Panmictic range": ["0.000", "−0.044"]
+			},
+			{
+				"Record": "ZM",
+				"Field": "ISOCode",
+				"DWH": "0.473",
+				"Panmictic range": ["0.003", "−0.130"]
+			},
+			{
+				"Record": "MM",
+				"Field": "ISOCode",
+				"DWH": "0.498",
+				"Panmictic range": ["0.000", "−0.047"]
+			},
+			{
+				"Record": "RU",
+				"Field": "ISOCode",
+				"DWH": "0.498",
+				"Panmictic range": ["0.000", "−0.049"]
+			},
+			{
+				"Record": "UZ",
+				"Field": "ISOCode",
+				"DWH": "0.499",
+				"Panmictic range": ["0.000", "−0.039"]
+			},
+			{
+				"Record": "CY",
+				"Field": "ISOCode",
+				"DWH": "0.498",
+				"Panmictic range": ["0.000", "−0.047"]
+			},
+			{
+				"Record": "DE",
+				"Field": "ISOCode",
+				"DWH": "0.499",
+				"Panmictic range": ["0.000", "−0.111"]
+			},
+			{
+				"Record": "BR",
+				"Field": "ISOCode",
+				"DWH": "0.499",
+				"Panmictic range": ["0.000", "−0.052"]
+			},
+			{
+				"Record": "PK",
+				"Field": "ISOCode",
+				"DWH": "0.499",
+				"Panmictic range": ["0.000", "−0.036"]
+			}
+		]
+	},
+	"SampleYear": {
+		"field": "SampleYear",
+		"fractions": [
+			{
+				"from": "1978",
+				"to": "1984",
+				"count": 0.3333333333333333
+			},
+			{
+				"from": "1978",
+				"to": "2004",
+				"count": 0.3333333333333333
+			},
+			{
+				"from": "1978",
+				"to": "2011",
+				"count": 0.3333333333333333
+			},
+			{
+				"from": "1984",
+				"to": "1978",
+				"count": 0.3333333333333333
+			},
+			{
+				"from": "1984",
+				"to": "2003",
+				"count": 0.1111111111111111
+			},
+			{
+				"from": "1984",
+				"to": "2009",
+				"count": 0.2222222222222222
+			},
+			{
+				"from": "1990",
+				"to": "1993",
+				"count": 0.1090909090909091
+			},
+			{
+				"from": "1990",
+				"to": "1996",
+				"count": 0.09090909090909091
+			},
+			{
+				"from": "1990",
+				"to": "1997",
+				"count": 0.08099173553719008
+			},
+			{
+				"from": "1990",
+				"to": "1998",
+				"count": 0.0106951871657754
+			},
+			{
+				"from": "1991",
+				"to": "1992",
+				"count": 0.07142857142857142
+			},
+			{
+				"from": "1992",
+				"to": "1991",
+				"count": 0.07142857142857142
+			},
+			{
+				"from": "1992",
+				"to": "1992",
+				"count": 1.4121515059015053
+			},
+			{
+				"from": "1992",
+				"to": "1993",
+				"count": 0.20880392755392752
+			},
+			{
+				"from": "1992",
+				"to": "2004",
+				"count": 0.08648758648758648
+			},
+			{
+				"from": "1993",
+				"to": "1990",
+				"count": 0.10909090909090909
+			},
+			{
+				"from": "1993",
+				"to": "1992",
+				"count": 0.20880392755392757
+			},
+			{
+				"from": "1993",
+				"to": "1993",
+				"count": 1.2
+			},
+			{
+				"from": "1993",
+				"to": "1994",
+				"count": 0.5
+			},
+			{
+				"from": "1993",
+				"to": "1997",
+				"count": 0.11696969696969696
+			},
+			{
+				"from": "1994",
+				"to": "1993",
+				"count": 0.5
+			},
+			{
+				"from": "1996",
+				"to": "1990",
+				"count": 0.09090909090909091
+			},
+			{
+				"from": "1997",
+				"to": "1990",
+				"count": 0.08099173553719008
+			},
+			{
+				"from": "1997",
+				"to": "1993",
+				"count": 0.11696969696969697
+			},
+			{
+				"from": "1997",
+				"to": "1997",
+				"count": 0.5339393939393939
+			},
+			{
+				"from": "1997",
+				"to": "1998",
+				"count": 1.0576648841354723
+			},
+			{
+				"from": "1997",
+				"to": "2009",
+				"count": 0.05
+			},
+			{
+				"from": "1998",
+				"to": "1990",
+				"count": 0.010695187165775402
+			},
+			{
+				"from": "1998",
+				"to": "1997",
+				"count": 1.0576648841354723
+			},
+			{
+				"from": "1998",
+				"to": "1998",
+				"count": 0.023727137913989123
+			},
+			{
+				"from": "1998",
+				"to": "1999",
+				"count": 0.016666666666666666
+			},
+			{
+				"from": "1998",
+				"to": "2006",
+				"count": 0.06944444444444445
+			},
+			{
+				"from": "1998",
+				"to": "2007",
+				"count": 0.06302521008403361
+			},
+			{
+				"from": "1998",
+				"to": "2009",
+				"count": 0.4580999066293183
+			},
+			{
+				"from": "1998",
+				"to": "2013",
+				"count": 0.38585434173669475
+			},
+			{
+				"from": "1999",
+				"to": "1998",
+				"count": 0.016666666666666666
+			},
+			{
+				"from": "1999",
+				"to": "2000",
+				"count": 1
+			},
+			{
+				"from": "1999",
+				"to": "2006",
+				"count": 0.04166666666666667
+			},
+			{
+				"from": "1999",
+				"to": "2009",
+				"count": 0.4666666666666667
+			},
+			{
+				"from": "2000",
+				"to": "1999",
+				"count": 1
+			},
+			{
+				"from": "2001",
+				"to": "2001",
+				"count": 2
+			},
+			{
+				"from": "2002",
+				"to": "2002",
+				"count": 2
+			},
+			{
+				"from": "2003",
+				"to": "1984",
+				"count": 0.1111111111111111
+			},
+			{
+				"from": "2003",
+				"to": "2003",
+				"count": 0.75
+			},
+			{
+				"from": "2003",
+				"to": "2004",
+				"count": 1
+			},
+			{
+				"from": "2003",
+				"to": "2005",
+				"count": 0.25
+			},
+			{
+				"from": "2003",
+				"to": "2009",
+				"count": 0.2222222222222222
+			},
+			{
+				"from": "2004",
+				"to": "1978",
+				"count": 0.3333333333333333
+			},
+			{
+				"from": "2004",
+				"to": "1992",
+				"count": 0.08648758648758649
+			},
+			{
+				"from": "2004",
+				"to": "2003",
+				"count": 1
+			},
+			{
+				"from": "2004",
+				"to": "2004",
+				"count": 2
+			},
+			{
+				"from": "2004",
+				"to": "2005",
+				"count": 1
+			},
+			{
+				"from": "2004",
+				"to": "2006",
+				"count": 1
+			},
+			{
+				"from": "2004",
+				"to": "2009",
+				"count": 1
+			},
+			{
+				"from": "2005",
+				"to": "2003",
+				"count": 0.25
+			},
+			{
+				"from": "2005",
+				"to": "2004",
+				"count": 1
+			},
+			{
+				"from": "2005",
+				"to": "2005",
+				"count": 9.1125
+			},
+			{
+				"from": "2005",
+				"to": "2006",
+				"count": 0.546875
+			},
+			{
+				"from": "2005",
+				"to": "2007",
+				"count": 0.10208333333333333
+			},
+			{
+				"from": "2005",
+				"to": "2009",
+				"count": 2.40375
+			},
+			{
+				"from": "2005",
+				"to": "2010",
+				"count": 0.2104166666666667
+			},
+			{
+				"from": "2006",
+				"to": "1998",
+				"count": 0.06944444444444445
+			},
+			{
+				"from": "2006",
+				"to": "1999",
+				"count": 0.04166666666666667
+			},
+			{
+				"from": "2006",
+				"to": "2004",
+				"count": 1
+			},
+			{
+				"from": "2006",
+				"to": "2005",
+				"count": 0.546875
+			},
+			{
+				"from": "2006",
+				"to": "2006",
+				"count": 0.7083333333333333
+			},
+			{
+				"from": "2006",
+				"to": "2007",
+				"count": 0.07291666666666666
+			},
+			{
+				"from": "2006",
+				"to": "2009",
+				"count": 0.25069444444444444
+			},
+			{
+				"from": "2006",
+				"to": "2010",
+				"count": 0.03125
+			},
+			{
+				"from": "2007",
+				"to": "1998",
+				"count": 0.06302521008403361
+			},
+			{
+				"from": "2007",
+				"to": "2005",
+				"count": 0.10208333333333333
+			},
+			{
+				"from": "2007",
+				"to": "2006",
+				"count": 0.07291666666666666
+			},
+			{
+				"from": "2007",
+				"to": "2007",
+				"count": 3.5
+			},
+			{
+				"from": "2007",
+				"to": "2009",
+				"count": 3.5625
+			},
+			{
+				"from": "2007",
+				"to": "2010",
+				"count": 0.3333333333333333
+			},
+			{
+				"from": "2009",
+				"to": "1984",
+				"count": 0.2222222222222222
+			},
+			{
+				"from": "2009",
+				"to": "1997",
+				"count": 0.05
+			},
+			{
+				"from": "2009",
+				"to": "1998",
+				"count": 0.4580999066293183
+			},
+			{
+				"from": "2009",
+				"to": "1999",
+				"count": 0.4666666666666667
+			},
+			{
+				"from": "2009",
+				"to": "2003",
+				"count": 0.2222222222222222
+			},
+			{
+				"from": "2009",
+				"to": "2004",
+				"count": 1
+			},
+			{
+				"from": "2009",
+				"to": "2005",
+				"count": 2.40375
+			},
+			{
+				"from": "2009",
+				"to": "2006",
+				"count": 0.25069444444444444
+			},
+			{
+				"from": "2009",
+				"to": "2007",
+				"count": 3.5625
+			},
+			{
+				"from": "2009",
+				"to": "2009",
+				"count": 14.147222222222219
+			},
+			{
+				"from": "2009",
+				"to": "2010",
+				"count": 3.3444444444444446
+			},
+			{
+				"from": "2010",
+				"to": "2005",
+				"count": 0.2104166666666667
+			},
+			{
+				"from": "2010",
+				"to": "2006",
+				"count": 0.03125
+			},
+			{
+				"from": "2010",
+				"to": "2007",
+				"count": 0.3333333333333333
+			},
+			{
+				"from": "2010",
+				"to": "2009",
+				"count": 3.3444444444444446
+			},
+			{
+				"from": "2010",
+				"to": "2010",
+				"count": 0.6666666666666667
+			},
+			{
+				"from": "2010",
+				"to": "2011",
+				"count": 2.111111111111111
+			},
+			{
+				"from": "2010",
+				"to": "2014",
+				"count": 0.2222222222222222
+			},
+			{
+				"from": "2011",
+				"to": "1978",
+				"count": 0.3333333333333333
+			},
+			{
+				"from": "2011",
+				"to": "2010",
+				"count": 2.111111111111111
+			},
+			{
+				"from": "2011",
+				"to": "2014",
+				"count": 0.2222222222222222
+			},
+			{
+				"from": "2013",
+				"to": "1998",
+				"count": 0.38585434173669475
+			},
+			{
+				"from": "2013",
+				"to": "2013",
+				"count": 5.833333333333334
+			},
+			{
+				"from": "2014",
+				"to": "2010",
+				"count": 0.2222222222222222
+			},
+			{
+				"from": "2014",
+				"to": "2011",
+				"count": 0.2222222222222222
+			},
+			{
+				"from": "2014",
+				"to": "2014",
+				"count": 0.2222222222222222
+			},
+			{
+				"from": "2015",
+				"to": "2015",
+				"count": 2
+			}
+		],
+		"assortativity": [
+			{
+				"Record": "1998",
+				"Field": "SampleYear",
+				"DWH": "−0.047",
+				"Panmictic range": ["0.001", "−0.060"]
+			},
+			{
+				"Record": "1997",
+				"Field": "SampleYear",
+				"DWH": "0.076",
+				"Panmictic range": ["0.002", "−0.075"]
+			},
+			{
+				"Record": "2009",
+				"Field": "SampleYear",
+				"DWH": "0.042",
+				"Panmictic range": ["0.011", "−0.317"]
+			},
+			{
+				"Record": "2007",
+				"Field": "SampleYear",
+				"DWH": "0.145",
+				"Panmictic range": ["0.012", "−0.126"]
+			},
+			{
+				"Record": "2013",
+				"Field": "SampleYear",
+				"DWH": "0.346",
+				"Panmictic range": ["0.000", "−0.140"]
+			},
+			{
+				"Record": "1996",
+				"Field": "SampleYear",
+				"DWH": "0.000",
+				"Panmictic range": ["0.000", "−0.096"]
+			},
+			{
+				"Record": "1990",
+				"Field": "SampleYear",
+				"DWH": "−0.019",
+				"Panmictic range": ["0.000", "−0.042"]
+			},
+			{
+				"Record": "1993",
+				"Field": "SampleYear",
+				"DWH": "0.181",
+				"Panmictic range": ["0.011", "−0.075"]
+			},
+			{
+				"Record": "2010",
+				"Field": "SampleYear",
+				"DWH": "−0.041",
+				"Panmictic range": ["0.001", "−0.144"]
+			},
+			{
+				"Record": "2006",
+				"Field": "SampleYear",
+				"DWH": "0.063",
+				"Panmictic range": ["0.005", "−0.088"]
+			},
+			{
+				"Record": "2005",
+				"Field": "SampleYear",
+				"DWH": "0.268",
+				"Panmictic range": ["0.000", "−0.162"]
+			},
+			{
+				"Record": "1992",
+				"Field": "SampleYear",
+				"DWH": "0.220",
+				"Panmictic range": ["0.002", "−0.120"]
+			},
+			{
+				"Record": "2004",
+				"Field": "SampleYear",
+				"DWH": "0.091",
+				"Panmictic range": ["0.018", "−0.089"]
+			},
+			{
+				"Record": "1991",
+				"Field": "SampleYear",
+				"DWH": "0.001",
+				"Panmictic range": ["0.000", "−0.096"]
+			},
+			{
+				"Record": "1999",
+				"Field": "SampleYear",
+				"DWH": "−0.025",
+				"Panmictic range": ["0.000", "−0.069"]
+			},
+			{
+				"Record": "2003",
+				"Field": "SampleYear",
+				"DWH": "0.130",
+				"Panmictic range": ["0.003", "−0.065"]
+			},
+			{
+				"Record": "1984",
+				"Field": "SampleYear",
+				"DWH": "−0.007",
+				"Panmictic range": ["0.000", "−0.033"]
+			},
+			{
+				"Record": "1978",
+				"Field": "SampleYear",
+				"DWH": "−0.028",
+				"Panmictic range": ["0.000", "−0.096"]
+			},
+			{
+				"Record": "2011",
+				"Field": "SampleYear",
+				"DWH": "−0.028",
+				"Panmictic range": ["0.000", "−0.063"]
+			},
+			{
+				"Record": "2014",
+				"Field": "SampleYear",
+				"DWH": "0.157",
+				"Panmictic range": ["0.000", "−0.030"]
+			},
+			{
+				"Record": "1994",
+				"Field": "SampleYear",
+				"DWH": "−0.004",
+				"Panmictic range": ["0.000", "−0.096"]
+			},
+			{
+				"Record": "2001",
+				"Field": "SampleYear",
+				"DWH": "0.400",
+				"Panmictic range": ["0.000", "−0.040"]
+			},
+			{
+				"Record": "2000",
+				"Field": "SampleYear",
+				"DWH": "−0.009",
+				"Panmictic range": ["0.000", "−0.096"]
+			},
+			{
+				"Record": "2002",
+				"Field": "SampleYear",
+				"DWH": "0.499",
+				"Panmictic range": ["0.000", "−0.041"]
+			},
+			{
+				"Record": "2015",
+				"Field": "SampleYear",
+				"DWH": "0.499",
+				"Panmictic range": ["0.000", "−0.045"]
+			}
+		]
+	},
+	"Subtype": {
+		"field": "Subtype",
+		"fractions": [
+			{
+				"from": "01_AE",
+				"to": "01_AE",
+				"count": 28.038851789703077
+			},
+			{
+				"from": "B",
+				"to": "B",
+				"count": 25.47892501017503
+			},
+			{
+				"from": "C",
+				"to": "C",
+				"count": 17.5
+			},
+			{
+				"from": "03_AB",
+				"to": "03_AB",
+				"count": 2
+			},
+			{
+				"from": "07_BC",
+				"to": "07_BC",
+				"count": 5.216666666666667
+			},
+			{
+				"from": "A1",
+				"to": "A1",
+				"count": 8
+			},
+			{
+				"from": "42_BF",
+				"to": "42_BF",
+				"count": 1.25
+			},
+			{
+				"from": "63_02A1",
+				"to": "63_02A1",
+				"count": 2
+			},
+			{
+				"from": "68_01B",
+				"to": "68_01B",
+				"count": 2
+			},
+			{
+				"from": "F1",
+				"to": "F1",
+				"count": 1.3333333333333337
+			},
+			{
+				"from": "83_cpx",
+				"to": "83_cpx",
+				"count": 1.5
+			}
+		],
+		"assortativity": [
+			{
+				"Record": "01_AE",
+				"Field": "Subtype",
+				"DWH": "0.363",
+				"Panmictic range": ["0.035", "−0.390"]
+			},
+			{
+				"Record": "B",
+				"Field": "Subtype",
+				"DWH": "0.415",
+				"Panmictic range": ["0.003", "−0.305"]
+			},
+			{
+				"Record": "07_BC",
+				"Field": "Subtype",
+				"DWH": "0.306",
+				"Panmictic range": ["0.003", "−0.184"]
+			},
+			{
+				"Record": "42_BF",
+				"Field": "Subtype",
+				"DWH": "0.492",
+				"Panmictic range": ["0.000", "−0.058"]
+			},
+			{
+				"Record": "F1",
+				"Field": "Subtype",
+				"DWH": "0.495",
+				"Panmictic range": ["0.000", "−0.058"]
+			},
+			{
+				"Record": "C",
+				"Field": "Subtype",
+				"DWH": "0.465",
+				"Panmictic range": ["0.000", "−0.191"]
+			},
+			{
+				"Record": "A1",
+				"Field": "Subtype",
+				"DWH": "0.468",
+				"Panmictic range": ["0.004", "−0.101"]
+			},
+			{
+				"Record": "83_cpx",
+				"Field": "Subtype",
+				"DWH": "0.498",
+				"Panmictic range": ["0.000", "−0.044"]
+			},
+			{
+				"Record": "03_AB",
+				"Field": "Subtype",
+				"DWH": "0.499",
+				"Panmictic range": ["0.000", "−0.110"]
+			},
+			{
+				"Record": "63_02A1",
+				"Field": "Subtype",
+				"DWH": "0.499",
+				"Panmictic range": ["0.000", "−0.032"]
+			},
+			{
+				"Record": "68_01B",
+				"Field": "Subtype",
+				"DWH": "0.499",
+				"Panmictic range": ["0.000", "−0.069"]
+			}
+		]
+	}
 }

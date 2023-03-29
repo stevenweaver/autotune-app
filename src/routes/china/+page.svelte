@@ -1,66 +1,50 @@
-<style>
-
-  :global(.container h1) {
-    @apply text-xxl font-semibold;
-    font-size: xx-large;
-    margin-top: 15px;
-    margin-bottom: 15px;
-  }
-
-  :global(#data) {
-    display:none;
-  }
-
-</style>
-
 <script>
+	import { onMount, beforeUpdate } from 'svelte';
+	import { Runtime, Inspector } from '@observablehq/runtime';
+	import notebook from 'f2e663c52265f41c';
 
-  import { onMount, beforeUpdate } from "svelte";
-  import { Runtime, Inspector } from "@observablehq/runtime";
-  import notebook from "f2e663c52265f41c";
-
-  let notebookRef;
+	let notebookRef;
 	let variableNames = [];
-  let viewFlag = true;
+	let viewFlag = true;
 
-  onMount(async () => {
+	onMount(async () => {
+		const runtime = new Runtime();
 
-    const runtime = new Runtime();
-
-    let main = runtime.module(notebook, name => {
-
-      const node = Inspector.into(notebookRef)(name);
+		let main = runtime.module(notebook, (name) => {
+			const node = Inspector.into(notebookRef)(name);
 			variableNames.push(name);
 
-      if(name != undefined) {
-        viewFlag = false;
-      }
+			if (name != undefined) {
+				viewFlag = false;
+			}
 
-      if(viewFlag) {
+			if (viewFlag) {
+				// Once we reach the "data" name, turn off appending
 
-        // Once we reach the "data" name, turn off appending
+				if (name == 'viewof table1') {
+					node._node.classList.add('table');
+					node._node.classList.add('table-striped');
+				}
 
-        if(name == "viewof table1") {
-          node._node.classList.add('table')
-          node._node.classList.add('table-striped')
-        }
-
-        return node;
-
-      } else {
-
-          return null;
-
-        }
-
-    });
-
-  });
-
+				return node;
+			} else {
+				return null;
+			}
+		});
+	});
 </script>
 
-<div class="container" bind:this={notebookRef}>
-</div>
+<div class="container" bind:this={notebookRef} />
 
+<style>
+	:global(.container h1) {
+		@apply text-xxl font-semibold;
+		font-size: xx-large;
+		margin-top: 15px;
+		margin-bottom: 15px;
+	}
 
-
+	:global(#data) {
+		display: none;
+	}
+</style>
