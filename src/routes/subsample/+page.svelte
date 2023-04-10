@@ -136,6 +136,8 @@
 				'75': seventyFivePercentRange
 			};
 
+      console.log(allItems);
+
 			const thresholdXy = { z: 'Sample', x: 'Iteration', y: 'Threshold' };
 
 			thresholdRangeOptions = {
@@ -155,13 +157,28 @@
 
 			const xy = { z: 'Sample', x: 'Iteration', y: 'Score' };
 
+			// scoreRangeOptions = {
+			//	y: {
+			//		grid: true,
+			//		inset: 6
+			//	},
+			//	marks: [Plot.boxY(allItems, { x: 'Sample', y: 'Score'})]
+			// };
+
 			scoreRangeOptions = {
 				y: {
 					grid: true,
 					inset: 6
 				},
-				marks: [Plot.boxY(allItems, { x: 'Sample', y: 'Score' })]
-			};
+				color: {
+					legend: true,
+					label: 'Score',
+					type: 'symlog'
+				},
+        facet: {data: allItems, y: "Sample", marginRight: 90},
+				marks: [Plot.dot(allItems, {x: "Score", y: "Threshold", stroke: "Threshold"})]
+			 };
+
 
 			scoreOptions = {
 				grid: true,
