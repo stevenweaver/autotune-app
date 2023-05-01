@@ -1,5 +1,6 @@
 <script>
 	import header from '../img/twitter-diamond.svg';
+	const bgSrc = './src/img/palmsprings.png';
 </script>
 
 <div class="bg-container">
@@ -40,7 +41,7 @@
 	}
 
 	.bg-container {
-		background-image: url('./src/img/palmsprings.png');
+		background-image: url({bgSrc});
 		background-repeat: repeat-x;
 		background-size: cover;
 		padding: 0px;
