@@ -24,6 +24,10 @@
 			x: {
 				nice: true
 			},
+      y: {
+        domain: [0,2],
+        transform: (y) => R.max(y, 0)
+      },
 			marks: [
 				Plot.frame(),
 				Plot.dot(totalReport, { x: 'Threshold', y: 'Score', fill: (d) => d.Score, r: 3 })
@@ -109,7 +113,6 @@
 		let content = d3.tsvParse(chiapasFile, d3.autoType);
 
 		// map the content to include ratios
-
 		let mappedContent = R.map((d) => {
 			d['R1_2'] = d.LargestCluster / d.SecondLargestCluster;
 			d['Degrees'] = d['Edges'] / d['Nodes'];
