@@ -15,28 +15,27 @@
 	let ratioPlotOptions;
 
 	function generateThresholdPlot(totalReport) {
-
 		let thresholdPlotOptions = {
 			grid: true,
 			inset: 5,
 			width: 800,
 			paddingLeft: 250,
 			paddingTop: 250,
-      marginTop:30,
-      marginBottom:50,
+			marginTop: 30,
+			marginBottom: 50,
 			x: {
 				nice: true,
-        insetLeft: 36,
-        tickSize: "10",
-        tickPadding: "5",
+				insetLeft: 36,
+				tickSize: '10',
+				tickPadding: '5'
 			},
-      y: {
-        domain: [0,2],
-        transform: (y) => R.max(y, 0),
-        tickSize: "10",
-        tickPadding: "5",
-      },
-      style: {fontSize: "15px"},
+			y: {
+				domain: [0, 2],
+				transform: (y) => R.max(y, 0),
+				tickSize: '10',
+				tickPadding: '5'
+			},
+			style: { fontSize: '15px' },
 			marks: [
 				Plot.frame(),
 				Plot.dot(totalReport, { x: 'Threshold', y: 'Score', fill: (d) => d.Score, r: 3 })
