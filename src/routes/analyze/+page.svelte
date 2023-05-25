@@ -36,7 +36,7 @@
         tickSize: "10",
         tickPadding: "5",
       },
-      style: {fontSize: "12px"},
+      style: {fontSize: "15px"},
 			marks: [
 				Plot.frame(),
 				Plot.dot(totalReport, { x: 'Threshold', y: 'Score', fill: (d) => d.Score, r: 3 })
