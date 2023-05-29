@@ -32,4 +32,9 @@ attributes are related to the formation of connections between individuals. It
 is used as a way to measure the similarity of attributes between individuals in
 a network.
 
+Randomization is performed by shuffling attribute labels among nodes, then
+performing DWH computation. This is useful in creating a null distribution of
+DWH scores under random mixing. A panmictic range is reported by shuffling
+attributes multiple times and reporting the minimum and maximum score.
+
 Please see [Benjamin Golub, Matthew O. Jackson, How Homophily Affects the Speed of Learning and Best-Response Dynamics, The Quarterly Journal of Economics, Volume 127, Issue 3, August 2012, Pages 1287–1338](https://arxiv.org/abs/0811.4013) for more information.
