@@ -64,16 +64,17 @@
 
 	import totalSummaryStats from '../../data/30063225/100/summaryStats.json';
 
-  function isFloat(x) { return !!(x % 1); }
+	function isFloat(x) {
+		return !!(x % 1);
+	}
 
-  function formatValue(x) { 
-    if (isFloat(x)) {
-        return d3.format('.3f')(x);
-    } else {
-      return x
-    }
-
-  }
+	function formatValue(x) {
+		if (isFloat(x)) {
+			return d3.format('.3f')(x);
+		} else {
+			return x;
+		}
+	}
 
 	function getMinThreshold(data) {
 		return data.reduce((min, p) => (p.Threshold < min ? p.Threshold : min), data[0].Threshold);
@@ -139,21 +140,19 @@
 			const thresholdXy = { z: 'Sample', x: 'Iteration', y: 'Threshold' };
 
 			thresholdRangeOptions = {
-
-        paddingLeft: 250,
-        paddingTop: 250,
-        marginTop: 30,
-        marginBottom: 50,
+				paddingLeft: 250,
+				paddingTop: 250,
+				marginTop: 30,
+				marginBottom: 50,
 
 				y: {
 					grid: true,
 					inset: 6
 				},
 
-			  style: { fontSize: '15px' },
+				style: { fontSize: '15px' },
 
 				marks: [Plot.boxY(allItems, { x: 'Sample', y: 'Threshold' })]
-
 			};
 
 			cols = R.map((key) => {
@@ -174,29 +173,26 @@
 			// };
 
 			scoreRangeOptions = {
-
-        paddingLeft: 250,
-        paddingTop: 250,
-        marginTop: 30,
-        marginBottom: 50,
+				paddingLeft: 250,
+				paddingTop: 250,
+				marginTop: 30,
+				marginBottom: 50,
 
 				y: {
 					grid: true,
 					inset: 6
 				},
 
-			  style: { fontSize: '15px' },
+				style: { fontSize: '15px' },
 
 				color: {
 					legend: true,
 					label: 'Score',
 					type: 'symlog'
 				},
-        facet: {data: allItems, y: "Sample", marginRight: 90},
-				marks: [Plot.dot(allItems, {x: "Score", y: "Threshold", stroke: "Score"})]
-
-			 };
-
+				facet: { data: allItems, y: 'Sample', marginRight: 90 },
+				marks: [Plot.dot(allItems, { x: 'Score', y: 'Threshold', stroke: 'Score' })]
+			};
 
 			scoreOptions = {
 				grid: true,
@@ -287,11 +283,15 @@
 
 	<div class="grid grid-cols-2 my-5">
 		<p>
-      This data is from Rhee et. all (1). The dataset in this study consists of 6,034 complete HIV-1 pol gene sequences, which were obtained from publicly available databases such as GenBank, the Los Alamos National Laboratories (LANL) HIV Sequence Database, and the HIV Drug Resistance Database. These sequences were annotated by country and year and were classified into 11 pure subtypes and 70 circulating recombinant forms (CRFs) using established taxonomic criteria.
-      To test the robustness of AUTO-TUNE, the researchers generated 10 random subsamples at 25%, 50%, and 75% each.
+			This data is from Rhee et. all (1). The dataset in this study consists of 6,034 complete HIV-1
+			pol gene sequences, which were obtained from publicly available databases such as GenBank, the
+			Los Alamos National Laboratories (LANL) HIV Sequence Database, and the HIV Drug Resistance
+			Database. These sequences were annotated by country and year and were classified into 11 pure
+			subtypes and 70 circulating recombinant forms (CRFs) using established taxonomic criteria. To
+			test the robustness of AUTO-TUNE, the researchers generated 10 random subsamples at 25%, 50%,
+			and 75% each.
 		</p>
 	</div>
-
 
 	<div class="summary flex-1 p-3 overflow-hidden panel">
 		<div class="thresholds">
@@ -311,7 +311,6 @@
 					][1]}]
 				</p>
 			{/if}
-
 		</div>
 
 		<div class="scores">
@@ -379,11 +378,13 @@
 	<div class="references">
 		<h2 class="text-xl">References</h2>
 		<ul class="list-disc ml-5">
-      <li>Rhee SY, Shafer RW. Geographically-stratified HIV-1 group M pol subtype and circulating recombinant form sequences. Sci Data. 2018 Jul 31;5:180148. doi: 10.1038/sdata.2018.148. PMID: 30063225; PMCID: PMC6067049.</li>
+			<li>
+				Rhee SY, Shafer RW. Geographically-stratified HIV-1 group M pol subtype and circulating
+				recombinant form sequences. Sci Data. 2018 Jul 31;5:180148. doi: 10.1038/sdata.2018.148.
+				PMID: 30063225; PMCID: PMC6067049.
+			</li>
 		</ul>
 	</div>
-
-
 
 	<!-- <div class="observable-notebook bg-white-300 flex-1 p-3 overflow-hidden panel" bind:this={notebookRef}></div> -->
 </div>
