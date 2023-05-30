@@ -57,6 +57,7 @@
 			[25, 50, 75]
 		)
 	);
+
 	let summaryStatisticPromise = R.map((p) => import(p['path']), summaryStatisticPaths);
 
 	import fullSampleValuesRaw from '../../data/30063225/100/sequence.tn93output.report.tsv?raw';
@@ -152,7 +153,7 @@
 
 				style: { fontSize: '15px' },
 
-				marks: [Plot.boxY(allItems, { x: 'Sample', y: 'Threshold' })]
+				marks: [Plot.boxY(allItems, { x: 'Sample', y: 'Score' })]
 			};
 
 			cols = R.map((key) => {
@@ -188,10 +189,11 @@
 				color: {
 					legend: true,
 					label: 'Score',
-					type: 'symlog'
+					type: 'symlog',
+          scheme: 'sinebow'
 				},
 				facet: { data: allItems, y: 'Sample', marginRight: 90 },
-				marks: [Plot.dot(allItems, { x: 'Score', y: 'Threshold', stroke: 'Score' })]
+				marks: [Plot.dot(allItems, { x: 'Score', y: 'Threshold', fill: (d) => d.Score, stroke: 'Score', r:6 })]
 			};
 
 			scoreOptions = {
