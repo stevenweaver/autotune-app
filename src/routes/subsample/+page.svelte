@@ -136,16 +136,24 @@
 				'75': seventyFivePercentRange
 			};
 
-      console.log(allItems);
-
 			const thresholdXy = { z: 'Sample', x: 'Iteration', y: 'Threshold' };
 
 			thresholdRangeOptions = {
+
+        paddingLeft: 250,
+        paddingTop: 250,
+        marginTop: 30,
+        marginBottom: 50,
+
 				y: {
 					grid: true,
 					inset: 6
 				},
+
+			  style: { fontSize: '15px' },
+
 				marks: [Plot.boxY(allItems, { x: 'Sample', y: 'Threshold' })]
+
 			};
 
 			cols = R.map((key) => {
@@ -166,17 +174,27 @@
 			// };
 
 			scoreRangeOptions = {
+
+        paddingLeft: 250,
+        paddingTop: 250,
+        marginTop: 30,
+        marginBottom: 50,
+
 				y: {
 					grid: true,
 					inset: 6
 				},
+
+			  style: { fontSize: '15px' },
+
 				color: {
 					legend: true,
 					label: 'Score',
 					type: 'symlog'
 				},
         facet: {data: allItems, y: "Sample", marginRight: 90},
-				marks: [Plot.dot(allItems, {x: "Score", y: "Threshold", stroke: "Threshold"})]
+				marks: [Plot.dot(allItems, {x: "Score", y: "Threshold", stroke: "Score"})]
+
 			 };
 
 
