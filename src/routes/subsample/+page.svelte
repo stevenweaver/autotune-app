@@ -63,6 +63,7 @@
 	import fullSampleValuesRaw from '../../data/30063225/100/sequence.tn93output.report.tsv?raw';
 	let fullSampleValues = d3.tsvParse(fullSampleValuesRaw, d3.autoType);
 
+
 	import totalSummaryStats from '../../data/30063225/100/summaryStats.json';
 
 	function isFloat(x) {
@@ -88,6 +89,38 @@
 	function getThresholdRange(data) {
 		return [getMinThreshold(data), getMaxThreshold(data)];
 	}
+
+  function getThresholdIQR(data) {
+    let thresholds = R.map(d => d.Threshold, data)
+    const Q1 = d3.quantile(thresholds, 0.25);
+    const Q3 = d3.quantile(thresholds, 0.75);
+    console.log(Q1);
+    console.log(Q3);
+  }
+
+  function getThresholdAvg(data) {
+    let thresholds = R.map(d => d.Threshold, data)
+    const mean = d3.mean(thresholds);
+    const median = d3.median(thresholds);
+    const std = d3.deviation(thresholds);
+    console.log(mean);
+    console.log(median);
+    console.log(std);
+  }
+
+  function getScoreAvg(data) {
+
+    let scores = R.map(d => d.Score, data)
+    const mean = d3.mean(scores);
+    const median = d3.median(scores);
+    const std = d3.deviation(scores);
+    console.log(mean);
+    console.log(median);
+    console.log(std);
+
+  }
+
+
 
 	onMount(async () => {
 		Promise.all(dataPromise).then((values) => {
@@ -138,6 +171,14 @@
 				'75': seventyFivePercentRange
 			};
 
+
+      //console.log('25');
+      //getScoreAvg(twentyFivePercents);
+      //console.log('50');
+      //getScoreAvg(fiftyPercents);
+      //console.log('75');
+      //getScoreAvg(seventyFivePercents);
+
 			const thresholdXy = { z: 'Sample', x: 'Iteration', y: 'Threshold' };
 
 			thresholdRangeOptions = {
@@ -153,7 +194,7 @@
 
 				style: { fontSize: '15px' },
 
-				marks: [Plot.boxY(allItems, { x: 'Sample', y: 'Score' })]
+				marks: [Plot.boxY(allItems, { x: 'Sample', y: 'Threshold' })]
 			};
 
 			cols = R.map((key) => {
