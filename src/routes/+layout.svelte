@@ -1,15 +1,12 @@
 <script>
 	import header from '../img/twitter-diamond.svg';
+	import palmsprings from '../img/palmsprings.png';
+  import 'bootstrap/dist/css/bootstrap.min.css';
 </script>
 
 <svelte:head>
+
 	<link rel="stylesheet" href="https://observablehq.com/_next/static/css/92c0a8010b575b66.css" />
-	<link
-		rel="stylesheet"
-		href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
-		integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I"
-		crossorigin="anonymous"
-	/>
 	<link
 		rel="stylesheet"
 		href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css"
@@ -51,6 +48,9 @@
 	.header-logo {
 		font-family: 'Fontdiner Swanky';
 		font-size: 20px;
+		outline: none !important;
+		text-decoration: none !important;
+		padding: 2px 1px 0;
 	}
 
 	:global(h1) {

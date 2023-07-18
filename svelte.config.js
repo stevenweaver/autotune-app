@@ -8,6 +8,7 @@ import mdsvexConfig from './mdsvex.config.js';
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
 	kit: {
+    appDir:'static',
 		adapter: adapter({
       			out: 'build',
       			precompress: false,

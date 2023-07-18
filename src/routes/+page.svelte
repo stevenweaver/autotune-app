@@ -1,8 +1,9 @@
 <script>
 	import header from '../img/twitter-diamond.svg';
+	import palmsprings from '../img/palmsprings.png';
 </script>
 
-<div class="bg-container">
+<div class="bg-container" style="background-image: url({palmsprings})">
 	<div class="container bg-slate-100/40">
 		<div class="grid grid-rows-2 grid-cols-6 pt-4">
 			<div class="col-start-2 col-span-4 row-span-1">
@@ -40,7 +41,7 @@
 	}
 
 	.bg-container {
-		background-image: url('./src/img/palmsprings.png');
+		background-image: var(--background-image);
 		background-repeat: repeat-x;
 		background-size: cover;
 		padding: 0px;
