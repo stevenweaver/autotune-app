@@ -8,11 +8,21 @@
 
 	import chiapasFile from '../../data/chiapas_seguro_report.tsv?raw';
 
-	let files;
+	let alignmentFiles;
+	let thresholdFiles;
 	let content;
 	let thresholdPlotOptions;
 	let clusterPlotOptions;
 	let ratioPlotOptions;
+	let CLI;
+
+	async function initTN93() {
+		CLI = await new window.Aioli(['tn93/1.0.11']);
+	}
+
+	onMount(async () => {
+		await initTN93();
+	});
 
 	function generateThresholdPlot(totalReport) {
 		let thresholdPlotOptions = {
@@ -98,10 +108,25 @@
 		return ratioPlotOptions;
 	}
 
-	$: if (files) {
-		// Note that `files` is of type `FileList`, not an Array:
+	$: if (alignmentFiles) {
+		let file = alignmentFiles[0];
+		file.text().then(async (fileContent) => {
+			// write the file to Biowasm
+			await CLI.fs.writeFile('alignment.fasta', fileContent);
+
+			// run tn93 on the file
+			await CLI.exec('tn93 -o pairwise_distances.tn93.csv -t 0.03 alignment.fasta');
+
+			const outputDistances = await CLI.fs.readFile('pairwise_distances.tn93.csv', {
+				encoding: 'utf8'
+			});
+		});
+	}
+
+	$: if (thresholdFiles) {
+		// Note that `thresholdFiles` is of type `FileList`, not an Array:
 		// https://developer.mozilla.org/en-US/docs/Web/API/FileList
-		let file = files[0];
+		let file = thresholdFiles[0];
 		file.text().then((fileContent) => {
 			let content = d3.tsvParse(fileContent, d3.autoType);
 
@@ -133,10 +158,18 @@
 	}
 </script>
 
+<svelte:head>
+	<script src="https://biowasm.com/cdn/v3/aioli.js"></script>
+</svelte:head>
+
 <div class="container pt-3">
 	<h2>Analyze your own Results</h2>
 
-	<input class="pt-3" id="threshold-file" bind:files type="file" accept="text/*" />
+	<h5 class="pt-3">Upload a multiple sequence alignment:</h5>
+	<input class="pt-2" id="alignment-file" bind:files={alignmentFiles} type="file" />
+
+	<h5 class="pt-3">Upload a threshold file:</h5>
+	<input class="pt-2" id="threshold-file" bind:files={thresholdFiles} type="file" accept="text/*" />
 
 	<div class="pt-3">
 		<h2 class="text-xl">Instructions</h2>
