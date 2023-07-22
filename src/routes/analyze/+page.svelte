@@ -21,34 +21,39 @@
 	let pyodide;
 	let hivclusteringOutput = '';
 
-	async function initTN93() {
-		const checkAioli = setInterval(async () => {
-			if (window.Aioli) {
-				clearInterval(checkAioli);
-				CLI = await new window.Aioli(['tn93/1.0.11']);
-			}
-		}, 500);
+	function initTN93() {
+		return new Promise((resolve, reject) => {
+			const checkAioli = setInterval(async () => {
+				if (window.Aioli) {
+					clearInterval(checkAioli);
+					CLI = await new window.Aioli(['tn93/1.0.11']);
+					resolve();
+				}
+			}, 500);
+		});
 	}
 
-	async function initPyodide() {
-		const checkPyodide = setInterval(async () => {
-			if (window.loadPyodide) {
-				clearInterval(checkPyodide);
-				pyodide = await window.loadPyodide({
-					stdout: (text) => {
-						hivclusteringOutput += text + '\n';
-					}
-				});
-				await pyodide.loadPackage('micropip');
-				const micropip = pyodide.pyimport('micropip');
-				await micropip.install('hivclustering');
-			}
-		}, 500);
+	function initPyodide() {
+		return new Promise((resolve, reject) => {
+			const checkPyodide = setInterval(async () => {
+				if (window.loadPyodide) {
+					clearInterval(checkPyodide);
+					pyodide = await window.loadPyodide({
+						stdout: (text) => {
+							hivclusteringOutput += text + '\n';
+						}
+					});
+					await pyodide.loadPackage('micropip');
+					const micropip = pyodide.pyimport('micropip');
+					await micropip.install('hivclustering');
+					resolve();
+				}
+			}, 500);
+		});
 	}
 
 	onMount(async () => {
-		initTN93();
-		initPyodide();
+		await Promise.all([initTN93(), initPyodide()]);
 	});
 
 	function generateThresholdPlot(totalReport) {
@@ -175,7 +180,6 @@
 			await CLI.exec(`tn93 -o ${PAIRWISE_DIST_FILE_NAME} -t 0.03 ${ALIGNMENT_FILE_NAME}`);
 
 			// write tn93 to pyodide
-			// TODO: implement pyodide proxyfs?
 			logFASTA('writing tn93 to pyodide');
 			const outputDistances = await CLI.fs.readFile(PAIRWISE_DIST_FILE_NAME, {
 				encoding: 'utf8'
