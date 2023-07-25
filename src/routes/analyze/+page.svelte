@@ -241,19 +241,24 @@
 <div class="container pt-3">
 	<h2>Analyze your own Results</h2>
 
-	<h5 class="pt-3">Upload a multiple sequence alignment:</h5>
-	<input
-		class="pt-2"
-		id="alignment-file"
-		bind:files={alignmentFiles}
-		on:change={renderPlotsFromFASTA}
-		type="file"
-	/>
+  <div class="row">
+      <div class="col-md-5">
+          <h5 class="pt-3" style="font-size: 1.5em; font-weight: 'bold';">Upload a multiple sequence alignment:</h5>
+          <input type="file" class="d-none" id="alignment-file" bind:files={alignmentFiles} on:change={renderPlotsFromFASTA}>
+          <label for="alignment-file" class="btn btn-warning w-100">Choose file</label>
+      </div>
+      <div class="col-md-2 d-flex justify-content-center align-items-center">
+          <span style="font-size: 2em; font-weight: bold;font-family: 'Fontdiner Swanky';">OR</span>
+      </div>
+      <div class="col-md-5">
+          <h5 class="pt-3" style="font-size: 1.5em; font-weight: 'bold';">Upload an AUTO-TUNE results file :</h5>
+          <input type="file" class="d-none" id="threshold-file" bind:files={thresholdFiles} accept="text/*">
+          <label for="threshold-file" class="btn btn-primary w-100">Choose file</label>
+      </div>
+  </div>
 
-	<h5 class="pt-3">Upload a threshold file:</h5>
-	<input class="pt-2" id="threshold-file" bind:files={thresholdFiles} type="file" accept="text/*" />
 
-	<h5 class="pt-3">Plot Generation Console</h5>
+	<h5 class="pt-3" style="font-size: 1.5em; font-weight: 'bold';">Plot Generation Console</h5>
 	<div id="upload-status-log" />
 
 	<div class="pt-3">
