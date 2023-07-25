@@ -7,12 +7,65 @@
 	import RenderPlot from '../../Plot.svelte';
 
 	import chiapasFile from '../../data/chiapas_seguro_report.tsv?raw';
+	import { init } from 'svelte/internal';
 
-	let files;
+	const PAIRWISE_DIST_FILE_NAME = 'pairwise_distances.tn93.csv';
+	const ALIGNMENT_FILE_NAME = 'alignment.fasta';
+
+	let alignmentFiles;
+	let thresholdFiles;
 	let content;
 	let thresholdPlotOptions;
 	let clusterPlotOptions;
 	let ratioPlotOptions;
+	let CLI;
+	let pyodide;
+	let hivclusteringOutput = '';
+
+	const aioliIsDefined = () => {	
+		return new Promise((resolve) => {
+			const checkInterval = setInterval(() => {
+				if (typeof window !== 'undefined' && window.Aioli) {
+					clearInterval(checkInterval);
+					resolve();
+				}
+			}, 500);
+		});
+	} 
+
+	const pyodideIsDefined = () => {
+		new Promise((resolve) => {
+		const checkInterval = setInterval(() => {
+			if (typeof window !== 'undefined' && window.pyodide) {
+				clearInterval(checkInterval);
+				resolve();
+			}
+		}, 500);
+	});
+	}
+
+	async function initTN93() {
+		await aioliIsDefined;
+		CLI = await new window.Aioli(['tn93/1.0.11']);
+	}
+
+	async function initPyodide() {
+		await pyodideIsDefined;
+		pyodide = await window.loadPyodide({
+			stdout: (text) => {
+				hivclusteringOutput += text + '\n';
+			}
+		});
+		await pyodide.loadPackage('micropip');
+		const micropip = pyodide.pyimport('micropip');
+		await micropip.install('hivclustering');
+	}
+
+	onMount(() => {
+		generatePlots(chiapasFile);
+		initTN93();
+		initPyodide();
+	});
 
 	function generateThresholdPlot(totalReport) {
 		let thresholdPlotOptions = {
@@ -98,27 +151,8 @@
 		return ratioPlotOptions;
 	}
 
-	$: if (files) {
-		// Note that `files` is of type `FileList`, not an Array:
-		// https://developer.mozilla.org/en-US/docs/Web/API/FileList
-		let file = files[0];
-		file.text().then((fileContent) => {
-			let content = d3.tsvParse(fileContent, d3.autoType);
-
-			// map the content to include ratios
-
-			let mappedContent = R.map((d) => {
-				d['R1_2'] = d.LargestCluster / d.SecondLargestCluster;
-				d['Degrees'] = d['Edges'] / d['Nodes'];
-				return d;
-			}, content);
-
-			thresholdPlotOptions = generateThresholdPlot(mappedContent);
-			clusterPlotOptions = generateClusterPlot(mappedContent);
-			ratioPlotOptions = generateRatioPlot(mappedContent);
-		});
-	} else {
-		let content = d3.tsvParse(chiapasFile, d3.autoType);
+	function generatePlots(data) {
+		let content = d3.tsvParse(data, d3.autoType);
 
 		// map the content to include ratios
 		let mappedContent = R.map((d) => {
@@ -130,13 +164,97 @@
 		thresholdPlotOptions = generateThresholdPlot(mappedContent);
 		clusterPlotOptions = generateClusterPlot(mappedContent);
 		ratioPlotOptions = generateRatioPlot(mappedContent);
+		logFASTA('done generating plots');
+	}
+
+	function logFASTA(text, clear = false) {
+		const log = document.getElementById('upload-status-log');
+		if (clear) {
+			log.innerHTML = '';
+		}
+
+		const time = new Date().toLocaleTimeString();
+		log.innerHTML += time + ': ' + text + '<br>';
+	}
+
+	function renderPlotsFromFASTA() {
+		if (alignmentFiles.length == 0) {
+			return;
+		}
+
+		logFASTA('starting renderPlotsFromFASTA', true);
+		let file = alignmentFiles[0];
+		file.text().then(async (fileContent) => {
+			// TODO: add logging (through some kind of output ui?)
+			logFASTA('writing file to biowasm');
+			await CLI.fs.writeFile(ALIGNMENT_FILE_NAME, fileContent);
+
+			logFASTA('running tn93');
+			await CLI.exec(`tn93 -o ${PAIRWISE_DIST_FILE_NAME} -t 0.03 ${ALIGNMENT_FILE_NAME}`);
+
+			// write tn93 to pyodide
+			logFASTA('writing tn93 to pyodide');
+			const outputDistances = await CLI.fs.readFile(PAIRWISE_DIST_FILE_NAME, {
+				encoding: 'utf8'
+			});
+			pyodide.FS.writeFile(PAIRWISE_DIST_FILE_NAME, outputDistances, {
+				encoding: 'utf8'
+			});
+
+			// run hivclustering on the file
+			logFASTA('running hivclustering');
+			try {
+				// set global variables
+				pyodide.globals.set('PAIRWISE_DIST_FILE_NAME', PAIRWISE_DIST_FILE_NAME);
+				pyodide.runPython(
+					await fetch('./hivclustering_browser.py').then((response) => response.text())
+				);
+			} catch (PythonError) {
+				if (PythonError.message.includes('SystemExit: 0')) {
+					logFASTA('hivclustering exited successfully');
+				} else {
+					logFASTA('Error running hivclustering:');
+					logFASTA(PythonError);
+					return;
+				}
+			}
+
+			generatePlots(hivclusteringOutput);
+		});
+	}
+
+	$: if (thresholdFiles) {
+		// Note that `thresholdFiles` is of type `FileList`, not an Array:
+		// https://developer.mozilla.org/en-US/docs/Web/API/FileList
+		let file = thresholdFiles[0];
+		file.text().then((fileContent) => {
+			generatePlots(fileContent);
+		});
 	}
 </script>
+
+<svelte:head>
+	<script src="https://biowasm.com/cdn/v3/aioli.js"></script>
+	<script src="https://cdn.jsdelivr.net/pyodide/v0.23.4/full/pyodide.js"></script>
+</svelte:head>
 
 <div class="container pt-3">
 	<h2>Analyze your own Results</h2>
 
-	<input class="pt-3" id="threshold-file" bind:files type="file" accept="text/*" />
+	<h5 class="pt-3">Upload a multiple sequence alignment:</h5>
+	<input
+		class="pt-2"
+		id="alignment-file"
+		bind:files={alignmentFiles}
+		on:change={renderPlotsFromFASTA}
+		type="file"
+	/>
+
+	<h5 class="pt-3">Upload a threshold file:</h5>
+	<input class="pt-2" id="threshold-file" bind:files={thresholdFiles} type="file" accept="text/*" />
+
+	<h5 class="pt-3">Plot Generation Console</h5>
+	<div id="upload-status-log" />
 
 	<div class="pt-3">
 		<h2 class="text-xl">Instructions</h2>
@@ -185,5 +303,12 @@
 <style>
 	code {
 		white-space: pre;
+	}
+
+	#upload-status-log {
+		width: max(25vw, 200px);
+		height: 200px;
+		border: 1px solid black;
+		border-radius: 2px;
 	}
 </style>
