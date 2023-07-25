@@ -7,6 +7,7 @@
 	import RenderPlot from '../../Plot.svelte';
 
 	import chiapasFile from '../../data/chiapas_seguro_report.tsv?raw';
+	import { init } from 'svelte/internal';
 
 	const PAIRWISE_DIST_FILE_NAME = 'pairwise_distances.tn93.csv';
 	const ALIGNMENT_FILE_NAME = 'alignment.fasta';
@@ -21,39 +22,49 @@
 	let pyodide;
 	let hivclusteringOutput = '';
 
-	function initTN93() {
-		return new Promise((resolve, reject) => {
-			const checkAioli = setInterval(async () => {
-				if (window.Aioli) {
-					clearInterval(checkAioli);
-					CLI = await new window.Aioli(['tn93/1.0.11']);
+	const aioliIsDefined = () => {	
+		return new Promise((resolve) => {
+			const checkInterval = setInterval(() => {
+				if (typeof window !== 'undefined' && window.Aioli) {
+					clearInterval(checkInterval);
 					resolve();
 				}
 			}, 500);
 		});
+	} 
+
+	const pyodideIsDefined = () => {
+		new Promise((resolve) => {
+		const checkInterval = setInterval(() => {
+			if (typeof window !== 'undefined' && window.pyodide) {
+				clearInterval(checkInterval);
+				resolve();
+			}
+		}, 500);
+	});
 	}
 
-	function initPyodide() {
-		return new Promise((resolve, reject) => {
-			const checkPyodide = setInterval(async () => {
-				if (window.loadPyodide) {
-					clearInterval(checkPyodide);
-					pyodide = await window.loadPyodide({
-						stdout: (text) => {
-							hivclusteringOutput += text + '\n';
-						}
-					});
-					await pyodide.loadPackage('micropip');
-					const micropip = pyodide.pyimport('micropip');
-					await micropip.install('hivclustering');
-					resolve();
-				}
-			}, 500);
+	async function initTN93() {
+		await aioliIsDefined;
+		CLI = await new window.Aioli(['tn93/1.0.11']);
+	}
+
+	async function initPyodide() {
+		await pyodideIsDefined;
+		pyodide = await window.loadPyodide({
+			stdout: (text) => {
+				hivclusteringOutput += text + '\n';
+			}
 		});
+		await pyodide.loadPackage('micropip');
+		const micropip = pyodide.pyimport('micropip');
+		await micropip.install('hivclustering');
 	}
 
-	onMount(async () => {
-		await Promise.all([initTN93(), initPyodide()]);
+	onMount(() => {
+		generatePlots(chiapasFile);
+		initTN93();
+		initPyodide();
 	});
 
 	function generateThresholdPlot(totalReport) {
@@ -153,10 +164,17 @@
 		thresholdPlotOptions = generateThresholdPlot(mappedContent);
 		clusterPlotOptions = generateClusterPlot(mappedContent);
 		ratioPlotOptions = generateRatioPlot(mappedContent);
+		logFASTA('done generating plots');
 	}
 
-	function logFASTA(text) {
-		console.log(text);
+	function logFASTA(text, clear = false) {
+		const log = document.getElementById('upload-status-log');
+		if (clear) {
+			log.innerHTML = '';
+		}
+
+		const time = new Date().toLocaleTimeString();
+		log.innerHTML += time + ': ' + text + '<br>';
 	}
 
 	function renderPlotsFromFASTA() {
@@ -164,12 +182,7 @@
 			return;
 		}
 
-		if (pyodide === undefined || CLI === undefined) {
-			setTimeout(() => {
-				renderPlotsFromFASTA();
-			}, 250);
-		}
-
+		logFASTA('starting renderPlotsFromFASTA', true);
 		let file = alignmentFiles[0];
 		file.text().then(async (fileContent) => {
 			// TODO: add logging (through some kind of output ui?)
@@ -217,8 +230,6 @@
 		file.text().then((fileContent) => {
 			generatePlots(fileContent);
 		});
-	} else {
-		generatePlots(chiapasFile);
 	}
 </script>
 
@@ -241,6 +252,9 @@
 
 	<h5 class="pt-3">Upload a threshold file:</h5>
 	<input class="pt-2" id="threshold-file" bind:files={thresholdFiles} type="file" accept="text/*" />
+
+	<h5 class="pt-3">Plot Generation Console</h5>
+	<div id="upload-status-log" />
 
 	<div class="pt-3">
 		<h2 class="text-xl">Instructions</h2>
@@ -289,5 +303,12 @@
 <style>
 	code {
 		white-space: pre;
+	}
+
+	#upload-status-log {
+		width: max(25vw, 200px);
+		height: 200px;
+		border: 1px solid black;
+		border-radius: 2px;
 	}
 </style>
