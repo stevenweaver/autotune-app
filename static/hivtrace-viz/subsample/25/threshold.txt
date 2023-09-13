@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/Users/sweaver/Programming/hivtrace/env/bin/hivnetworkcsv", line 7, in <module>
+    exec(compile(f.read(), __file__, 'exec'))
+  File "/Users/sweaver/Programming/hivtrace/hivclustering/scripts/hivnetworkcsv", line 619, in <module>
+    make_hiv_network()
+  File "/Users/sweaver/Programming/hivtrace/hivclustering/scripts/hivnetworkcsv", line 19, in make_hiv_network
+    network = build_a_network()
+  File "/Users/sweaver/Programming/hivtrace/hivclustering/hivclustering/networkbuild.py", line 674, in build_a_network
+    network.read_from_csv_file_ordered(run_settings.input, network_report, formatter, run_settings.threshold if run_settings.threshold is not None else 1., 'BULK', run_settings.auto_prof if run_settings.auto_prof else 1e-5, filter = edge_filter_function)
+  File "/Users/sweaver/Programming/hivtrace/hivclustering/hivclustering/mtnetwork.py", line 671, in read_from_csv_file_ordered
+    header = next(edgeReader)
+StopIteration
