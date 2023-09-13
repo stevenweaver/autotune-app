@@ -64,7 +64,6 @@
 	import fullSampleValuesRaw from '../../data/30063225/100/sequence.tn93output.report.tsv?raw';
 	let fullSampleValues = d3.tsvParse(fullSampleValuesRaw, d3.autoType);
 
-
 	import totalSummaryStats from '../../data/30063225/100/summaryStats.json';
 
 	function isFloat(x) {
@@ -120,8 +119,6 @@
     console.log(std);
 
   }
-
-
 
 	onMount(async () => {
 		Promise.all(dataPromise).then((values) => {
@@ -206,14 +203,6 @@
 			}, R.keys(R.omit(['histogram'], totalSummaryStats)));
 
 			const xy = { z: 'Sample', x: 'Iteration', y: 'Score' };
-
-			// scoreRangeOptions = {
-			//	y: {
-			//		grid: true,
-			//		inset: 6
-			//	},
-			//	marks: [Plot.boxY(allItems, { x: 'Sample', y: 'Score'})]
-			// };
 
 			scoreRangeOptions = {
 				paddingLeft: 250,
@@ -319,13 +308,13 @@
 </script>
 
 <div class="container px-5">
-	<div class="grid grid-cols-3 items-center my-5">
+	<div class="grid grid-cols-1 items-center my-5">
 		<div class="col-start-1 col-span-2">
 			<h1 class="text-6xl">Subsampling with AUTO-TUNE</h1>
 		</div>
 	</div>
 
-	<div class="grid grid-cols-2 my-5">
+	<div class="grid grid-cols-1 my-5">
 		<p>
 			This data is from Rhee et. all (1). The dataset in this study consists of 6,034 complete HIV-1
 			pol gene sequences, which were obtained from publicly available databases such as GenBank, the
@@ -335,6 +324,7 @@
 			test the robustness of AUTO-TUNE, the researchers generated 10 random subsamples at 25%, 50%,
 			and 75% each.
 		</p>
+    <p> Network visualizations of each subsample run can be found <a href="/hivtrace-viz/index.html">here</a>.
 	</div>
 
 	<div class="summary flex-1 p-3 overflow-hidden panel">
