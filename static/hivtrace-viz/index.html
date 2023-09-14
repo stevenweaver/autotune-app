@@ -52,36 +52,68 @@
 							</a>
 							<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 								<!-- Loop through these items to dynamically generate the list -->
-								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/25/1/results_comparison.json')">25 1</a>
-								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/25/2/results_comparison.json')">25 2</a>
-								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/25/3/results_comparison.json')">25 3</a>
-								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/25/4/results_comparison.json')">25 4</a>
-								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/25/5/results_comparison.json')">25 5</a>
-								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/25/6/results_comparison.json')">25 6</a>
-								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/25/7/results_comparison.json')">25 7</a>
-								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/25/8/results_comparison.json')">25 8</a>
-								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/25/9/results_comparison.json')">25 9</a>
-								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/25/10/results_comparison.json')">25 10</a>
-								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/50/1/results_comparison.json')">50 1</a>
-								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/50/2/results_comparison.json')">50 2</a>
-								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/50/3/results_comparison.json')">50 3</a>
-								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/50/4/results_comparison.json')">50 4</a>
-								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/50/5/results_comparison.json')">50 5</a>
-								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/50/6/results_comparison.json')">50 6</a>
-								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/50/7/results_comparison.json')">50 7</a>
-								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/50/8/results_comparison.json')">50 8</a>
-								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/50/9/results_comparison.json')">50 9</a>
-								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/50/10/results_comparison.json')">50 10</a>
-								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/75/1/results_comparison.json')">75 1</a>
-								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/75/2/results_comparison.json')">75 2</a>
-								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/75/3/results_comparison.json')">75 3</a>
-								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/75/4/results_comparison.json')">75 4</a>
-								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/75/5/results_comparison.json')">75 5</a>
-								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/75/6/results_comparison.json')">75 6</a>
-								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/75/7/results_comparison.json')">75 7</a>
-								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/75/8/results_comparison.json')">75 8</a>
-								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/75/9/results_comparison.json')">75 9</a>
-								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/75/10/results_comparison.json')">75 10</a>
+								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/25/1/results_comparison.json')">Optimal 25 1</a>
+								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/25/2/results_comparison.json')">Optimal 25 2</a>
+								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/25/3/results_comparison.json')">Optimal 25 3</a>
+								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/25/4/results_comparison.json')">Optimal 25 4</a>
+								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/25/5/results_comparison.json')">Optimal 25 5</a>
+								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/25/6/results_comparison.json')">Optimal 25 6</a>
+								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/25/7/results_comparison.json')">Optimal 25 7</a>
+								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/25/8/results_comparison.json')">Optimal 25 8</a>
+								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/25/9/results_comparison.json')">Optimal 25 9</a>
+								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/25/10/results_comparison.json')">Optimal 25 10</a>
+								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/50/1/results_comparison.json')">Optimal 50 1</a>
+								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/50/2/results_comparison.json')">Optimal 50 2</a>
+								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/50/3/results_comparison.json')">Optimal 50 3</a>
+								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/50/4/results_comparison.json')">Optimal 50 4</a>
+								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/50/5/results_comparison.json')">Optimal 50 5</a>
+								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/50/6/results_comparison.json')">Optimal 50 6</a>
+								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/50/7/results_comparison.json')">Optimal 50 7</a>
+								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/50/8/results_comparison.json')">Optimal 50 8</a>
+								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/50/9/results_comparison.json')">Optimal 50 9</a>
+								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/50/10/results_comparison.json')">Optimal 50 10</a>
+								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/75/1/results_comparison.json')">Optimal 75 1</a>
+								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/75/2/results_comparison.json')">Optimal 75 2</a>
+								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/75/3/results_comparison.json')">Optimal 75 3</a>
+								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/75/4/results_comparison.json')">Optimal 75 4</a>
+								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/75/5/results_comparison.json')">Optimal 75 5</a>
+								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/75/6/results_comparison.json')">Optimal 75 6</a>
+								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/75/7/results_comparison.json')">Optimal 75 7</a>
+								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/75/8/results_comparison.json')">Optimal 75 8</a>
+								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/75/9/results_comparison.json')">Optimal 75 9</a>
+								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/75/10/results_comparison.json')">Optimal 75 10</a>
+
+								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/25/1/results_comparison_1.5.json')">1.5% 25 1</a>
+								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/25/2/results_comparison_1.5.json')">1.5% 25 2</a>
+								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/25/3/results_comparison_1.5.json')">1.5% 25 3</a>
+								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/25/4/results_comparison_1.5.json')">1.5% 25 4</a>
+								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/25/5/results_comparison_1.5.json')">1.5% 25 5</a>
+								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/25/6/results_comparison_1.5.json')">1.5% 25 6</a>
+								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/25/7/results_comparison_1.5.json')">1.5% 25 7</a>
+								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/25/8/results_comparison_1.5.json')">1.5% 25 8</a>
+								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/25/9/results_comparison_1.5.json')">1.5% 25 9</a>
+								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/25/10/results_comparison_1.5.json')">1.5% 25 10</a>
+								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/50/1/results_comparison_1.5.json')">1.5% 50 1</a>
+								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/50/2/results_comparison_1.5.json')">1.5% 50 2</a>
+								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/50/3/results_comparison_1.5.json')">1.5% 50 3</a>
+								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/50/4/results_comparison_1.5.json')">1.5% 50 4</a>
+								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/50/5/results_comparison_1.5.json')">1.5% 50 5</a>
+								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/50/6/results_comparison_1.5.json')">1.5% 50 6</a>
+								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/50/7/results_comparison_1.5.json')">1.5% 50 7</a>
+								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/50/8/results_comparison_1.5.json')">1.5% 50 8</a>
+								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/50/9/results_comparison_1.5.json')">1.5% 50 9</a>
+								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/50/10/results_comparison_1.5.json')">1.5% 50 10</a>
+								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/75/1/results_comparison_1.5.json')">1.5% 75 1</a>
+								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/75/2/results_comparison_1.5.json')">1.5% 75 2</a>
+								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/75/3/results_comparison_1.5.json')">1.5% 75 3</a>
+								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/75/4/results_comparison_1.5.json')">1.5% 75 4</a>
+								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/75/5/results_comparison_1.5.json')">1.5% 75 5</a>
+								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/75/6/results_comparison_1.5.json')">1.5% 75 6</a>
+								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/75/7/results_comparison_1.5.json')">1.5% 75 7</a>
+								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/75/8/results_comparison_1.5.json')">1.5% 75 8</a>
+								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/75/9/results_comparison_1.5.json')">1.5% 75 9</a>
+								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/75/10/results_comparison_1.5.json')">1.5% 75 10</a>
+
 								<!-- ... repeat for each URL -->
 							</div>
 						</li>
