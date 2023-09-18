@@ -7,6 +7,137 @@
 	import * as Plot from '@observablehq/plot';
 	import RenderPlot from '../../Plot.svelte';
 
+  import val25_1 from '../../data/30063225/25/1/sampled.tn93output.report.tsv?raw';
+  import val25_2 from '../../data/30063225/25/2/sampled.tn93output.report.tsv?raw';
+  import val25_3 from '../../data/30063225/25/3/sampled.tn93output.report.tsv?raw';
+  import val25_4 from '../../data/30063225/25/4/sampled.tn93output.report.tsv?raw';
+  import val25_5 from '../../data/30063225/25/5/sampled.tn93output.report.tsv?raw';
+  import val25_6 from '../../data/30063225/25/6/sampled.tn93output.report.tsv?raw';
+  import val25_7 from '../../data/30063225/25/7/sampled.tn93output.report.tsv?raw';
+  import val25_8 from '../../data/30063225/25/8/sampled.tn93output.report.tsv?raw';
+  import val25_9 from '../../data/30063225/25/9/sampled.tn93output.report.tsv?raw';
+  import val25_10 from '../../data/30063225/25/10/sampled.tn93output.report.tsv?raw';
+  import val50_1 from '../../data/30063225/50/1/sampled.tn93output.report.tsv?raw';
+  import val50_2 from '../../data/30063225/50/2/sampled.tn93output.report.tsv?raw';
+  import val50_3 from '../../data/30063225/50/3/sampled.tn93output.report.tsv?raw';
+  import val50_4 from '../../data/30063225/50/4/sampled.tn93output.report.tsv?raw';
+  import val50_5 from '../../data/30063225/50/5/sampled.tn93output.report.tsv?raw';
+  import val50_6 from '../../data/30063225/50/6/sampled.tn93output.report.tsv?raw';
+  import val50_7 from '../../data/30063225/50/7/sampled.tn93output.report.tsv?raw';
+  import val50_8 from '../../data/30063225/50/8/sampled.tn93output.report.tsv?raw';
+  import val50_9 from '../../data/30063225/50/9/sampled.tn93output.report.tsv?raw';
+  import val50_10 from '../../data/30063225/50/10/sampled.tn93output.report.tsv?raw';
+  import val75_1 from '../../data/30063225/75/1/sampled.tn93output.report.tsv?raw';
+  import val75_2 from '../../data/30063225/75/2/sampled.tn93output.report.tsv?raw';
+  import val75_3 from '../../data/30063225/75/3/sampled.tn93output.report.tsv?raw';
+  import val75_4 from '../../data/30063225/75/4/sampled.tn93output.report.tsv?raw';
+  import val75_5 from '../../data/30063225/75/5/sampled.tn93output.report.tsv?raw';
+  import val75_6 from '../../data/30063225/75/6/sampled.tn93output.report.tsv?raw';
+  import val75_7 from '../../data/30063225/75/7/sampled.tn93output.report.tsv?raw';
+  import val75_8 from '../../data/30063225/75/8/sampled.tn93output.report.tsv?raw';
+  import val75_9 from '../../data/30063225/75/9/sampled.tn93output.report.tsv?raw';
+  import val75_10 from '../../data/30063225/75/10/sampled.tn93output.report.tsv?raw';
+
+  import json25_1 from '../../data/30063225/25/1/sampledSummaryStatsTN93.json';
+  import json25_2 from '../../data/30063225/25/2/sampledSummaryStatsTN93.json';
+  import json25_3 from '../../data/30063225/25/3/sampledSummaryStatsTN93.json';
+  import json25_4 from '../../data/30063225/25/4/sampledSummaryStatsTN93.json';
+  import json25_5 from '../../data/30063225/25/5/sampledSummaryStatsTN93.json';
+  import json25_6 from '../../data/30063225/25/6/sampledSummaryStatsTN93.json';
+  import json25_7 from '../../data/30063225/25/7/sampledSummaryStatsTN93.json';
+  import json25_8 from '../../data/30063225/25/8/sampledSummaryStatsTN93.json';
+  import json25_9 from '../../data/30063225/25/9/sampledSummaryStatsTN93.json';
+  import json25_10 from '../../data/30063225/25/10/sampledSummaryStatsTN93.json';
+  import json50_1 from '../../data/30063225/50/1/sampledSummaryStatsTN93.json';
+  import json50_2 from '../../data/30063225/50/2/sampledSummaryStatsTN93.json';
+  import json50_3 from '../../data/30063225/50/3/sampledSummaryStatsTN93.json';
+  import json50_4 from '../../data/30063225/50/4/sampledSummaryStatsTN93.json';
+  import json50_5 from '../../data/30063225/50/5/sampledSummaryStatsTN93.json';
+  import json50_6 from '../../data/30063225/50/6/sampledSummaryStatsTN93.json';
+  import json50_7 from '../../data/30063225/50/7/sampledSummaryStatsTN93.json';
+  import json50_8 from '../../data/30063225/50/8/sampledSummaryStatsTN93.json';
+  import json50_9 from '../../data/30063225/50/9/sampledSummaryStatsTN93.json';
+  import json50_10 from '../../data/30063225/50/10/sampledSummaryStatsTN93.json';
+  import json75_1 from '../../data/30063225/75/1/sampledSummaryStatsTN93.json';
+  import json75_2 from '../../data/30063225/75/2/sampledSummaryStatsTN93.json';
+  import json75_3 from '../../data/30063225/75/3/sampledSummaryStatsTN93.json';
+  import json75_4 from '../../data/30063225/75/4/sampledSummaryStatsTN93.json';
+  import json75_5 from '../../data/30063225/75/5/sampledSummaryStatsTN93.json';
+  import json75_6 from '../../data/30063225/75/6/sampledSummaryStatsTN93.json';
+  import json75_7 from '../../data/30063225/75/7/sampledSummaryStatsTN93.json';
+  import json75_8 from '../../data/30063225/75/8/sampledSummaryStatsTN93.json';
+  import json75_9 from '../../data/30063225/75/9/sampledSummaryStatsTN93.json';
+  import json75_10 from '../../data/30063225/75/10/sampledSummaryStatsTN93.json';
+
+
+
+  let tn93reports = {
+    val25_1: val25_1,
+    val25_2: val25_2,
+    val25_3: val25_3,
+    val25_4: val25_4,
+    val25_5: val25_5,
+    val25_6: val25_6,
+    val25_7: val25_7,
+    val25_8: val25_8,
+    val25_9: val25_9,
+    val25_10: val25_10,
+    val50_1: val50_1,
+    val50_2: val50_2,
+    val50_3: val50_3,
+    val50_4: val50_4,
+    val50_5: val50_5,
+    val50_6: val50_6,
+    val50_7: val50_7,
+    val50_8: val50_8,
+    val50_9: val50_9,
+    val50_10: val50_10,
+    val75_1: val75_1,
+    val75_2: val75_2,
+    val75_3: val75_3,
+    val75_4: val75_4,
+    val75_5: val75_5,
+    val75_6: val75_6,
+    val75_7: val75_7,
+    val75_8: val75_8,
+    val75_9: val75_9,
+    val75_10: val75_10
+  };
+
+  let jsonReports = {
+    json25_1: json25_1,
+    json25_2: json25_2,
+    json25_3: json25_3,
+    json25_4: json25_4,
+    json25_5: json25_5,
+    json25_6: json25_6,
+    json25_7: json25_7,
+    json25_8: json25_8,
+    json25_9: json25_9,
+    json25_10: json25_10,
+    json50_1: json50_1,
+    json50_2: json50_2,
+    json50_3: json50_3,
+    json50_4: json50_4,
+    json50_5: json50_5,
+    json50_6: json50_6,
+    json50_7: json50_7,
+    json50_8: json50_8,
+    json50_9: json50_9,
+    json50_10: json50_10,
+    json75_1: json75_1,
+    json75_2: json75_2,
+    json75_3: json75_3,
+    json75_4: json75_4,
+    json75_5: json75_5,
+    json75_6: json75_6,
+    json75_7: json75_7,
+    json75_8: json75_8,
+    json75_9: json75_9,
+    json75_10: json75_10
+  };
+
+
 	let dataValues = [];
 	let allItems = [];
 	let totalReport = [];
@@ -35,13 +166,17 @@
 						sample: i,
 						iteration: j,
 						name: `${i}_${j}`,
+            value : tn93reports[`val${i}_${j}`],
 						path: `../../data/30063225/${i}/${j}/sampled.tn93output.report.tsv?raw`
 					};
 				}, R.range(1, 11)),
 			[25, 50, 75]
 		)
 	);
-	let dataPromise = R.map((p) => import(p['path']), paths);
+
+	let dataValuesRaw = R.map((p) => p['value'], paths);
+
+	//let dataPromise = R.map((p) => import(p['path']), paths);
 
 	// Get all summary stats to import
 	let summaryStatisticPaths = R.flatten(
@@ -52,6 +187,7 @@
 						sample: i,
 						iteration: j,
 						name: `${i}_${j}`,
+            value : jsonReports[`json${i}_${j}`],
 						path: `../../data/30063225/${i}/${j}/sampledSummaryStatsTN93.json`
 					};
 				}, R.range(1, 11)),
@@ -59,7 +195,7 @@
 		)
 	);
 
-	let summaryStatisticPromise = R.map((p) => import(p['path']), summaryStatisticPaths);
+	let summaryStatisticValuesRaw = R.map((p) => p['value'], summaryStatisticPaths);
 
 	import fullSampleValuesRaw from '../../data/30063225/100/sequence.tn93output.report.tsv?raw';
 	let fullSampleValues = d3.tsvParse(fullSampleValuesRaw, d3.autoType);
@@ -94,8 +230,6 @@
     let thresholds = R.map(d => d.Threshold, data)
     const Q1 = d3.quantile(thresholds, 0.25);
     const Q3 = d3.quantile(thresholds, 0.75);
-    console.log(Q1);
-    console.log(Q3);
   }
 
   function getThresholdAvg(data) {
@@ -103,9 +237,6 @@
     const mean = d3.mean(thresholds);
     const median = d3.median(thresholds);
     const std = d3.deviation(thresholds);
-    console.log(mean);
-    console.log(median);
-    console.log(std);
   }
 
   function getScoreAvg(data) {
@@ -114,15 +245,12 @@
     const mean = d3.mean(scores);
     const median = d3.median(scores);
     const std = d3.deviation(scores);
-    console.log(mean);
-    console.log(median);
-    console.log(std);
 
   }
 
 	onMount(async () => {
-		Promise.all(dataPromise).then((values) => {
-			dataValues = R.map((d) => d3.tsvParse(d.default, d3.autoType), values);
+
+			dataValues = R.map((d) => d3.tsvParse(d, d3.autoType), dataValuesRaw);
 
 			const mapIndexed = R.addIndex(R.map);
 			dataValues = mapIndexed(
@@ -255,7 +383,6 @@
 					type: 'symlog'
 				}
 			};
-		});
 
 		fullSamplingScoreOptions = {
 			grid: true,
@@ -277,10 +404,7 @@
 			}
 		};
 
-		Promise.all(summaryStatisticPromise).then((values) => {
-			const mapIndexed = R.addIndex(R.map);
-
-			summaryStatValues = R.map((d) => R.omit(['histogram'], d.default), values);
+			summaryStatValues = R.map((d) => R.omit(['histogram'], d), summaryStatisticValuesRaw);
 			summaryStatValues = mapIndexed(
 				(item, i) => R.assoc('name', summaryStatisticPaths[i]['name'], item),
 				summaryStatValues
@@ -303,7 +427,6 @@
 				return { key: key, title: key, value: (v) => formatValue(v[key]), sortable: true };
 			}, R.keys(R.omit(['histogram'], summaryStatValues[0])));
 			allSummaryStats = R.concat([ttotalSummaryStats], summaryStatValues);
-		});
 	});
 </script>
 
