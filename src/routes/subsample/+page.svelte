@@ -25,7 +25,6 @@
 	let fullSamplingScoreOptions;
 	let thresholdRanges;
 
-
 	// Get all data to import
 	let paths = R.flatten(
 		R.map(
