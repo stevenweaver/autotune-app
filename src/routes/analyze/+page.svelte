@@ -183,7 +183,9 @@
 		}
 
 		logFASTA('starting renderPlotsFromFASTA', true);
+
 		let file = alignmentFiles[0];
+
 		file.text().then(async (fileContent) => {
 			// TODO: add logging (through some kind of output ui?)
 			logFASTA('writing file to biowasm');

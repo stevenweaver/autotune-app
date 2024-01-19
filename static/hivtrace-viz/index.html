@@ -51,8 +51,10 @@
 								Select URL
 							</a>
 							<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+
 								<!-- Loop through these items to dynamically generate the list -->
 								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/25/1/results_comparison.json')">Optimal 25 1</a>
+								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/25/1/results.optimal.json')">Original 25 1</a>
 								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/25/2/results_comparison.json')">Optimal 25 2</a>
 								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/25/3/results_comparison.json')">Optimal 25 3</a>
 								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/25/4/results_comparison.json')">Optimal 25 4</a>
@@ -62,6 +64,7 @@
 								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/25/8/results_comparison.json')">Optimal 25 8</a>
 								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/25/9/results_comparison.json')">Optimal 25 9</a>
 								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/25/10/results_comparison.json')">Optimal 25 10</a>
+
 								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/50/1/results_comparison.json')">Optimal 50 1</a>
 								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/50/2/results_comparison.json')">Optimal 50 2</a>
 								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/50/3/results_comparison.json')">Optimal 50 3</a>
@@ -72,6 +75,7 @@
 								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/50/8/results_comparison.json')">Optimal 50 8</a>
 								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/50/9/results_comparison.json')">Optimal 50 9</a>
 								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/50/10/results_comparison.json')">Optimal 50 10</a>
+
 								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/75/1/results_comparison.json')">Optimal 75 1</a>
 								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/75/2/results_comparison.json')">Optimal 75 2</a>
 								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/75/3/results_comparison.json')">Optimal 75 3</a>
@@ -83,6 +87,9 @@
 								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/75/9/results_comparison.json')">Optimal 75 9</a>
 								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/75/10/results_comparison.json')">Optimal 75 10</a>
 
+
+								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/100/results.optimal.json')">Optimal 100</a>
+
 								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/25/1/results_comparison_1.5.json')">1.5% 25 1</a>
 								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/25/2/results_comparison_1.5.json')">1.5% 25 2</a>
 								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/25/3/results_comparison_1.5.json')">1.5% 25 3</a>
@@ -93,6 +100,7 @@
 								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/25/8/results_comparison_1.5.json')">1.5% 25 8</a>
 								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/25/9/results_comparison_1.5.json')">1.5% 25 9</a>
 								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/25/10/results_comparison_1.5.json')">1.5% 25 10</a>
+
 								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/50/1/results_comparison_1.5.json')">1.5% 50 1</a>
 								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/50/2/results_comparison_1.5.json')">1.5% 50 2</a>
 								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/50/3/results_comparison_1.5.json')">1.5% 50 3</a>
@@ -103,6 +111,7 @@
 								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/50/8/results_comparison_1.5.json')">1.5% 50 8</a>
 								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/50/9/results_comparison_1.5.json')">1.5% 50 9</a>
 								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/50/10/results_comparison_1.5.json')">1.5% 50 10</a>
+
 								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/75/1/results_comparison_1.5.json')">1.5% 75 1</a>
 								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/75/2/results_comparison_1.5.json')">1.5% 75 2</a>
 								<a class="dropdown-item" href="#" onclick="initialize_cluster_network_graphs('subsample/75/3/results_comparison_1.5.json')">1.5% 75 3</a>
@@ -1064,7 +1073,7 @@
 				const iteration = parts[2];
 
 				// Update info message
-				$("#subsample-callout-text").html(`<p>Viewing iteration ${iteration} for subsample proportion ${subsampleProportion}%.</p> <p>Please select "sampled cluster" under the "Color" menu and "Sampled" under the "Shape" menu.</p> <p>"Sampled Cluster" indicates which cluster was sampled in the subampled dataset.</p> <p>"Sampled" indicates if the node was in the subsampled dataset. </p> <p>The entire network is of the 100% sampled dataset.</p> <p>“Bad” nodes are those that are (1) sampled (2) clustered in the full network and (3) NOT clustered in the smaller network.</p>`);
+				$("#subsample-callout-text").html(`<p>Viewing iteration ${iteration} for subsample proportion ${subsampleProportion}%.</p> <p>Please select "sampled cluster" under the "Color" menu and "Sampled" under the "Shape" menu.</p> <p>"Sampled Cluster" indicates the cluster id of the node in the subsampled dataset.</p> <p>"Sampled" indicates if the node was in the subsampled dataset. </p> <p>The entire network is of the 100% sampled dataset.</p> <p>“Bad” nodes are those that are (1) sampled (2) clustered in the full network and (3) NOT clustered in the smaller network.</p>`);
 
         d3.json(url, function (error, results) {
           if (error) {
