@@ -7,6 +7,8 @@
 	import * as Plot from '@observablehq/plot';
 	import RenderPlot from '../../Plot.svelte';
 
+  import fullySampledResults from '../../data/30063225/100/results.optimal.json';
+
   import val25_1 from '../../data/30063225/25/1/sampled.tn93output.report.tsv?raw';
   import val25_2 from '../../data/30063225/25/2/sampled.tn93output.report.tsv?raw';
   import val25_3 from '../../data/30063225/25/3/sampled.tn93output.report.tsv?raw';
@@ -137,6 +139,8 @@
     json75_10: json75_10
   };
 
+  import combinedReport from '../../data/30063225/combined_report.json';
+  import combinedReportUnoptimized from '../../data/30063225/combined_report_unoptimized.json';
 
 	let dataValues = [];
 	let allItems = [];
@@ -146,12 +150,18 @@
 	let summaryStatCols = [];
 	let summaryStatValues = [];
 	let allSummaryStats = [];
+	let nodeSummaryItems = [];
 
 	let a = 100;
 	let b = 0;
 
 	let scoreRangeOptions;
 	let thresholdRangeOptions;
+  let missingSampleOptions;
+  let totalSubsampledNodeCountOptions;
+  let totalSubsampledCapturedOptions;
+  let disjointedClustersOptions;
+  let proportionOfSampledSingletonsClusteredOptions;
 	let scoreOptions;
 	let fullSamplingScoreOptions;
 	let thresholdRanges;
@@ -173,6 +183,7 @@
 			[25, 50, 75]
 		)
 	);
+
 
 	let dataValuesRaw = R.map((p) => p['value'], paths);
 
@@ -282,6 +293,54 @@
 				allItems
 			);
 
+      let totalClusterCount = fullySampledResults["trace_results"]["Network Summary"]["Clusters"];
+
+      const annotateMissingSummaryData = dataPoint => {
+        let sample = dataPoint['Sample'];
+        let iteration = dataPoint['Iteration'];
+
+        let nodeItem = {};
+        nodeItem['Sample'] = dataPoint['Sample'];
+        nodeItem['Iteration'] = dataPoint['Iteration'];
+        nodeItem['totalMissingNodeCount'] = combinedReport[sample][iteration]["summary"]["totalMissingNodeCount"]
+        nodeItem['totalSubsampledNodeCount'] = combinedReport[sample][iteration]["summary"]["totalSubsampledNodeCount"]
+        nodeItem['totalSubsampledCaptured'] = combinedReport[sample][iteration]["summary"]["totalSubsampledCaptured"]
+        nodeItem['disjointedClusters'] = combinedReport[sample][iteration].intersections.length/totalClusterCount;
+        nodeItem['proportionOfSampledSingletonsClustered'] = combinedReport[sample][iteration]["summary"]["proportionOfSampledSingletonsClustered"]
+        nodeItem['optimized'] = 'Optimized Threshold';
+
+        return nodeItem;
+
+      };
+
+
+      const annotateMissingSummaryDataUnoptimized = dataPoint => {
+        let sample = dataPoint['Sample'];
+        let iteration = dataPoint['Iteration'];
+
+        let nodeItem = {};
+
+        nodeItem['Sample'] = dataPoint['Sample'];
+        nodeItem['Iteration'] = dataPoint['Iteration'];
+        nodeItem['totalMissingNodeCount'] = combinedReportUnoptimized[sample][iteration]["summary"]["totalMissingNodeCount"]
+        nodeItem['totalSubsampledNodeCount'] = combinedReportUnoptimized[sample][iteration]["summary"]["totalSubsampledNodeCount"]
+        nodeItem['totalSubsampledCaptured'] = combinedReportUnoptimized[sample][iteration]["summary"]["totalSubsampledCaptured"]
+        nodeItem['disjointedClusters'] = combinedReportUnoptimized[sample][iteration].intersections.length/totalClusterCount;
+        nodeItem['proportionOfSampledSingletonsClustered'] = combinedReportUnoptimized[sample][iteration]["summary"]["proportionOfSampledSingletonsClustered"]
+        nodeItem['optimized'] = "1.5% Threshold";
+
+        return nodeItem;
+
+      };
+
+
+      let optimizedItems = R.map(annotateMissingSummaryData, allItems);
+      let unoptimizedItems = R.map(annotateMissingSummaryDataUnoptimized, allItems);
+      nodeSummaryItems = R.concat(optimizedItems, unoptimizedItems);
+      console.log(JSON.stringify(nodeSummaryItems));
+
+
+
 			let twentyFivePercents = R.filter((d) => d.Sample == 25, allItems);
 			let twentyFivePercentRange = getThresholdRange(twentyFivePercents);
 
@@ -296,14 +355,6 @@
 				'50': fiftyPercentRange,
 				'75': seventyFivePercentRange
 			};
-
-
-      //console.log('25');
-      //getScoreAvg(twentyFivePercents);
-      //console.log('50');
-      //getScoreAvg(fiftyPercents);
-      //console.log('75');
-      //getScoreAvg(seventyFivePercents);
 
 			const thresholdXy = { z: 'Sample', x: 'Iteration', y: 'Threshold' };
 
@@ -321,6 +372,98 @@
 				style: { fontSize: '15px' },
 
 				marks: [Plot.boxY(allItems, { x: 'Sample', y: 'Threshold' })]
+			};
+
+			missingSampleOptions = {
+				paddingLeft: 250,
+				paddingTop: 250,
+				marginTop: 30,
+				marginBottom: 50,
+
+				y: {
+					grid: true,
+					inset: 6
+				},
+        color: { legend: true },
+				style: { fontSize: '15px' },
+        facet: {data: nodeSummaryItems, x: "optimized"},
+				marks: [Plot.boxY(nodeSummaryItems, { x: 'Sample', y: 'totalMissingNodeCount', fill: 'optimized'})]
+
+			};
+
+			totalSubsampledNodeCountOptions = {
+				paddingLeft: 250,
+				paddingTop: 250,
+				marginTop: 30,
+				marginBottom: 50,
+				y: {
+					grid: true,
+					inset: 6
+				},
+        color: { legend: true },
+				style: { fontSize: '15px' },
+        facet: {data: nodeSummaryItems, x: "optimized"},
+				marks: [Plot.boxY(nodeSummaryItems, { x: 'Sample', y: 'totalSubsampledNodeCount', fill: 'optimized' })]
+
+			};
+
+
+			totalSubsampledCapturedOptions = {
+				paddingLeft: 250,
+				paddingTop: 250,
+				marginTop: 70,
+				marginBottom: 50,
+				y: {
+					grid: true,
+					inset: 6,
+          label: "Proportion of Nodes Captured"
+				},
+      	x: {
+          label: "% Randomly Sampled"
+				},
+        color: { legend: true },
+				style: { fontSize: '15px' },
+        facet: {data: nodeSummaryItems, x: "optimized", label:""},
+				marks: [Plot.boxY(nodeSummaryItems, { x: 'Sample', y: 'totalSubsampledCaptured', fill: 'optimized' })]
+
+			};
+
+			disjointedClustersOptions = {
+				paddingLeft: 250,
+				paddingTop: 250,
+				marginTop: 30,
+				marginBottom: 50,
+
+				y: {
+					grid: true,
+					inset: 6
+				},
+        color: { legend: true },
+				style: { fontSize: '15px' },
+        facet: {data: nodeSummaryItems, x: "optimized", label:""},
+				marks: [Plot.boxY(nodeSummaryItems, { x: 'Sample', y: 'disjointedClusters', fill:'optimized' })]
+
+			};
+
+			proportionOfSampledSingletonsClusteredOptions = {
+				paddingLeft: 250,
+				paddingTop: 250,
+				marginTop: 30,
+				marginBottom: 50,
+				marginTop: 30,
+				y: {
+					grid: true,
+					inset: 6,
+          label: "Proportion of Singletons Clustered in Subsampled Network"
+				},
+      	x: {
+          label: "% Randomly Sampled"
+				},
+        color: { legend: true },
+				style: { fontSize: '15px' },
+        // facet: {data: nodeSummaryItems, x: "optimized", label:""},
+				marks: [Plot.boxY(R.filter(d =>  d.optimized == 'Optimized Threshold', nodeSummaryItems), { x: 'Sample', y: 'proportionOfSampledSingletonsClustered', fill: '#f28e2c' })]
+
 			};
 
 			cols = R.map((key) => {
@@ -404,6 +547,7 @@
 			}
 		};
 
+
 			summaryStatValues = R.map((d) => R.omit(['histogram'], d), summaryStatisticValuesRaw);
 			summaryStatValues = mapIndexed(
 				(item, i) => R.assoc('name', summaryStatisticPaths[i]['name'], item),
@@ -431,6 +575,7 @@
 </script>
 
 <div class="container px-5">
+
 	<div class="grid grid-cols-1 items-center my-5">
 		<div class="col-start-1 col-span-2">
 			<h1 class="text-6xl">Subsampling with AUTO-TUNE</h1>
@@ -531,6 +676,36 @@
 			classNameThead={['table-warning']}
 		/>
 	</div>
+
+		<div class="missing-node-summary">
+			<h1 class="text-xl py-2">Missing Nodes Summary</h1>
+
+   		<h3>Plot</h3>
+			<RenderPlot options={totalSubsampledCapturedOptions} />
+			<p class="py-5">
+      The proportion of nodes subsampled that were clustered in both the
+      original network and the subsampled network. The box plots indicate that
+      the proportion of nodes captured in the subsampled networks increases
+      from the 1.5% threshold to the optimized AUTO-TUNE threshold at each
+      subsampling level. This trend suggests that the AUTO-TUNE thresholding
+      method may be more effective and reliable for maintaining network
+      structure in subsampled datasets.
+ 			</p>
+
+
+   		<h3>Plot</h3>
+			<RenderPlot options={proportionOfSampledSingletonsClusteredOptions} />
+			<p class="py-5">
+      Proportion of nodes that were singletons in the original network and
+      became clustered in the subsampled networks. Each box plot represents the
+      proportion of such nodes at 25%, 50%, and 75% subsampling rates across 10
+      random iterations. Here, we see that AUTO-TUNE's adaptive thresholding
+      plays a minimal role in affecting underlying network structure.
+			</p>
+
+		</div>
+
+
 
 	<div class="references">
 		<h2 class="text-xl">References</h2>
