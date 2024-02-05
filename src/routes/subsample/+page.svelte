@@ -687,7 +687,7 @@
       original network and the subsampled network. The box plots indicate that
       the proportion of nodes captured in the subsampled networks increases
       from the 1.5% threshold to the optimized AUTO-TUNE threshold at each
-      subsampling level. This trend suggests that the AUTO-TUNE thresholding
+      subsampling level. This trend suggests that the AUTO-TUNE scoring
       method may be more effective and reliable for maintaining network
       structure in subsampled datasets.
  			</p>
