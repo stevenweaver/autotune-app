@@ -337,9 +337,6 @@
       let optimizedItems = R.map(annotateMissingSummaryData, allItems);
       let unoptimizedItems = R.map(annotateMissingSummaryDataUnoptimized, allItems);
       nodeSummaryItems = R.concat(optimizedItems, unoptimizedItems);
-      console.log(JSON.stringify(nodeSummaryItems));
-
-
 
 			let twentyFivePercents = R.filter((d) => d.Sample == 25, allItems);
 			let twentyFivePercentRange = getThresholdRange(twentyFivePercents);
