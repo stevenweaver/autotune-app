@@ -232,6 +232,7 @@
 	div :global(.container h2) {
 		@apply text-l font-semibold;
 		font-size: large;
+    margin-top:15px;
 	}
 
 	div :global(.container h3) {

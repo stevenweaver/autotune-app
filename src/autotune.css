@@ -36,8 +36,13 @@ a {
 html{
     line-height: normal;
 }
-h1{
+
+h1 {
     @apply text-xl font-semibold;
+}
+
+h2 {
+  margin-top:15px;
 }
 
 /* ###### Modal ###### */

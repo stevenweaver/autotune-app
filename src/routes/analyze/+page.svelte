@@ -245,7 +245,7 @@
 
   <div class="row">
       <div class="col-md-5">
-          <h5 class="pt-3" style="font-size: 1.5em; font-weight: 'bold';">Upload a multiple sequence alignment:</h5>
+          <h5 class="pt-3" style="font-size: 1.5em; font-weight: 'bold';">Upload a multiple sequence alignment (beta) 🧪:</h5>
           <input type="file" class="d-none" id="alignment-file" bind:files={alignmentFiles} on:change={renderPlotsFromFASTA}>
           <label for="alignment-file" class="btn btn-warning w-100">Choose file</label>
       </div>
@@ -280,8 +280,10 @@
 			<p class="mt-2">An example workflow is as follows:</p>
 			<div class="bg-indigo-100 p-3 rounded">
 				<code>
-					./tn93 -t 0.03 pol.fasta > pairwise_distances.tn93.csv hivnetworkcsv -i
-					pairwise_distances.tn93.csv -f plain -A 0 > autotune_report.tsv
+					./tn93 -t 0.03 pol.fasta > pairwise_distances.tn93.csv
+        </code>
+        <code>
+          hivnetworkcsv -i pairwise_distances.tn93.csv -f plain -A 0 > autotune_report.tsv
 				</code>
 			</div>
 			Please see<a
