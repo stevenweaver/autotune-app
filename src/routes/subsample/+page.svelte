@@ -376,7 +376,6 @@
 				paddingTop: 250,
 				marginTop: 30,
 				marginBottom: 50,
-
 				y: {
 					grid: true,
 					inset: 6
@@ -384,8 +383,9 @@
         color: { legend: true },
 				style: { fontSize: '15px' },
         facet: {data: nodeSummaryItems, x: "optimized"},
-				marks: [Plot.boxY(nodeSummaryItems, { x: 'Sample', y: 'totalMissingNodeCount', fill: 'optimized'})]
-
+				marks: [
+          Plot.boxY(nodeSummaryItems, { x: 'Sample', y: 'totalMissingNodeCount', fill: 'optimized'})
+        ]
 			};
 
 			totalSubsampledNodeCountOptions = {
@@ -403,7 +403,6 @@
 				marks: [Plot.boxY(nodeSummaryItems, { x: 'Sample', y: 'totalSubsampledNodeCount', fill: 'optimized' })]
 
 			};
-
 
 			totalSubsampledCapturedOptions = {
 				paddingLeft: 250,
