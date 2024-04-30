@@ -2,9 +2,14 @@
 	import * as Plot from '@observablehq/plot';
 
 	export let options;
+	export let eventL;
 
 	function myplot(node) {
-		node.appendChild(Plot.plot(options));
+
+    let plot = Plot.plot(options);
+		node.appendChild(plot);
+    plot.addEventListener("input", eventL);
+
 	}
 </script>
 
