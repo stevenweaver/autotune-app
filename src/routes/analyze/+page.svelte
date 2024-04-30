@@ -6,8 +6,7 @@
 	import * as R from 'ramda';
 	import RenderPlot from '../../Plot.svelte';
 
-	import chiapasFile from '../../data/1a_0.2_ns5a.aligned.report.tsv?raw';
-  
+	import chiapasFile from '../../data/chiapas_seguro_report.tsv?raw';
 	import { init } from 'svelte/internal';
 
 	const PAIRWISE_DIST_FILE_NAME = 'pairwise_distances.tn93.csv';
