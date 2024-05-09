@@ -34,8 +34,9 @@
   let plotData = [];
 
   let selectedThreshold = writable('0.2');  // Default value as an example
+  let selectedGenotype = writable('1a');  // Default value as an example
 
-  $: plotData = allThresholds.filter(d => d.consensus === $selectedThreshold && d.genotype == '1a');
+  $: plotData = allThresholds.filter(d => d.consensus === $selectedThreshold && d.genotype == $selectedGenotype);
 
   $: reportData = writable(allReportData['1a_0.2_ns5a.aligned.report']);
 
@@ -235,12 +236,28 @@
       <h1 class="text-5xl">CIENI HCV Report</h1>
       <p>This page visualizes data related to Hepatitis C Virus (HCV) genetic variations, focusing on consensus thresholds and genes and their implications for inferring clustering thresholds. Below, you can interact with the data by selecting different points on the plot and viewing detailed plots that describe the components that contributed to their AUTO-TUNE scores.</p>
       
-      <h3 class="pt-3">Select Consensus Threshold</h3>
-      <select bind:value={$selectedThreshold}>
-        {#each Array.from(new Set(allThresholds.map(d => d.consensus))) as threshold}
-          <option value={threshold}>{threshold}</option>
-        {/each}
-      </select>
+
+
+      <div class="flex pt-4 space-x-4 items-center">
+        <div>
+          <h3>Select Genotype</h3>
+          <select bind:value={$selectedGenotype}>
+            {#each Array.from(new Set(allThresholds.map(d => d.genotype))) as genotype}
+              <option value={genotype}>{genotype}</option>
+            {/each}
+          </select>
+        </div>
+
+        <div>
+          <h3>Select Consensus Threshold</h3>
+          <select bind:value={$selectedThreshold}>
+            {#each Array.from(new Set(allThresholds.map(d => d.consensus))) as threshold}
+              <option value={threshold}>{threshold}</option>
+            {/each}
+          </select>
+        </div>
+      </div>
+
 
       <div class="pt-2">
         <RenderPlot options={selectedPercentThresholds} eventL={eventListener} />
@@ -257,7 +274,7 @@
         <div class="pt-3">
           <h2 class="text-xl">Cluster Plot</h2>
           <RenderPlot options={$clusterPlotOptions} />
-          <p>Shows the number of clusters under the current threshold setting for selected point.</p>
+          <p>Shows the number of clusters under the current consensus threshold setting for selected point.</p>
         </div>
 
         <div class="pt-3">
