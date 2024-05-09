@@ -70,6 +70,7 @@
       let consensus = plot.value.consensus;
       let gene = plot.value.gene;
       let filename = `${genotype}_${consensus}_${gene}.aligned.report`;
+      console.log(filename);
       reportData.set(allReportData[filename]);
     }
 
