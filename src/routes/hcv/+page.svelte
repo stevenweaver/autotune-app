@@ -49,7 +49,12 @@
     inset: 5,
     //width: 800,
     paddingLeft: 250,
-    x: { nice: true },
+    marginBottom: 80,
+    x: { 
+      nice: true,
+      tickRotate: -45,
+      tickPadding: 10
+    },
     marks: [
       Plot.frame(),
       Plot.dot(plotData, Plot.pointer({x: "gene", y: "threshold", fill: "green", r: 8})),
