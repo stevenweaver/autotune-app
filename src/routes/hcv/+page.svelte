@@ -34,6 +34,8 @@
 
   let selectedThreshold = writable('0.2');  // Default value as an example
   let selectedGenotype = writable('1a');  // Default value as an example
+  let isLoading = writable(false);
+  let selectedPoint = writable(null);
 
   $: plotData = allThresholds.filter(d => d.consensus === $selectedThreshold && d.genotype == $selectedGenotype);
 
@@ -46,35 +48,60 @@
 
   $: selectedPercentThresholds = {
     grid: true,
-    inset: 5,
-    //width: 800,
-    paddingLeft: 250,
+    inset: 10,
+    width: 900,
+    height: 400,
     marginBottom: 80,
+    marginLeft: 80,
+    marginRight: 100,
     x: { 
       nice: true,
       tickRotate: -45,
-      tickPadding: 10
+      tickPadding: 10,
+      label: "Gene Region"
+    },
+    y: {
+      label: "Threshold"
     },
     marks: [
       Plot.frame(),
-      Plot.dot(plotData, Plot.pointer({x: "gene", y: "threshold", fill: "green", r: 8})),
-      Plot.dot(plotData, { x: 'gene', y: 'threshold', fill: (d) => d.score, r: 4 })
+      Plot.dot(plotData, Plot.pointer({
+        x: "gene", 
+        y: "threshold", 
+        fill: "steelblue", 
+        r: 8,
+        stroke: "white",
+        strokeWidth: 2,
+        title: (d) => `${d.gene}\nThreshold: ${d.threshold}\nScore: ${d.score}\nGenotype: ${d.genotype}\nConsensus: ${d.consensus}`
+      })),
+      Plot.dot(plotData, { 
+        x: 'gene', 
+        y: 'threshold', 
+        fill: (d) => d.score, 
+        r: 6,
+        stroke: "white",
+        strokeWidth: 1,
+        title: (d) => `${d.gene}\nThreshold: ${d.threshold}\nScore: ${d.score}\nGenotype: ${d.genotype}\nConsensus: ${d.consensus}`
+      })
     ],
     color: {
       legend: true,
-      label: 'AUTO-TUNE score',
-      type: 'symlog'
+      label: 'AUTO-TUNE Score',
+      scheme: 'viridis',
+      type: 'linear'
     }
   }
 
   let eventListener = async (event) => {
       let plot = event.target;
-      // 1a_0.2_ns5a.aligned.report
       let genotype = plot.value.genotype;
       let consensus = plot.value.consensus;
       let gene = plot.value.gene;
       let filename = `${genotype}_${consensus}_${gene}.aligned.report`;
-      console.log(filename);
+      
+      // Set loading state and selected point
+      isLoading.set(true);
+      selectedPoint.set({ genotype, consensus, gene });
       
       try {
         // Load individual TSV file and parse it
@@ -101,6 +128,8 @@
       } catch (error) {
         console.error('Error loading report data:', error);
         reportData.set([]);
+      } finally {
+        isLoading.set(false);
       }
     }
 
@@ -130,34 +159,7 @@
 
       // generatePlots(reportData);
 
-			thresholdOptions = {
-				grid: true,
-				inset: 5,
-				width: 800,
-				height: 5000,
-				paddingLeft: 250,
-				facet: {
-					data: allThresholds,
-					y: 'gene',
-					marginRight: 90
-				},
-				x: {
-					nice: true
-				},
-				y: {
-					domain: [-0.5, 2],
-					transform: (d) => R.max(-0.5, d)
-				},
-				marks: [
-					Plot.frame(),
-					Plot.dot(allThresholds, { x: 'threshold', y: 'score', fill: (d) => d.consensus, r: 4 })
-				],
-				color: {
-					legend: true,
-					label: 'Consensus Threshold',
-					type: 'symlog'
-				}
-			};
+			// Removed the overwhelming large faceted plot for better UX
 
 
 	});
@@ -165,33 +167,45 @@
 	function generateThresholdPlot(totalReport) {
 		let thresholdPlotOptions = {
 			grid: true,
-			inset: 5,
-			width: 400,
-			paddingLeft: 250,
-			paddingTop: 250,
-			marginTop: 30,
-			marginBottom: 50,
+			inset: 10,
+			width: 350,
+			height: 300,
+			marginTop: 20,
+			marginBottom: 40,
+			marginLeft: 60,
+			marginRight: 40,
 			x: {
 				nice: true,
-				insetLeft: 36,
-				tickSize: '10',
-				tickPadding: '5'
+				label: "Threshold"
 			},
 			y: {
 				domain: [0, 2],
 				transform: (y) => R.max(y, 0),
-				tickSize: '10',
-				tickPadding: '5'
+				label: "AUTO-TUNE Score"
 			},
-			style: { fontSize: '15px' },
 			marks: [
 				Plot.frame(),
-				Plot.dot(totalReport, { x: 'Threshold', y: 'Score', fill: (d) => d.Score, r: 3 })
+				Plot.dot(totalReport, { 
+					x: 'Threshold', 
+					y: 'Score', 
+					fill: (d) => d.Score, 
+					r: 4,
+					stroke: "white",
+					strokeWidth: 0.5,
+					title: (d) => `Threshold: ${d.Threshold}\nScore: ${d.Score}\nClusters: ${d.Clusters}`
+				}),
+				Plot.line(totalReport, {
+					x: 'Threshold', 
+					y: 'Score', 
+					stroke: "steelblue",
+					strokeWidth: 1,
+					strokeOpacity: 0.5
+				})
 			],
 			color: {
-				legend: true,
-				label: 'Score',
-				type: 'symlog'
+				legend: false,
+				scheme: 'viridis',
+				type: 'linear'
 			}
 		};
 
@@ -201,21 +215,43 @@
 	function generateClusterPlot(totalReport) {
 		let clusterPlotOptions = {
 			grid: true,
-			inset: 5,
-			width: 400,
-			//height: 5000,
-			paddingLeft: 250,
+			inset: 10,
+			width: 350,
+			height: 300,
+			marginTop: 20,
+			marginBottom: 40,
+			marginLeft: 60,
+			marginRight: 40,
 			x: {
-				nice: true
+				nice: true,
+				label: "Threshold"
+			},
+			y: {
+				label: "Number of Clusters"
 			},
 			marks: [
 				Plot.frame(),
-				Plot.dot(totalReport, { x: 'Threshold', y: 'Clusters', fill: (d) => d.Score, r: 3 })
+				Plot.dot(totalReport, { 
+					x: 'Threshold', 
+					y: 'Clusters', 
+					fill: (d) => d.Score, 
+					r: 4,
+					stroke: "white",
+					strokeWidth: 0.5,
+					title: (d) => `Threshold: ${d.Threshold}\nClusters: ${d.Clusters}\nScore: ${d.Score}`
+				}),
+				Plot.line(totalReport, {
+					x: 'Threshold', 
+					y: 'Clusters', 
+					stroke: "steelblue",
+					strokeWidth: 1,
+					strokeOpacity: 0.5
+				})
 			],
 			color: {
-				legend: true,
-				label: 'Score',
-				type: 'symlog'
+				legend: false,
+				scheme: 'viridis',
+				type: 'linear'
 			}
 		};
 
@@ -225,21 +261,43 @@
 	function generateRatioPlot(totalReport) {
 		let ratioPlotOptions = {
 			grid: true,
-			inset: 5,
-			width: 400,
-			//height: 5000,
-			paddingLeft: 250,
+			inset: 10,
+			width: 350,
+			height: 300,
+			marginTop: 20,
+			marginBottom: 40,
+			marginLeft: 60,
+			marginRight: 40,
 			x: {
-				nice: true
+				nice: true,
+				label: "Threshold"
+			},
+			y: {
+				label: "Cluster Size Ratio (R1/R2)"
 			},
 			marks: [
 				Plot.frame(),
-				Plot.dot(totalReport, { x: 'Threshold', y: 'R1_2', fill: (d) => d.Score, r: 3 })
+				Plot.dot(totalReport, { 
+					x: 'Threshold', 
+					y: 'R1_2', 
+					fill: (d) => d.Score, 
+					r: 4,
+					stroke: "white",
+					strokeWidth: 0.5,
+					title: (d) => `Threshold: ${d.Threshold}\nRatio: ${d.R1_2?.toFixed(2)}\nScore: ${d.Score}`
+				}),
+				Plot.line(totalReport, {
+					x: 'Threshold', 
+					y: 'R1_2', 
+					stroke: "steelblue",
+					strokeWidth: 1,
+					strokeOpacity: 0.5
+				})
 			],
 			color: {
-				legend: true,
-				label: 'Score',
-				type: 'symlog'
+				legend: false,
+				scheme: 'viridis',
+				type: 'linear'
 			}
 		};
 
@@ -291,53 +349,78 @@
       
 
 
-      <div class="flex pt-4 space-x-4 items-center">
+      <div class="flex pt-4 space-x-6 items-center bg-gray-50 p-4 rounded-lg">
         <div>
-          <h3>Select Genotype</h3>
-          <select bind:value={$selectedGenotype}>
-            {#each Array.from(new Set(allThresholds.map(d => d.genotype))) as genotype}
+          <label class="block text-sm font-medium text-gray-700 mb-1">Select Genotype</label>
+          <select bind:value={$selectedGenotype} class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+            {#each Array.from(new Set(allThresholds.map(d => d.genotype).filter(g => g))) as genotype}
               <option value={genotype}>{genotype}</option>
             {/each}
           </select>
         </div>
 
         <div>
-          <h3>Select Consensus Threshold</h3>
-          <select bind:value={$selectedThreshold}>
-            {#each Array.from(new Set(allThresholds.map(d => d.consensus))) as threshold}
+          <label class="block text-sm font-medium text-gray-700 mb-1">Select Consensus Threshold</label>
+          <select bind:value={$selectedThreshold} class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+            {#each Array.from(new Set(allThresholds.map(d => d.consensus).filter(c => c))) as threshold}
               <option value={threshold}>{threshold}</option>
             {/each}
           </select>
         </div>
+
+        {#if $selectedPoint}
+          <div class="bg-white p-3 rounded border">
+            <div class="text-sm font-medium text-gray-700">Selected Point:</div>
+            <div class="text-sm text-gray-600">{$selectedPoint.genotype} - {$selectedPoint.consensus} - {$selectedPoint.gene}</div>
+          </div>
+        {/if}
       </div>
 
 
-      <div class="pt-2">
-        <RenderPlot options={selectedPercentThresholds} eventL={eventListener} />
-        <p>Displays the distribution of AUTO-TUNE scores across different gene regions for the selected consensus threshold.</p>
-      </div>
-
-      <div class="grid grid-cols-3 gap-4">
-        <div class="pt-3">
-          <h2 class="text-xl">Threshold Score Plot</h2>
-          <RenderPlot options={$thresholdPlotOptions} />
-        <p>AUTO-TUNE scores across candidate thresholds for selected point</p>
-        </div>
-
-        <div class="pt-3">
-          <h2 class="text-xl">Cluster Plot</h2>
-          <RenderPlot options={$clusterPlotOptions} />
-          <p>Shows the number of clusters under the current consensus threshold setting for selected point.</p>
-        </div>
-
-        <div class="pt-3">
-          <h2 class="text-xl">R1/R2 Ratio Plot</h2>
-          <RenderPlot options={$ratioPlotOptions} />
-          <p>Illustrates the ratio of the largest to the second largest clusters across candidate thresholds for selected point.</p>
+      <div class="pt-6">
+        <h2 class="text-2xl font-semibold mb-4">Gene Region Overview</h2>
+        <div class="bg-white p-4 rounded-lg shadow">
+          <RenderPlot options={selectedPercentThresholds} eventL={eventListener} />
+          <p class="text-sm text-gray-600 mt-2">Click on any point to view detailed analysis below. This plot shows the distribution of AUTO-TUNE scores across different gene regions for the selected genotype and consensus threshold.</p>
         </div>
       </div>
 
-      <RenderPlot options={thresholdOptions} />
+      <div class="pt-6">
+        <h2 class="text-2xl font-semibold mb-4">Detailed Analysis</h2>
+        {#if $isLoading}
+          <div class="bg-gray-50 p-8 rounded-lg text-center">
+            <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div>
+            <p class="mt-2 text-gray-600">Loading detailed analysis...</p>
+          </div>
+        {:else if $selectedPoint}
+          <div class="bg-white p-4 rounded-lg shadow">
+            <h3 class="text-lg font-medium mb-4">Analysis for {$selectedPoint.genotype} - {$selectedPoint.consensus} - {$selectedPoint.gene}</h3>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              <div class="bg-gray-50 p-4 rounded">
+                <h4 class="text-md font-medium mb-2">Threshold Score Analysis</h4>
+                <RenderPlot options={$thresholdPlotOptions} />
+                <p class="text-sm text-gray-600 mt-2">AUTO-TUNE scores across candidate thresholds. Higher scores indicate better clustering performance.</p>
+              </div>
+
+              <div class="bg-gray-50 p-4 rounded">
+                <h4 class="text-md font-medium mb-2">Cluster Count Analysis</h4>
+                <RenderPlot options={$clusterPlotOptions} />
+                <p class="text-sm text-gray-600 mt-2">Number of clusters formed at different thresholds. Optimal thresholds balance cluster count with biological relevance.</p>
+              </div>
+
+              <div class="bg-gray-50 p-4 rounded">
+                <h4 class="text-md font-medium mb-2">Cluster Size Ratio</h4>
+                <RenderPlot options={$ratioPlotOptions} />
+                <p class="text-sm text-gray-600 mt-2">Ratio of largest to second largest cluster. Higher ratios may indicate dominant cluster structures.</p>
+              </div>
+            </div>
+          </div>
+        {:else}
+          <div class="bg-gray-50 p-8 rounded-lg text-center">
+            <p class="text-gray-600">Click on a point in the overview plot above to see detailed analysis</p>
+          </div>
+        {/if}
+      </div>
     </div>
   </div>
 </div>
