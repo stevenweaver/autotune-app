@@ -1,28 +1,27 @@
 [
   {
     "filename": "results/1a_0.01_core.threshold.txt",
-    "threshold": "0.00527",
-    "score": 1
+    "error": "Failed to parse any threshold or score data."
   },
   {
     "filename": "results/1a_0.01_e1.threshold.txt",
     "threshold": "0.00879",
-    "score": 1.0003
+    "score": 1.00002
   },
   {
     "filename": "results/1a_0.01_e2.threshold.txt",
-    "threshold": "0.00686",
-    "score": 1.26758
+    "threshold": "0.00292",
+    "score": 1.61517
   },
   {
     "filename": "results/1a_0.01_ns2.threshold.txt",
-    "threshold": "0.00311",
-    "score": 1.43148
+    "threshold": "0.02191",
+    "score": 1
   },
   {
     "filename": "results/1a_0.01_ns3.threshold.txt",
-    "threshold": "0.00208",
-    "score": 1.52187
+    "threshold": "0.0016",
+    "score": 1.00482
   },
   {
     "filename": "results/1a_0.01_ns4a.threshold.txt",
@@ -30,28 +29,32 @@
   },
   {
     "filename": "results/1a_0.01_ns4b.threshold.txt",
-    "threshold": "0.02194",
+    "threshold": "0.0129",
     "score": 1
+  },
+  {
+    "filename": "results/1a_0.01_ns5a-ns5b-ns3.threshold.txt",
+    "threshold": "0.00197",
+    "score": 1.09793
   },
   {
     "filename": "results/1a_0.01_ns5a.threshold.txt",
-    "threshold": "0.00264",
-    "score": 1.02829
+    "error": "Failed to parse any threshold or score data."
   },
   {
     "filename": "results/1a_0.01_ns5b.threshold.txt",
-    "threshold": "0.00643",
-    "score": 1.00007
+    "threshold": "0.00646",
+    "score": 1.00002
   },
   {
     "filename": "results/1a_0.01_p7.threshold.txt",
-    "threshold": "0.0107",
-    "score": 1.00091
+    "threshold": "0.02156",
+    "score": 1
   },
   {
     "filename": "results/1a_0.01_whole.threshold.txt",
-    "threshold": "0.02498",
-    "score": 1
+    "threshold": "0.00768",
+    "score": 1.26758
   },
   {
     "filename": "results/1a_0.02_core.threshold.txt",
@@ -61,60 +64,65 @@
   {
     "filename": "results/1a_0.02_e1.threshold.txt",
     "threshold": "0.00875",
-    "score": 1.00001
+    "score": 1
   },
   {
     "filename": "results/1a_0.02_e2.threshold.txt",
-    "threshold": "0.00373",
-    "score": 1.09166
+    "threshold": "0.00289",
+    "score": 1.09905
   },
   {
     "filename": "results/1a_0.02_ns2.threshold.txt",
-    "threshold": "0.02999",
-    "score": 1.00001
+    "threshold": "0.00623",
+    "score": 1
   },
   {
     "filename": "results/1a_0.02_ns3.threshold.txt",
-    "threshold": "0.0016",
-    "score": 1.06218
+    "threshold": "0.00585",
+    "score": 1.02173
   },
   {
     "filename": "results/1a_0.02_ns4a.threshold.txt",
-    "error": "Failed to parse any threshold or score data."
+    "threshold": "0.01247",
+    "score": 1
   },
   {
     "filename": "results/1a_0.02_ns4b.threshold.txt",
-    "threshold": "0.00257",
-    "score": 1.03803
+    "threshold": "0.00518",
+    "score": 1
+  },
+  {
+    "filename": "results/1a_0.02_ns5a-ns5b-ns3.threshold.txt",
+    "threshold": "0.00258",
+    "score": 1.02949
   },
   {
     "filename": "results/1a_0.02_ns5a.threshold.txt",
-    "error": "Failed to parse any threshold or score data."
+    "threshold": "0.00225",
+    "score": 1.2944
   },
   {
     "filename": "results/1a_0.02_ns5b.threshold.txt",
     "threshold": "0.00118",
-    "score": 1.07048
+    "score": 1.19172
   },
   {
     "filename": "results/1a_0.02_p7.threshold.txt",
-    "threshold": "0.00538",
-    "score": 1
+    "error": "Failed to parse any threshold or score data."
   },
   {
     "filename": "results/1a_0.02_whole.threshold.txt",
-    "threshold": "0.01635",
+    "threshold": "0.01519",
     "score": 1
   },
   {
     "filename": "results/1a_0.05_core.threshold.txt",
-    "threshold": "0.00353",
-    "score": 1
+    "error": "Failed to parse any threshold or score data."
   },
   {
     "filename": "results/1a_0.05_e1.threshold.txt",
-    "threshold": "0.03579",
-    "score": 1
+    "threshold": "0.00296",
+    "score": 1.00464
   },
   {
     "filename": "results/1a_0.05_e2.threshold.txt",
@@ -123,67 +131,71 @@
   },
   {
     "filename": "results/1a_0.05_ns2.threshold.txt",
-    "threshold": "0.03172",
-    "score": 1.00002
+    "threshold": "0.00625",
+    "score": 1
   },
   {
     "filename": "results/1a_0.05_ns3.threshold.txt",
-    "threshold": "0.02715",
-    "score": 1
+    "threshold": "0.00213",
+    "score": 1.12834
   },
   {
     "filename": "results/1a_0.05_ns4a.threshold.txt",
-    "error": "Failed to parse any threshold or score data."
-  },
-  {
-    "filename": "results/1a_0.05_ns4b.threshold.txt",
-    "threshold": "0.00514",
-    "score": 1.0003
-  },
-  {
-    "filename": "results/1a_0.05_ns5a.threshold.txt",
-    "threshold": "0.00374",
-    "score": 1.44702
-  },
-  {
-    "filename": "results/1a_0.05_ns5b.threshold.txt",
-    "threshold": "0.00171",
-    "score": 1.06694
-  },
-  {
-    "filename": "results/1a_0.05_p7.threshold.txt",
-    "threshold": "0.01667",
+    "threshold": "0.0125",
     "score": 1
   },
   {
+    "filename": "results/1a_0.05_ns4b.threshold.txt",
+    "threshold": "0.00386",
+    "score": 1.00007
+  },
+  {
+    "filename": "results/1a_0.05_ns5a-ns5b-ns3.threshold.txt",
+    "threshold": "0.00416",
+    "score": 1.03683
+  },
+  {
+    "filename": "results/1a_0.05_ns5a.threshold.txt",
+    "error": "Failed to parse any threshold or score data."
+  },
+  {
+    "filename": "results/1a_0.05_ns5b.threshold.txt",
+    "threshold": "0.01298",
+    "score": 1
+  },
+  {
+    "filename": "results/1a_0.05_p7.threshold.txt",
+    "error": "Failed to parse any threshold or score data."
+  },
+  {
     "filename": "results/1a_0.05_whole.threshold.txt",
-    "threshold": "0.00534",
-    "score": 1.02224
+    "threshold": "0.00427",
+    "score": 1.08409
   },
   {
     "filename": "results/1a_0.1_core.threshold.txt",
-    "threshold": "0.00882",
+    "threshold": "0.00707",
     "score": 1
   },
   {
     "filename": "results/1a_0.1_e1.threshold.txt",
-    "threshold": "0.03577",
-    "score": 1
+    "threshold": "0.00296",
+    "score": 1.01089
   },
   {
     "filename": "results/1a_0.1_e2.threshold.txt",
-    "threshold": "0.05005",
-    "score": 1
+    "threshold": "0.00481",
+    "score": 1.14268
   },
   {
     "filename": "results/1a_0.1_ns2.threshold.txt",
-    "threshold": "0.03336",
-    "score": 1.00002
+    "threshold": "0.00625",
+    "score": 1.00003
   },
   {
     "filename": "results/1a_0.1_ns3.threshold.txt",
-    "threshold": "0.02942",
-    "score": 1
+    "threshold": "0.00266",
+    "score": 1.26411
   },
   {
     "filename": "results/1a_0.1_ns4a.threshold.txt",
@@ -192,71 +204,82 @@
   },
   {
     "filename": "results/1a_0.1_ns4b.threshold.txt",
-    "threshold": "0.00514",
-    "score": 1.0003
-  },
-  {
-    "filename": "results/1a_0.1_ns5a.threshold.txt",
-    "threshold": "0.00374",
-    "score": 1.44161
-  },
-  {
-    "filename": "results/1a_0.1_ns5b.threshold.txt",
-    "threshold": "0.01352",
+    "threshold": "0.00386",
     "score": 1.00007
   },
   {
-    "filename": "results/1a_0.1_p7.threshold.txt",
-    "threshold": "0.02272",
+    "filename": "results/1a_0.1_ns5a-ns5b-ns3.threshold.txt",
+    "threshold": "0.00455",
+    "score": 1.0503
+  },
+  {
+    "filename": "results/1a_0.1_ns5a.threshold.txt",
+    "threshold": "0.00449",
+    "score": 1.57335
+  },
+  {
+    "filename": "results/1a_0.1_ns5b.threshold.txt",
+    "threshold": "0.0136",
     "score": 1
   },
   {
-    "filename": "results/1a_0.1_whole.threshold.txt",
-    "threshold": "0.00802",
-    "score": 1.01229
-  },
-  {
-    "filename": "results/1a_0.25_core.threshold.txt",
+    "filename": "results/1a_0.1_p7.threshold.txt",
     "error": "Failed to parse any threshold or score data."
   },
   {
-    "filename": "results/1a_0.25_e1.threshold.txt",
-    "threshold": "0.03577",
+    "filename": "results/1a_0.1_whole.threshold.txt",
+    "threshold": "0.00479",
+    "score": 1.06163
+  },
+  {
+    "filename": "results/1a_0.25_core.threshold.txt",
+    "threshold": "0.00353",
     "score": 1
   },
   {
+    "filename": "results/1a_0.25_e1.threshold.txt",
+    "threshold": "0.00307",
+    "score": 1.04155
+  },
+  {
     "filename": "results/1a_0.25_e2.threshold.txt",
-    "threshold": "0.01674",
-    "score": 1.02369
+    "threshold": "0.01596",
+    "score": 1.02305
   },
   {
     "filename": "results/1a_0.25_ns2.threshold.txt",
     "threshold": "0.00464",
-    "score": 1.03521
+    "score": 1.26213
   },
   {
     "filename": "results/1a_0.25_ns3.threshold.txt",
-    "threshold": "0.00713",
-    "score": 1.00379
+    "threshold": "0.00319",
+    "score": 1.15864
   },
   {
     "filename": "results/1a_0.25_ns4a.threshold.txt",
-    "error": "Failed to parse any threshold or score data."
+    "threshold": "0.01248",
+    "score": 1.00002
   },
   {
     "filename": "results/1a_0.25_ns4b.threshold.txt",
     "threshold": "0.00386",
-    "score": 1.00482
+    "score": 1.26758
+  },
+  {
+    "filename": "results/1a_0.25_ns5a-ns5b-ns3.threshold.txt",
+    "threshold": "0.00516",
+    "score": 1.15572
   },
   {
     "filename": "results/1a_0.25_ns5a.threshold.txt",
-    "threshold": "0.00375",
-    "score": 1.71803
+    "threshold": "0.00449",
+    "score": 1.55051
   },
   {
     "filename": "results/1a_0.25_ns5b.threshold.txt",
-    "threshold": "0.00118",
-    "score": 1.2412
+    "threshold": "0.00461",
+    "score": 1.00215
   },
   {
     "filename": "results/1a_0.25_p7.threshold.txt",
@@ -265,32 +288,32 @@
   },
   {
     "filename": "results/1a_0.25_whole.threshold.txt",
-    "threshold": "0.00339",
-    "score": 1.6157
-  },
-  {
-    "filename": "results/1a_0.2_core.threshold.txt",
     "error": "Failed to parse any threshold or score data."
   },
   {
-    "filename": "results/1a_0.2_e1.threshold.txt",
-    "threshold": "0.03577",
+    "filename": "results/1a_0.2_core.threshold.txt",
+    "threshold": "0.00353",
     "score": 1
+  },
+  {
+    "filename": "results/1a_0.2_e1.threshold.txt",
+    "threshold": "0.00183",
+    "score": 1.03531
   },
   {
     "filename": "results/1a_0.2_e2.threshold.txt",
-    "threshold": "0.05883",
-    "score": 1
+    "threshold": "0.00839",
+    "score": 1.06286
   },
   {
     "filename": "results/1a_0.2_ns2.threshold.txt",
-    "threshold": "0.03835",
-    "score": 1.00002
+    "threshold": "0.00464",
+    "score": 1.17103
   },
   {
     "filename": "results/1a_0.2_ns3.threshold.txt",
-    "threshold": "0.00266",
-    "score": 1.02384
+    "threshold": "0.00372",
+    "score": 1.22845
   },
   {
     "filename": "results/1a_0.2_ns4a.threshold.txt",
@@ -299,18 +322,22 @@
   },
   {
     "filename": "results/1a_0.2_ns4b.threshold.txt",
-    "threshold": "0.00514",
-    "score": 1.0003
+    "threshold": "0.00386",
+    "score": 1.03803
+  },
+  {
+    "filename": "results/1a_0.2_ns5a-ns5b-ns3.threshold.txt",
+    "threshold": "0.0048",
+    "score": 1.06965
   },
   {
     "filename": "results/1a_0.2_ns5a.threshold.txt",
-    "threshold": "0.00375",
-    "score": 1.55874
+    "error": "Failed to parse any threshold or score data."
   },
   {
     "filename": "results/1a_0.2_ns5b.threshold.txt",
-    "threshold": "0.00114",
-    "score": 1.35174
+    "threshold": "0.01423",
+    "score": 1
   },
   {
     "filename": "results/1a_0.2_p7.threshold.txt",
@@ -319,8 +346,8 @@
   },
   {
     "filename": "results/1a_0.2_whole.threshold.txt",
-    "threshold": "0.00326",
-    "score": 1.36917
+    "threshold": "0.00334",
+    "score": 1.71317
   },
   {
     "filename": "results/1b_0.01_core.threshold.txt",
@@ -340,7 +367,8 @@
   },
   {
     "filename": "results/1b_0.01_ns3.threshold.txt",
-    "error": "Failed to parse any threshold or score data."
+    "threshold": "0.02988",
+    "score": 1
   },
   {
     "filename": "results/1b_0.01_ns4a.threshold.txt",
@@ -348,6 +376,10 @@
   },
   {
     "filename": "results/1b_0.01_ns4b.threshold.txt",
+    "error": "Failed to parse any threshold or score data."
+  },
+  {
+    "filename": "results/1b_0.01_ns5a-ns5b-ns3.threshold.txt",
     "error": "Failed to parse any threshold or score data."
   },
   {
@@ -384,7 +416,8 @@
   },
   {
     "filename": "results/1b_0.02_ns3.threshold.txt",
-    "error": "Failed to parse any threshold or score data."
+    "threshold": "0.03306",
+    "score": 1.00007
   },
   {
     "filename": "results/1b_0.02_ns4a.threshold.txt",
@@ -392,12 +425,16 @@
   },
   {
     "filename": "results/1b_0.02_ns4b.threshold.txt",
-    "threshold": "0.02",
-    "score": 1
+    "error": "Failed to parse any threshold or score data."
+  },
+  {
+    "filename": "results/1b_0.02_ns5a-ns5b-ns3.threshold.txt",
+    "error": "Failed to parse any threshold or score data."
   },
   {
     "filename": "results/1b_0.02_ns5a.threshold.txt",
-    "error": "Failed to parse any threshold or score data."
+    "threshold": "0.022",
+    "score": 1
   },
   {
     "filename": "results/1b_0.02_ns5b.threshold.txt",
@@ -440,6 +477,10 @@
     "error": "Failed to parse any threshold or score data."
   },
   {
+    "filename": "results/1b_0.05_ns5a-ns5b-ns3.threshold.txt",
+    "error": "Failed to parse any threshold or score data."
+  },
+  {
     "filename": "results/1b_0.05_ns5a.threshold.txt",
     "error": "Failed to parse any threshold or score data."
   },
@@ -457,8 +498,7 @@
   },
   {
     "filename": "results/1b_0.1_core.threshold.txt",
-    "threshold": "0.02238",
-    "score": 1
+    "error": "Failed to parse any threshold or score data."
   },
   {
     "filename": "results/1b_0.1_e1.threshold.txt",
@@ -466,7 +506,9 @@
   },
   {
     "filename": "results/1b_0.1_e2.threshold.txt",
-    "error": "Failed to parse any threshold or score data."
+    "threshold": "0.05792",
+    "score": null,
+    "hasError": false
   },
   {
     "filename": "results/1b_0.1_ns2.threshold.txt",
@@ -485,8 +527,13 @@
     "error": "Failed to parse any threshold or score data."
   },
   {
-    "filename": "results/1b_0.1_ns5a.threshold.txt",
+    "filename": "results/1b_0.1_ns5a-ns5b-ns3.threshold.txt",
     "error": "Failed to parse any threshold or score data."
+  },
+  {
+    "filename": "results/1b_0.1_ns5a.threshold.txt",
+    "threshold": "0.05275",
+    "score": 1
   },
   {
     "filename": "results/1b_0.1_ns5b.threshold.txt",
@@ -494,8 +541,7 @@
   },
   {
     "filename": "results/1b_0.1_p7.threshold.txt",
-    "threshold": "0.04064",
-    "score": 1
+    "error": "Failed to parse any threshold or score data."
   },
   {
     "filename": "results/1b_0.1_whole.threshold.txt",
@@ -503,7 +549,8 @@
   },
   {
     "filename": "results/1b_0.25_core.threshold.txt",
-    "error": "Failed to parse any threshold or score data."
+    "threshold": "0.04117",
+    "score": 1.62666
   },
   {
     "filename": "results/1b_0.25_e1.threshold.txt",
@@ -530,6 +577,10 @@
     "error": "Failed to parse any threshold or score data."
   },
   {
+    "filename": "results/1b_0.25_ns5a-ns5b-ns3.threshold.txt",
+    "error": "Failed to parse any threshold or score data."
+  },
+  {
     "filename": "results/1b_0.25_ns5a.threshold.txt",
     "error": "Failed to parse any threshold or score data."
   },
@@ -547,7 +598,8 @@
   },
   {
     "filename": "results/1b_0.2_core.threshold.txt",
-    "error": "Failed to parse any threshold or score data."
+    "threshold": "0.03841",
+    "score": 1.34963
   },
   {
     "filename": "results/1b_0.2_e1.threshold.txt",
@@ -574,6 +626,11 @@
     "error": "Failed to parse any threshold or score data."
   },
   {
+    "filename": "results/1b_0.2_ns5a-ns5b-ns3.threshold.txt",
+    "threshold": "0.0509",
+    "score": 1.00007
+  },
+  {
     "filename": "results/1b_0.2_ns5a.threshold.txt",
     "error": "Failed to parse any threshold or score data."
   },
@@ -587,187 +644,15 @@
   },
   {
     "filename": "results/1b_0.2_whole.threshold.txt",
-    "error": "Failed to parse any threshold or score data."
-  },
-  {
-    "filename": "results/2a_0.01_core.threshold.txt",
-    "error": "Failed to parse any threshold or score data."
-  },
-  {
-    "filename": "results/2a_0.01_e1.threshold.txt",
-    "error": "Failed to parse any threshold or score data."
-  },
-  {
-    "filename": "results/2a_0.01_e2.threshold.txt",
-    "error": "Failed to parse any threshold or score data."
-  },
-  {
-    "filename": "results/2a_0.01_ns2.threshold.txt",
-    "error": "Failed to parse any threshold or score data."
-  },
-  {
-    "filename": "results/2a_0.01_ns3.threshold.txt",
-    "error": "Failed to parse any threshold or score data."
-  },
-  {
-    "filename": "results/2a_0.01_ns4a.threshold.txt",
-    "error": "Failed to parse any threshold or score data."
-  },
-  {
-    "filename": "results/2a_0.01_ns4b.threshold.txt",
-    "error": "Failed to parse any threshold or score data."
-  },
-  {
-    "filename": "results/2a_0.01_ns5a.threshold.txt",
-    "error": "Failed to parse any threshold or score data."
-  },
-  {
-    "filename": "results/2a_0.01_ns5b.threshold.txt",
-    "error": "Failed to parse any threshold or score data."
-  },
-  {
-    "filename": "results/2a_0.01_p7.threshold.txt",
-    "error": "Failed to parse any threshold or score data."
-  },
-  {
-    "filename": "results/2a_0.01_whole.threshold.txt",
-    "error": "Failed to parse any threshold or score data."
-  },
-  {
-    "filename": "results/2a_0.02_core.threshold.txt",
-    "error": "Failed to parse any threshold or score data."
-  },
-  {
-    "filename": "results/2a_0.02_e1.threshold.txt",
-    "error": "Failed to parse any threshold or score data."
-  },
-  {
-    "filename": "results/2a_0.02_e2.threshold.txt",
-    "error": "Failed to parse any threshold or score data."
-  },
-  {
-    "filename": "results/2a_0.02_ns2.threshold.txt",
-    "error": "Failed to parse any threshold or score data."
-  },
-  {
-    "filename": "results/2a_0.02_ns3.threshold.txt",
-    "error": "Failed to parse any threshold or score data."
-  },
-  {
-    "filename": "results/2a_0.02_ns4a.threshold.txt",
-    "error": "Failed to parse any threshold or score data."
-  },
-  {
-    "filename": "results/2a_0.02_ns4b.threshold.txt",
-    "error": "Failed to parse any threshold or score data."
-  },
-  {
-    "filename": "results/2a_0.02_ns5a.threshold.txt",
-    "error": "Failed to parse any threshold or score data."
-  },
-  {
-    "filename": "results/2a_0.02_ns5b.threshold.txt",
-    "error": "Failed to parse any threshold or score data."
-  },
-  {
-    "filename": "results/2a_0.02_p7.threshold.txt",
-    "error": "Failed to parse any threshold or score data."
-  },
-  {
-    "filename": "results/2a_0.02_whole.threshold.txt",
-    "error": "Failed to parse any threshold or score data."
-  },
-  {
-    "filename": "results/2a_0.05_core.threshold.txt",
-    "error": "Failed to parse any threshold or score data."
-  },
-  {
-    "filename": "results/2a_0.05_e1.threshold.txt",
-    "error": "Failed to parse any threshold or score data."
-  },
-  {
-    "filename": "results/2a_0.05_e2.threshold.txt",
-    "error": "Failed to parse any threshold or score data."
-  },
-  {
-    "filename": "results/2a_0.05_ns2.threshold.txt",
-    "error": "Failed to parse any threshold or score data."
-  },
-  {
-    "filename": "results/2a_0.05_ns3.threshold.txt",
-    "error": "Failed to parse any threshold or score data."
-  },
-  {
-    "filename": "results/2a_0.05_ns4a.threshold.txt",
-    "error": "Failed to parse any threshold or score data."
-  },
-  {
-    "filename": "results/2a_0.05_ns4b.threshold.txt",
-    "error": "Failed to parse any threshold or score data."
-  },
-  {
-    "filename": "results/2a_0.05_ns5a.threshold.txt",
-    "error": "Failed to parse any threshold or score data."
-  },
-  {
-    "filename": "results/2a_0.05_ns5b.threshold.txt",
-    "error": "Failed to parse any threshold or score data."
-  },
-  {
-    "filename": "results/2a_0.05_p7.threshold.txt",
-    "error": "Failed to parse any threshold or score data."
-  },
-  {
-    "filename": "results/2a_0.05_whole.threshold.txt",
-    "error": "Failed to parse any threshold or score data."
-  },
-  {
-    "filename": "results/2a_0.1_core.threshold.txt",
-    "error": "Failed to parse any threshold or score data."
-  },
-  {
-    "filename": "results/2a_0.1_e1.threshold.txt",
-    "error": "Failed to parse any threshold or score data."
-  },
-  {
-    "filename": "results/2a_0.1_e2.threshold.txt",
-    "error": "Failed to parse any threshold or score data."
-  },
-  {
-    "filename": "results/2a_0.1_ns2.threshold.txt",
-    "error": "Failed to parse any threshold or score data."
-  },
-  {
-    "filename": "results/2a_0.1_ns3.threshold.txt",
-    "error": "Failed to parse any threshold or score data."
-  },
-  {
-    "filename": "results/2a_0.1_ns4a.threshold.txt",
-    "error": "Failed to parse any threshold or score data."
-  },
-  {
-    "filename": "results/2a_0.1_ns4b.threshold.txt",
-    "error": "Failed to parse any threshold or score data."
-  },
-  {
-    "filename": "results/2a_0.1_ns5a.threshold.txt",
-    "error": "Failed to parse any threshold or score data."
-  },
-  {
-    "filename": "results/2a_0.1_ns5b.threshold.txt",
-    "error": "Failed to parse any threshold or score data."
-  },
-  {
-    "filename": "results/2a_0.1_p7.threshold.txt",
-    "error": "Failed to parse any threshold or score data."
-  },
-  {
-    "filename": "results/2a_0.1_whole.threshold.txt",
-    "error": "Failed to parse any threshold or score data."
+    "threshold": "0.0387",
+    "score": 1.89338
   },
   {
     "filename": "results/2a_0.25_core.threshold.txt",
-    "error": "Failed to parse any threshold or score data."
+    "error": "ZeroDivisionError: division by zero",
+    "threshold": null,
+    "score": null,
+    "hasError": true
   },
   {
     "filename": "results/2a_0.25_e1.threshold.txt",
@@ -791,6 +676,10 @@
   },
   {
     "filename": "results/2a_0.25_ns4b.threshold.txt",
+    "error": "Failed to parse any threshold or score data."
+  },
+  {
+    "filename": "results/2a_0.25_ns5a-ns5b-ns3.threshold.txt",
     "error": "Failed to parse any threshold or score data."
   },
   {
@@ -838,6 +727,10 @@
     "error": "Failed to parse any threshold or score data."
   },
   {
+    "filename": "results/2a_0.2_ns5a-ns5b-ns3.threshold.txt",
+    "error": "Failed to parse any threshold or score data."
+  },
+  {
     "filename": "results/2a_0.2_ns5a.threshold.txt",
     "error": "Failed to parse any threshold or score data."
   },
@@ -879,6 +772,10 @@
   },
   {
     "filename": "results/2b_0.01_ns4b.threshold.txt",
+    "error": "Failed to parse any threshold or score data."
+  },
+  {
+    "filename": "results/2b_0.01_ns5a-ns5b-ns3.threshold.txt",
     "error": "Failed to parse any threshold or score data."
   },
   {
@@ -926,6 +823,10 @@
     "error": "Failed to parse any threshold or score data."
   },
   {
+    "filename": "results/2b_0.02_ns5a-ns5b-ns3.threshold.txt",
+    "error": "Failed to parse any threshold or score data."
+  },
+  {
     "filename": "results/2b_0.02_ns5a.threshold.txt",
     "error": "Failed to parse any threshold or score data."
   },
@@ -967,6 +868,10 @@
   },
   {
     "filename": "results/2b_0.05_ns4b.threshold.txt",
+    "error": "Failed to parse any threshold or score data."
+  },
+  {
+    "filename": "results/2b_0.05_ns5a-ns5b-ns3.threshold.txt",
     "error": "Failed to parse any threshold or score data."
   },
   {
@@ -1014,6 +919,10 @@
     "error": "Failed to parse any threshold or score data."
   },
   {
+    "filename": "results/2b_0.1_ns5a-ns5b-ns3.threshold.txt",
+    "error": "Failed to parse any threshold or score data."
+  },
+  {
     "filename": "results/2b_0.1_ns5a.threshold.txt",
     "error": "Failed to parse any threshold or score data."
   },
@@ -1055,6 +964,10 @@
   },
   {
     "filename": "results/2b_0.25_ns4b.threshold.txt",
+    "error": "Failed to parse any threshold or score data."
+  },
+  {
+    "filename": "results/2b_0.25_ns5a-ns5b-ns3.threshold.txt",
     "error": "Failed to parse any threshold or score data."
   },
   {
@@ -1103,6 +1016,10 @@
     "error": "Failed to parse any threshold or score data."
   },
   {
+    "filename": "results/2b_0.2_ns5a-ns5b-ns3.threshold.txt",
+    "error": "Failed to parse any threshold or score data."
+  },
+  {
     "filename": "results/2b_0.2_ns5a.threshold.txt",
     "error": "Failed to parse any threshold or score data."
   },
@@ -1144,6 +1061,10 @@
   },
   {
     "filename": "results/3a_0.01_ns4b.threshold.txt",
+    "error": "Failed to parse any threshold or score data."
+  },
+  {
+    "filename": "results/3a_0.01_ns5a-ns5b-ns3.threshold.txt",
     "error": "Failed to parse any threshold or score data."
   },
   {
@@ -1191,6 +1112,10 @@
     "error": "Failed to parse any threshold or score data."
   },
   {
+    "filename": "results/3a_0.02_ns5a-ns5b-ns3.threshold.txt",
+    "error": "Failed to parse any threshold or score data."
+  },
+  {
     "filename": "results/3a_0.02_ns5a.threshold.txt",
     "error": "Failed to parse any threshold or score data."
   },
@@ -1232,6 +1157,10 @@
   },
   {
     "filename": "results/3a_0.05_ns4b.threshold.txt",
+    "error": "Failed to parse any threshold or score data."
+  },
+  {
+    "filename": "results/3a_0.05_ns5a-ns5b-ns3.threshold.txt",
     "error": "Failed to parse any threshold or score data."
   },
   {
@@ -1279,6 +1208,10 @@
     "error": "Failed to parse any threshold or score data."
   },
   {
+    "filename": "results/3a_0.1_ns5a-ns5b-ns3.threshold.txt",
+    "error": "Failed to parse any threshold or score data."
+  },
+  {
     "filename": "results/3a_0.1_ns5a.threshold.txt",
     "error": "Failed to parse any threshold or score data."
   },
@@ -1320,6 +1253,10 @@
   },
   {
     "filename": "results/3a_0.25_ns4b.threshold.txt",
+    "error": "Failed to parse any threshold or score data."
+  },
+  {
+    "filename": "results/3a_0.25_ns5a-ns5b-ns3.threshold.txt",
     "error": "Failed to parse any threshold or score data."
   },
   {
@@ -1367,6 +1304,10 @@
     "error": "Failed to parse any threshold or score data."
   },
   {
+    "filename": "results/3a_0.2_ns5a-ns5b-ns3.threshold.txt",
+    "error": "Failed to parse any threshold or score data."
+  },
+  {
     "filename": "results/3a_0.2_ns5a.threshold.txt",
     "error": "Failed to parse any threshold or score data."
   },
@@ -1384,17 +1325,18 @@
   },
   {
     "filename": "results/4d_0.01_core.threshold.txt",
-    "threshold": "0.00354",
-    "score": 1.00007
+    "threshold": "0.00352",
+    "score": 1
   },
   {
     "filename": "results/4d_0.01_e1.threshold.txt",
-    "error": "Failed to parse any threshold or score data."
+    "threshold": "0.02197",
+    "score": 1.00482
   },
   {
     "filename": "results/4d_0.01_e2.threshold.txt",
-    "threshold": "0.01813",
-    "score": 1.54763
+    "threshold": "0.01809",
+    "score": 1.13368
   },
   {
     "filename": "results/4d_0.01_ns2.threshold.txt",
@@ -1402,16 +1344,21 @@
   },
   {
     "filename": "results/4d_0.01_ns3.threshold.txt",
-    "threshold": "0.01022",
-    "score": 1.74085
+    "error": "Failed to parse any threshold or score data."
   },
   {
     "filename": "results/4d_0.01_ns4a.threshold.txt",
-    "error": "Failed to parse any threshold or score data."
+    "threshold": "0.00628",
+    "score": 1.04905
   },
   {
     "filename": "results/4d_0.01_ns4b.threshold.txt",
     "error": "Failed to parse any threshold or score data."
+  },
+  {
+    "filename": "results/4d_0.01_ns5a-ns5b-ns3.threshold.txt",
+    "threshold": "0.01551",
+    "score": 1.82466
   },
   {
     "filename": "results/4d_0.01_ns5a.threshold.txt",
@@ -1419,8 +1366,8 @@
   },
   {
     "filename": "results/4d_0.01_ns5b.threshold.txt",
-    "threshold": "0.00633",
-    "score": 1.35461
+    "threshold": "0.00714",
+    "score": 1.49853
   },
   {
     "filename": "results/4d_0.01_p7.threshold.txt",
@@ -1432,47 +1379,52 @@
   },
   {
     "filename": "results/4d_0.02_core.threshold.txt",
-    "threshold": "0.00354",
+    "threshold": "0.00352",
     "score": 1
   },
   {
     "filename": "results/4d_0.02_e1.threshold.txt",
-    "threshold": "0.01366",
-    "score": 1.32703
+    "threshold": "0.01575",
+    "score": 1.25259
   },
   {
     "filename": "results/4d_0.02_e2.threshold.txt",
-    "threshold": "0.00659",
-    "score": 1.03803
+    "threshold": "0.02311",
+    "score": 1.00007
   },
   {
     "filename": "results/4d_0.02_ns2.threshold.txt",
-    "error": "Failed to parse any threshold or score data."
+    "threshold": "0.01107",
+    "score": 1.89805
   },
   {
     "filename": "results/4d_0.02_ns3.threshold.txt",
     "threshold": "0.0032",
-    "score": 1.17741
+    "score": 1.40578
   },
   {
     "filename": "results/4d_0.02_ns4a.threshold.txt",
-    "threshold": "0.0065",
-    "score": 1.28051
+    "threshold": "0.01252",
+    "score": 1.00007
   },
   {
     "filename": "results/4d_0.02_ns4b.threshold.txt",
-    "threshold": "0.00517",
-    "score": 1.70907
+    "threshold": "0.00388",
+    "score": 1.85762
+  },
+  {
+    "filename": "results/4d_0.02_ns5a-ns5b-ns3.threshold.txt",
+    "threshold": "0.0082",
+    "score": 1.64185
   },
   {
     "filename": "results/4d_0.02_ns5a.threshold.txt",
-    "threshold": "0.01465",
-    "score": 1.35866
+    "threshold": "0.00847",
+    "score": 1.11068
   },
   {
     "filename": "results/4d_0.02_ns5b.threshold.txt",
-    "threshold": "0.00732",
-    "score": 1.03124
+    "error": "Failed to parse any threshold or score data."
   },
   {
     "filename": "results/4d_0.02_p7.threshold.txt",
@@ -1480,12 +1432,13 @@
   },
   {
     "filename": "results/4d_0.02_whole.threshold.txt",
-    "threshold": "0.04836",
-    "score": 1.30316
+    "threshold": "0.04985",
+    "score": 1.00091
   },
   {
     "filename": "results/4d_0.05_core.threshold.txt",
-    "error": "Failed to parse any threshold or score data."
+    "threshold": "0.00352",
+    "score": 1.00007
   },
   {
     "filename": "results/4d_0.05_e1.threshold.txt",
@@ -1494,12 +1447,12 @@
   {
     "filename": "results/4d_0.05_e2.threshold.txt",
     "threshold": "0.0173",
-    "score": 1.01948
+    "score": 1.14659
   },
   {
     "filename": "results/4d_0.05_ns2.threshold.txt",
-    "threshold": "0.01595",
-    "score": 1.12658
+    "threshold": "0.00956",
+    "score": 1.00038
   },
   {
     "filename": "results/4d_0.05_ns3.threshold.txt",
@@ -1507,52 +1460,57 @@
   },
   {
     "filename": "results/4d_0.05_ns4a.threshold.txt",
-    "threshold": "0.0125",
-    "score": 1.00001
+    "threshold": "0.0126",
+    "score": 1.00007
   },
   {
     "filename": "results/4d_0.05_ns4b.threshold.txt",
-    "threshold": "0.00644",
-    "score": 1.00091
-  },
-  {
-    "filename": "results/4d_0.05_ns5a.threshold.txt",
     "error": "Failed to parse any threshold or score data."
   },
   {
+    "filename": "results/4d_0.05_ns5a-ns5b-ns3.threshold.txt",
+    "threshold": "0.00868",
+    "score": 1.46725
+  },
+  {
+    "filename": "results/4d_0.05_ns5a.threshold.txt",
+    "threshold": "0.00773",
+    "score": 1.65328
+  },
+  {
     "filename": "results/4d_0.05_ns5b.threshold.txt",
-    "threshold": "0.00593",
-    "score": 1.6648
+    "threshold": "0.00537",
+    "score": 1.70173
   },
   {
     "filename": "results/4d_0.05_p7.threshold.txt",
     "threshold": "0.00547",
-    "score": 1.00001
+    "score": 1.00007
   },
   {
     "filename": "results/4d_0.05_whole.threshold.txt",
-    "threshold": "0.04152",
-    "score": 1
+    "threshold": "0.03751",
+    "score": 1.14404
   },
   {
     "filename": "results/4d_0.1_core.threshold.txt",
-    "threshold": "0.00354",
-    "score": 1
+    "threshold": "0.00352",
+    "score": 1.00091
   },
   {
     "filename": "results/4d_0.1_e1.threshold.txt",
-    "threshold": "0.01369",
-    "score": 1.11047
+    "threshold": "0.01594",
+    "score": 1.00007
   },
   {
     "filename": "results/4d_0.1_e2.threshold.txt",
     "threshold": "0.0066",
-    "score": 1.03803
+    "score": 1.00007
   },
   {
     "filename": "results/4d_0.1_ns2.threshold.txt",
-    "threshold": "0.01108",
-    "score": 1.01151
+    "threshold": "0.01601",
+    "score": 1.00007
   },
   {
     "filename": "results/4d_0.1_ns3.threshold.txt",
@@ -1560,51 +1518,56 @@
   },
   {
     "filename": "results/4d_0.1_ns4a.threshold.txt",
-    "threshold": "0.01945",
-    "score": 1
+    "threshold": "0.01268",
+    "score": 1.00001
   },
   {
     "filename": "results/4d_0.1_ns4b.threshold.txt",
     "error": "Failed to parse any threshold or score data."
   },
   {
-    "filename": "results/4d_0.1_ns5a.threshold.txt",
+    "filename": "results/4d_0.1_ns5a-ns5b-ns3.threshold.txt",
     "error": "Failed to parse any threshold or score data."
   },
   {
+    "filename": "results/4d_0.1_ns5a.threshold.txt",
+    "threshold": "0.0069",
+    "score": null,
+    "hasError": false
+  },
+  {
     "filename": "results/4d_0.1_ns5b.threshold.txt",
-    "threshold": "0.00718",
-    "score": 1.03803
+    "threshold": "0.00654",
+    "score": 1.00615
   },
   {
     "filename": "results/4d_0.1_p7.threshold.txt",
     "threshold": "0.00547",
-    "score": 1.00001
+    "score": 1
   },
   {
     "filename": "results/4d_0.1_whole.threshold.txt",
-    "threshold": "0.03305",
-    "score": 1.64878
+    "threshold": "0.03943",
+    "score": 1.85968
   },
   {
     "filename": "results/4d_0.25_core.threshold.txt",
-    "threshold": "0.00354",
-    "score": 1
-  },
-  {
-    "filename": "results/4d_0.25_e1.threshold.txt",
-    "threshold": "0.0241",
+    "threshold": "0.00352",
     "score": 1.00007
   },
   {
+    "filename": "results/4d_0.25_e1.threshold.txt",
+    "error": "Failed to parse any threshold or score data."
+  },
+  {
     "filename": "results/4d_0.25_e2.threshold.txt",
-    "threshold": "0.01916",
-    "score": 1.02973
+    "threshold": "0.01909",
+    "score": 1.01615
   },
   {
     "filename": "results/4d_0.25_ns2.threshold.txt",
-    "threshold": "0.02936",
-    "score": 1
+    "threshold": "0.01261",
+    "score": 1.30397
   },
   {
     "filename": "results/4d_0.25_ns3.threshold.txt",
@@ -1612,60 +1575,66 @@
   },
   {
     "filename": "results/4d_0.25_ns4a.threshold.txt",
-    "threshold": "0.01936",
+    "threshold": "0.0126",
     "score": 1
   },
   {
     "filename": "results/4d_0.25_ns4b.threshold.txt",
-    "threshold": "0.00644",
-    "score": 1.70429
+    "error": "Failed to parse any threshold or score data."
+  },
+  {
+    "filename": "results/4d_0.25_ns5a-ns5b-ns3.threshold.txt",
+    "threshold": "0.0104",
+    "score": 1.84292
   },
   {
     "filename": "results/4d_0.25_ns5a.threshold.txt",
-    "threshold": "0.00845",
-    "score": 1.54931
+    "threshold": "0.00924",
+    "score": 1.737
   },
   {
     "filename": "results/4d_0.25_ns5b.threshold.txt",
-    "threshold": "0.0089",
-    "score": 1.12658
+    "threshold": "0.00773",
+    "score": 1.08955
   },
   {
     "filename": "results/4d_0.25_p7.threshold.txt",
-    "error": "Failed to parse any threshold or score data."
+    "threshold": "0.00547",
+    "score": 1.00007
   },
   {
     "filename": "results/4d_0.25_whole.threshold.txt",
-    "threshold": "0.03315",
-    "score": 1.10571
+    "threshold": "0.03834",
+    "score": 1.00001
   },
   {
     "filename": "results/4d_0.2_core.threshold.txt",
-    "threshold": "0.00354",
-    "score": 1
+    "threshold": "0.00352",
+    "score": 1.00007
   },
   {
     "filename": "results/4d_0.2_e1.threshold.txt",
-    "threshold": "0.01581",
-    "score": 1.53653
+    "threshold": "0.01377",
+    "score": 1.03838
   },
   {
     "filename": "results/4d_0.2_e2.threshold.txt",
-    "threshold": "0.00847",
-    "score": 1.12658
+    "threshold": "0.00853",
+    "score": 1.00482
   },
   {
     "filename": "results/4d_0.2_ns2.threshold.txt",
-    "threshold": "0.02936",
-    "score": 1
+    "threshold": "0.01261",
+    "score": 1.5169
   },
   {
     "filename": "results/4d_0.2_ns3.threshold.txt",
-    "error": "Failed to parse any threshold or score data."
+    "threshold": "0.0043",
+    "score": 1.75042
   },
   {
     "filename": "results/4d_0.2_ns4a.threshold.txt",
-    "threshold": "0.01936",
+    "threshold": "0.0126",
     "score": 1
   },
   {
@@ -1673,21 +1642,28 @@
     "error": "Failed to parse any threshold or score data."
   },
   {
+    "filename": "results/4d_0.2_ns5a-ns5b-ns3.threshold.txt",
+    "threshold": "0.01023",
+    "score": 1.65684
+  },
+  {
     "filename": "results/4d_0.2_ns5a.threshold.txt",
-    "error": "Failed to parse any threshold or score data."
+    "threshold": "0.00923",
+    "score": 1.73991
   },
   {
     "filename": "results/4d_0.2_ns5b.threshold.txt",
-    "threshold": "0.00779",
-    "score": 1.68847
+    "threshold": "0.00713",
+    "score": 1.61013
   },
   {
     "filename": "results/4d_0.2_p7.threshold.txt",
-    "error": "Failed to parse any threshold or score data."
+    "threshold": "0.00547",
+    "score": 1.00007
   },
   {
     "filename": "results/4d_0.2_whole.threshold.txt",
     "threshold": "0.03315",
-    "score": 1.43338
+    "score": 1.4374
   }
 ]

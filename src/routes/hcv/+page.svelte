@@ -10,7 +10,6 @@
 
 
   import allThresholds from '../../data/hcv/all_thresholds.json';
-	import allReportData from '../../data/hcv/autotune/allThresholdReports.json';
 
   //"filename": "results/1a_0.01_core.threshold.txt",
   // From the filename, extract the genotype, consensus threshold, and gene region and add to each object
@@ -38,7 +37,7 @@
 
   $: plotData = allThresholds.filter(d => d.consensus === $selectedThreshold && d.genotype == $selectedGenotype);
 
-  $: reportData = writable(allReportData['1a_0.2_ns5a.aligned.report']);
+  $: reportData = writable([]);
 
   $: if (reportData) {
     generatePlots($reportData);  // Ensure you are referencing the store with a `$` if it's a writable store
@@ -63,7 +62,7 @@
     }
   }
 
-  let eventListener = (event) => {
+  let eventListener = async (event) => {
       let plot = event.target;
       // 1a_0.2_ns5a.aligned.report
       let genotype = plot.value.genotype;
@@ -71,10 +70,58 @@
       let gene = plot.value.gene;
       let filename = `${genotype}_${consensus}_${gene}.aligned.report`;
       console.log(filename);
-      reportData.set(allReportData[filename]);
+      
+      try {
+        // Load individual TSV file and parse it
+        const response = await fetch(`/src/data/hcv/autotune/${genotype}_${consensus}_${gene}.aligned.report.tsv`);
+        if (response.ok) {
+          const tsvText = await response.text();
+          const lines = tsvText.trim().split('\n');
+          const headers = lines[0].split('\t');
+          
+          const data = lines.slice(1).map(line => {
+            const values = line.split('\t');
+            const obj = {};
+            headers.forEach((header, index) => {
+              obj[header] = values[index];
+            });
+            return obj;
+          });
+          
+          reportData.set(data);
+        } else {
+          console.error('Failed to load report data for', filename);
+          reportData.set([]);
+        }
+      } catch (error) {
+        console.error('Error loading report data:', error);
+        reportData.set([]);
+      }
     }
 
 	onMount(async () => {
+      // Load default report data
+      try {
+        const response = await fetch('/src/data/hcv/autotune/1a_0.2_ns5a.aligned.report.tsv');
+        if (response.ok) {
+          const tsvText = await response.text();
+          const lines = tsvText.trim().split('\n');
+          const headers = lines[0].split('\t');
+          
+          const data = lines.slice(1).map(line => {
+            const values = line.split('\t');
+            const obj = {};
+            headers.forEach((header, index) => {
+              obj[header] = values[index];
+            });
+            return obj;
+          });
+          
+          reportData.set(data);
+        }
+      } catch (error) {
+        console.error('Error loading default report data:', error);
+      }
 
       // generatePlots(reportData);
 
