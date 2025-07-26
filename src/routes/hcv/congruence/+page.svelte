@@ -250,6 +250,9 @@
         <a href="/hcv/congruence" class="px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors">
           Congruence Analysis
         </a>
+        <a href="/hcv/diversity" class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors">
+          Diversity Analysis
+        </a>
       </div>
       
       <!-- Parameter Selection -->
