@@ -27,6 +27,7 @@
 	let thresholdPlotOptions = writable({});
 	let clusterPlotOptions = writable({});
 	let ratioPlotOptions = writable({});
+	let singletonsPlotOptions = writable({});
 
 
   // twenty percent only
@@ -88,7 +89,8 @@
       legend: true,
       label: 'AUTO-TUNE Score',
       scheme: 'viridis',
-      type: 'linear'
+      type: 'sqrt',
+      domain: [1.0, 2.0]
     }
   }
 
@@ -115,7 +117,13 @@
             const values = line.split('\t');
             const obj = {};
             headers.forEach((header, index) => {
-              obj[header] = values[index];
+              const value = values[index];
+              // Convert numeric columns to numbers
+              if (['Threshold', 'Score', 'Clusters', 'LargestCluster', 'SecondLargestCluster', 'Singletons', 'Nodes', 'Edges'].includes(header)) {
+                obj[header] = value ? parseFloat(value) : null;
+              } else {
+                obj[header] = value;
+              }
             });
             return obj;
           });
@@ -146,7 +154,13 @@
             const values = line.split('\t');
             const obj = {};
             headers.forEach((header, index) => {
-              obj[header] = values[index];
+              const value = values[index];
+              // Convert numeric columns to numbers
+              if (['Threshold', 'Score', 'Clusters', 'LargestCluster', 'SecondLargestCluster', 'Singletons', 'Nodes', 'Edges'].includes(header)) {
+                obj[header] = value ? parseFloat(value) : null;
+              } else {
+                obj[header] = value;
+              }
             });
             return obj;
           });
@@ -159,12 +173,15 @@
 
       // generatePlots(reportData);
 
-			// Removed the overwhelming large faceted plot for better UX
+		// Removed the overwhelming large faceted plot for better UX
 
 
 	});
 
 	function generateThresholdPlot(totalReport) {
+		// Filter data to only include thresholds <= 0.05
+		let filteredReport = totalReport.filter(d => d.Threshold <= 0.05);
+		
 		let thresholdPlotOptions = {
 			grid: true,
 			inset: 10,
@@ -176,7 +193,8 @@
 			marginRight: 40,
 			x: {
 				nice: true,
-				label: "Threshold"
+				label: "Threshold",
+				domain: [0, 0.05]
 			},
 			y: {
 				domain: [0, 2],
@@ -185,7 +203,7 @@
 			},
 			marks: [
 				Plot.frame(),
-				Plot.dot(totalReport, { 
+				Plot.dot(filteredReport, { 
 					x: 'Threshold', 
 					y: 'Score', 
 					fill: (d) => d.Score, 
@@ -194,7 +212,7 @@
 					strokeWidth: 0.5,
 					title: (d) => `Threshold: ${d.Threshold}\nScore: ${d.Score}\nClusters: ${d.Clusters}`
 				}),
-				Plot.line(totalReport, {
+				Plot.line(filteredReport, {
 					x: 'Threshold', 
 					y: 'Score', 
 					stroke: "steelblue",
@@ -205,7 +223,8 @@
 			color: {
 				legend: false,
 				scheme: 'viridis',
-				type: 'linear'
+				type: 'sqrt',
+				domain: [1.0, 2.0]
 			}
 		};
 
@@ -213,6 +232,9 @@
 	}
 
 	function generateClusterPlot(totalReport) {
+		// Filter data to only include thresholds <= 0.05
+		let filteredReport = totalReport.filter(d => d.Threshold <= 0.05);
+		
 		let clusterPlotOptions = {
 			grid: true,
 			inset: 10,
@@ -224,14 +246,15 @@
 			marginRight: 40,
 			x: {
 				nice: true,
-				label: "Threshold"
+				label: "Threshold",
+				domain: [0, 0.05]
 			},
 			y: {
 				label: "Number of Clusters"
 			},
 			marks: [
 				Plot.frame(),
-				Plot.dot(totalReport, { 
+				Plot.dot(filteredReport, { 
 					x: 'Threshold', 
 					y: 'Clusters', 
 					fill: (d) => d.Score, 
@@ -240,7 +263,7 @@
 					strokeWidth: 0.5,
 					title: (d) => `Threshold: ${d.Threshold}\nClusters: ${d.Clusters}\nScore: ${d.Score}`
 				}),
-				Plot.line(totalReport, {
+				Plot.line(filteredReport, {
 					x: 'Threshold', 
 					y: 'Clusters', 
 					stroke: "steelblue",
@@ -251,7 +274,8 @@
 			color: {
 				legend: false,
 				scheme: 'viridis',
-				type: 'linear'
+				type: 'sqrt',
+				domain: [1.0, 2.0]
 			}
 		};
 
@@ -259,6 +283,9 @@
 	}
 
 	function generateRatioPlot(totalReport) {
+		// Filter data to only include thresholds <= 0.05
+		let filteredReport = totalReport.filter(d => d.Threshold <= 0.05);
+		
 		let ratioPlotOptions = {
 			grid: true,
 			inset: 10,
@@ -270,14 +297,15 @@
 			marginRight: 40,
 			x: {
 				nice: true,
-				label: "Threshold"
+				label: "Threshold",
+				domain: [0, 0.05]
 			},
 			y: {
 				label: "Cluster Size Ratio (R1/R2)"
 			},
 			marks: [
 				Plot.frame(),
-				Plot.dot(totalReport, { 
+				Plot.dot(filteredReport, { 
 					x: 'Threshold', 
 					y: 'R1_2', 
 					fill: (d) => d.Score, 
@@ -286,7 +314,7 @@
 					strokeWidth: 0.5,
 					title: (d) => `Threshold: ${d.Threshold}\nRatio: ${d.R1_2?.toFixed(2)}\nScore: ${d.Score}`
 				}),
-				Plot.line(totalReport, {
+				Plot.line(filteredReport, {
 					x: 'Threshold', 
 					y: 'R1_2', 
 					stroke: "steelblue",
@@ -297,11 +325,63 @@
 			color: {
 				legend: false,
 				scheme: 'viridis',
-				type: 'linear'
+				type: 'sqrt',
+				domain: [1.0, 2.0]
 			}
 		};
 
 		return ratioPlotOptions;
+	}
+
+	function generateSingletonsPlot(totalReport) {
+		// Filter data to only include thresholds <= 0.05
+		let filteredReport = totalReport.filter(d => d.Threshold <= 0.05);
+		
+		let singletonsPlotOptions = {
+			grid: true,
+			inset: 10,
+			width: 350,
+			height: 300,
+			marginTop: 20,
+			marginBottom: 40,
+			marginLeft: 60,
+			marginRight: 40,
+			x: {
+				nice: true,
+				label: "Threshold",
+				domain: [0, 0.05]
+			},
+			y: {
+				label: "Number of Singletons"
+			},
+			marks: [
+				Plot.frame(),
+				Plot.dot(filteredReport, { 
+					x: 'Threshold', 
+					y: 'Singletons', 
+					fill: (d) => d.Score, 
+					r: 4,
+					stroke: "white",
+					strokeWidth: 0.5,
+					title: (d) => `Threshold: ${d.Threshold}\nSingletons: ${d.Singletons}\nScore: ${d.Score}`
+				}),
+				Plot.line(filteredReport, {
+					x: 'Threshold', 
+					y: 'Singletons', 
+					stroke: "steelblue",
+					strokeWidth: 1,
+					strokeOpacity: 0.5
+				})
+			],
+			color: {
+				legend: false,
+				scheme: 'viridis',
+				type: 'sqrt',
+				domain: [1.0, 2.0]
+			}
+		};
+
+		return singletonsPlotOptions;
 	}
 
 
@@ -337,6 +417,7 @@
 		thresholdPlotOptions.set(generateThresholdPlot(mappedContent));
 		clusterPlotOptions.set(generateClusterPlot(mappedContent));
 		ratioPlotOptions.set(generateRatioPlot(mappedContent));
+		singletonsPlotOptions.set(generateSingletonsPlot(mappedContent));
 	}
 
 </script>
@@ -347,6 +428,18 @@
       <h1 class="text-5xl">CIENI HCV Report</h1>
       <p>This page visualizes data related to Hepatitis C Virus (HCV) genetic variations, focusing on consensus thresholds and genes and their implications for inferring clustering thresholds. Below, you can interact with the data by selecting different points on the plot and viewing detailed plots that describe the components that contributed to their AUTO-TUNE scores.</p>
       
+      <!-- Navigation Links -->
+      <div class="flex space-x-4 mt-4 mb-6">
+        <a href="/hcv" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors">
+          Analysis Dashboard
+        </a>
+        <a href="/hcv/congruence" class="px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors">
+          Congruence Analysis
+        </a>
+        <a href="/hcv/diversity" class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors">
+          Diversity Analysis
+        </a>
+      </div>
 
 
       <div class="flex pt-4 space-x-6 items-center bg-gray-50 p-4 rounded-lg">
@@ -395,7 +488,7 @@
         {:else if $selectedPoint}
           <div class="bg-white p-4 rounded-lg shadow">
             <h3 class="text-lg font-medium mb-4">Analysis for {$selectedPoint.genotype} - {$selectedPoint.consensus} - {$selectedPoint.gene}</h3>
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-6">
               <div class="bg-gray-50 p-4 rounded">
                 <h4 class="text-md font-medium mb-2">Threshold Score Analysis</h4>
                 <RenderPlot options={$thresholdPlotOptions} />
@@ -413,6 +506,12 @@
                 <RenderPlot options={$ratioPlotOptions} />
                 <p class="text-sm text-gray-600 mt-2">Ratio of largest to second largest cluster. Higher ratios may indicate dominant cluster structures.</p>
               </div>
+
+              <div class="bg-gray-50 p-4 rounded">
+                <h4 class="text-md font-medium mb-2">Singletons Analysis</h4>
+                <RenderPlot options={$singletonsPlotOptions} />
+                <p class="text-sm text-gray-600 mt-2">Number of singleton sequences at different thresholds. Singletons are sequences that don't cluster with others.</p>
+              </div>
             </div>
           </div>
         {:else}
@@ -421,6 +520,56 @@
           </div>
         {/if}
       </div>
+
+      <!-- Best Candidate Thresholds Table -->
+      <div class="pt-6">
+        <h2 class="text-2xl font-semibold mb-4">Best Candidate Thresholds</h2>
+        <div class="bg-white p-4 rounded-lg shadow">
+          <SvelteTable 
+            columns={[
+              { key: 'gene', title: 'Gene Region', sortable: true, value: (row) => row.gene || 'N/A', headerClass: 'px-4 py-2 text-left text-sm font-medium text-gray-700', class: 'px-4 py-2 text-sm text-gray-700' },
+              { key: 'threshold', title: 'Best Threshold', sortable: true, value: (row) => typeof row.threshold === 'number' ? row.threshold.toFixed(5) : 'N/A', sortValue: (row) => typeof row.threshold === 'number' ? row.threshold : -Infinity, headerClass: 'px-4 py-2 text-left text-sm font-medium text-gray-700', class: 'px-4 py-2 text-sm text-gray-700' },
+              { key: 'score', title: 'AUTO-TUNE Score', sortable: true, value: (row) => typeof row.score === 'number' ? row.score.toFixed(5) : 'N/A', sortValue: (row) => typeof row.score === 'number' ? row.score : -Infinity, headerClass: 'px-4 py-2 text-left text-sm font-medium text-gray-700', class: 'px-4 py-2 text-sm text-gray-700' },
+              { key: 'genotype', title: 'Genotype', sortable: true, value: (row) => row.genotype || 'N/A', headerClass: 'px-4 py-2 text-left text-sm font-medium text-gray-700', class: 'px-4 py-2 text-sm text-gray-700' },
+              { key: 'consensus', title: 'Consensus', sortable: true, value: (row) => row.consensus || 'N/A', headerClass: 'px-4 py-2 text-left text-sm font-medium text-gray-700', class: 'px-4 py-2 text-sm text-gray-700' }
+            ]}
+            rows={plotData.filter(item => item.threshold !== undefined && item.score !== undefined)}
+            classNameTable={['min-w-full']}
+            classNameThead={['bg-gray-50']}
+            classNameTbody={['']}
+            classNameRow={['hover:bg-gray-50']}
+          />
+          <p class="text-sm text-gray-600 mt-2">This table shows the optimal clustering thresholds identified by AUTO-TUNE for each gene region. Click column headers to sort.</p>
+        </div>
+      </div>
+
+      <!-- Selected Region Detail Table -->
+      {#if $selectedPoint && $reportData.length > 0}
+        <div class="pt-6">
+          <h2 class="text-2xl font-semibold mb-4">Threshold Analysis for {$selectedPoint.gene}</h2>
+          <div class="bg-white p-4 rounded-lg shadow">
+            <SvelteTable 
+              columns={[
+                { key: 'Threshold', title: 'Threshold', sortable: true, value: (row) => row.Threshold ? parseFloat(row.Threshold).toFixed(5) : 'N/A', sortValue: (row) => row.Threshold ? parseFloat(row.Threshold) : -Infinity, headerClass: 'px-4 py-2 text-left text-sm font-medium text-gray-700', class: 'px-4 py-2 text-sm text-gray-700' },
+                { key: 'Score', title: 'AUTO-TUNE Score', sortable: true, value: (row) => row.Score ? parseFloat(row.Score).toFixed(5) : 'N/A', sortValue: (row) => row.Score ? parseFloat(row.Score) : -Infinity, headerClass: 'px-4 py-2 text-left text-sm font-medium text-gray-700', class: 'px-4 py-2 text-sm text-gray-700' },
+                { key: 'Clusters', title: 'Clusters', sortable: true, value: (row) => row.Clusters || 'N/A', sortValue: (row) => row.Clusters ? parseInt(row.Clusters) : -Infinity, headerClass: 'px-4 py-2 text-left text-sm font-medium text-gray-700', class: 'px-4 py-2 text-sm text-gray-700' },
+                { key: 'LargestCluster', title: 'Largest Cluster', sortable: true, value: (row) => row.LargestCluster || 'N/A', sortValue: (row) => row.LargestCluster ? parseInt(row.LargestCluster) : -Infinity, headerClass: 'px-4 py-2 text-left text-sm font-medium text-gray-700', class: 'px-4 py-2 text-sm text-gray-700' },
+                { key: 'SecondLargestCluster', title: 'Second Largest', sortable: true, value: (row) => row.SecondLargestCluster || 'N/A', sortValue: (row) => row.SecondLargestCluster ? parseInt(row.SecondLargestCluster) : -Infinity, headerClass: 'px-4 py-2 text-left text-sm font-medium text-gray-700', class: 'px-4 py-2 text-sm text-gray-700' },
+                { key: 'R1_2', title: 'Ratio (R1/R2)', sortable: true, value: (row) => row.SecondLargestCluster && row.LargestCluster ? (parseFloat(row.LargestCluster) / parseFloat(row.SecondLargestCluster)).toFixed(2) : 'N/A', sortValue: (row) => row.SecondLargestCluster && row.LargestCluster ? (parseFloat(row.LargestCluster) / parseFloat(row.SecondLargestCluster)) : -Infinity, headerClass: 'px-4 py-2 text-left text-sm font-medium text-gray-700', class: 'px-4 py-2 text-sm text-gray-700' },
+                { key: 'Singletons', title: 'Singletons', sortable: true, value: (row) => row.Singletons || 'N/A', sortValue: (row) => row.Singletons ? parseInt(row.Singletons) : -Infinity, headerClass: 'px-4 py-2 text-left text-sm font-medium text-gray-700', class: 'px-4 py-2 text-sm text-gray-700' },
+                { key: 'Nodes', title: 'Nodes', sortable: true, value: (row) => row.Nodes || 'N/A', sortValue: (row) => row.Nodes ? parseInt(row.Nodes) : -Infinity, headerClass: 'px-4 py-2 text-left text-sm font-medium text-gray-700', class: 'px-4 py-2 text-sm text-gray-700' },
+                { key: 'Edges', title: 'Edges', sortable: true, value: (row) => row.Edges || 'N/A', sortValue: (row) => row.Edges ? parseInt(row.Edges) : -Infinity, headerClass: 'px-4 py-2 text-left text-sm font-medium text-gray-700', class: 'px-4 py-2 text-sm text-gray-700' }
+              ]}
+              rows={$reportData.filter(d => d.Threshold !== undefined && d.Threshold !== null && parseFloat(d.Threshold) <= 0.05)}
+              classNameTable={['min-w-full']}
+              classNameThead={['bg-gray-50']}
+              classNameTbody={['']}
+              classNameRow={['hover:bg-gray-50']}
+            />
+            <p class="text-sm text-gray-600 mt-2">Detailed analysis data for all candidate thresholds ≤ 0.05 in the selected region. Click column headers to sort.</p>
+          </div>
+        </div>
+      {/if}
     </div>
   </div>
 </div>
