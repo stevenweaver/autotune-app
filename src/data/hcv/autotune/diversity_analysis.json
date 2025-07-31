@@ -1,0 +1,494 @@
+{
+  "analysis_metadata": {
+    "description": "HCV genomic region diversity and divergence analysis",
+    "github_issue": "https://github.com/stevenweaver/hcv-pipeline/issues/20",
+    "metrics_calculated": [
+      "nucleotide_diversity_pi",
+      "segregating_sites",
+      "tajima_d",
+      "tn93_distance_statistics",
+      "gc_content"
+    ]
+  },
+  "summary": {
+    "total_regions_analyzed": 12,
+    "total_combinations": 1,
+    "diversity_statistics": {
+      "mean_nucleotide_diversity": 0.06464371668313337,
+      "median_nucleotide_diversity": 0.07112613424725436,
+      "diversity_range": {
+        "min": 0.03848475205019348,
+        "max": 0.08893553334956754
+      },
+      "mean_segregating_sites": 767.4166666666666
+    },
+    "regions_analyzed": [
+      "whole",
+      "ns2",
+      "ns5a-ns5b-ns3",
+      "ns3",
+      "e1",
+      "core",
+      "e2",
+      "ns4a",
+      "ns5a",
+      "ns5b",
+      "ns4b",
+      "p7"
+    ],
+    "genotypes_analyzed": [
+      "1a"
+    ],
+    "consensus_thresholds_analyzed": [
+      "0.01"
+    ]
+  },
+  "individual_results": [
+    {
+      "region": "core",
+      "genotype": "1a",
+      "consensus": "0.01",
+      "sequence_count": 226,
+      "sequence_length": 573,
+      "segregating_sites": 127,
+      "nucleotide_diversity": 0.0520671722319341,
+      "tajima_d": 1.127486963621106,
+      "mean_gc_content": 63.37256876860673,
+      "distance_statistics": {
+        "mean_distance": 0.01987015151689708,
+        "median_distance": 0.021340650000000003,
+        "std_distance": 0.01214570552643813,
+        "min_distance": 0.0,
+        "max_distance": 0.0557319,
+        "distance_count": 23436
+      },
+      "diversity_per_site": 9.086766532623753e-05,
+      "segregating_sites_proportion": 0.22164048865619546
+    },
+    {
+      "region": "e1",
+      "genotype": "1a",
+      "consensus": "0.01",
+      "sequence_count": 227,
+      "sequence_length": 576,
+      "segregating_sites": 284,
+      "nucleotide_diversity": 0.07361465948444285,
+      "tajima_d": -0.14903202050216804,
+      "mean_gc_content": 59.60650777521292,
+      "distance_statistics": {
+        "mean_distance": 0.06374701221492632,
+        "median_distance": 0.06995405,
+        "std_distance": 0.03716186443256481,
+        "min_distance": 0.0,
+        "max_distance": 0.217347,
+        "distance_count": 24976
+      },
+      "diversity_per_site": 0.00012780322827160215,
+      "segregating_sites_proportion": 0.4930555555555556
+    },
+    {
+      "region": "e2",
+      "genotype": "1a",
+      "consensus": "0.01",
+      "sequence_count": 227,
+      "sequence_length": 1089,
+      "segregating_sites": 548,
+      "nucleotide_diversity": 0.08893553334956754,
+      "tajima_d": -0.015403164933537043,
+      "mean_gc_content": 59.78398934845651,
+      "distance_statistics": {
+        "mean_distance": 0.08163881557576129,
+        "median_distance": 0.0901997,
+        "std_distance": 0.04602098151244559,
+        "min_distance": 0.0,
+        "max_distance": 0.202151,
+        "distance_count": 24531
+      },
+      "diversity_per_site": 8.16671564275184e-05,
+      "segregating_sites_proportion": 0.5032139577594124
+    },
+    {
+      "region": "ns2",
+      "genotype": "1a",
+      "consensus": "0.01",
+      "sequence_count": 227,
+      "sequence_length": 651,
+      "segregating_sites": 310,
+      "nucleotide_diversity": 0.07302971348542335,
+      "tajima_d": -0.20820689733182685,
+      "mean_gc_content": 61.03083280533368,
+      "distance_statistics": {
+        "mean_distance": 0.06247507966145517,
+        "median_distance": 0.070183,
+        "std_distance": 0.03648494643475585,
+        "min_distance": 0.0,
+        "max_distance": 0.215736,
+        "distance_count": 24753
+      },
+      "diversity_per_site": 0.00011218081948605737,
+      "segregating_sites_proportion": 0.47619047619047616
+    },
+    {
+      "region": "ns3",
+      "genotype": "1a",
+      "consensus": "0.01",
+      "sequence_count": 227,
+      "sequence_length": 1893,
+      "segregating_sites": 679,
+      "nucleotide_diversity": 0.07615292508828368,
+      "tajima_d": 0.2812653768401353,
+      "mean_gc_content": 61.73976673677367,
+      "distance_statistics": {
+        "mean_distance": 0.046602415280329657,
+        "median_distance": 0.0523726,
+        "std_distance": 0.027184221108003396,
+        "min_distance": 0.0,
+        "max_distance": 0.108887,
+        "distance_count": 24753
+      },
+      "diversity_per_site": 4.022869788076264e-05,
+      "segregating_sites_proportion": 0.35868991019545693
+    },
+    {
+      "region": "ns4a",
+      "genotype": "1a",
+      "consensus": "0.01",
+      "sequence_count": 227,
+      "sequence_length": 162,
+      "segregating_sites": 59,
+      "nucleotide_diversity": 0.07343803433520367,
+      "tajima_d": 0.625371083839798,
+      "mean_gc_content": 59.123595612670265,
+      "distance_statistics": {
+        "mean_distance": 0.06455727212764255,
+        "median_distance": 0.06626635,
+        "std_distance": 0.040494367195825304,
+        "min_distance": 0.0,
+        "max_distance": 0.165944,
+        "distance_count": 24976
+      },
+      "diversity_per_site": 0.00045332119960002267,
+      "segregating_sites_proportion": 0.36419753086419754
+    },
+    {
+      "region": "ns4b",
+      "genotype": "1a",
+      "consensus": "0.01",
+      "sequence_count": 227,
+      "sequence_length": 783,
+      "segregating_sites": 274,
+      "nucleotide_diversity": 0.05385177672963915,
+      "tajima_d": 0.1434673810347056,
+      "mean_gc_content": 64.5506658191763,
+      "distance_statistics": {
+        "mean_distance": 0.04552606117157882,
+        "median_distance": 0.0520705,
+        "std_distance": 0.028472083305182957,
+        "min_distance": 0.0,
+        "max_distance": 0.124503,
+        "distance_count": 24531
+      },
+      "diversity_per_site": 6.877621549123774e-05,
+      "segregating_sites_proportion": 0.3499361430395913
+    },
+    {
+      "region": "ns5a-ns5b-ns3",
+      "genotype": "1a",
+      "consensus": "0.01",
+      "sequence_count": 227,
+      "sequence_length": 5010,
+      "segregating_sites": 1233,
+      "nucleotide_diversity": 0.04809033372803378,
+      "tajima_d": 0.680134044945983,
+      "mean_gc_content": 59.08778769841221,
+      "distance_statistics": {
+        "mean_distance": 0.04847076796330384,
+        "median_distance": 0.0548336,
+        "std_distance": 0.026692508459243633,
+        "min_distance": 0.0,
+        "max_distance": 0.174248,
+        "distance_count": 25425
+      },
+      "diversity_per_site": 9.598869007591572e-06,
+      "segregating_sites_proportion": 0.24610778443113773
+    },
+    {
+      "region": "ns5a",
+      "genotype": "1a",
+      "consensus": "0.01",
+      "sequence_count": 227,
+      "sequence_length": 1344,
+      "segregating_sites": 593,
+      "nucleotide_diversity": 0.06922255500908538,
+      "tajima_d": -0.1727742586632579,
+      "mean_gc_content": 61.51395786314401,
+      "distance_statistics": {
+        "mean_distance": 0.06220619181762492,
+        "median_distance": 0.07184940000000001,
+        "std_distance": 0.03540773505116187,
+        "min_distance": 0.0,
+        "max_distance": 0.139067,
+        "distance_count": 24976
+      },
+      "diversity_per_site": 5.150487723890281e-05,
+      "segregating_sites_proportion": 0.4412202380952381
+    },
+    {
+      "region": "ns5b",
+      "genotype": "1a",
+      "consensus": "0.01",
+      "sequence_count": 227,
+      "sequence_length": 1773,
+      "segregating_sites": 564,
+      "nucleotide_diversity": 0.03848475205019348,
+      "tajima_d": -0.763621841996729,
+      "mean_gc_content": 57.27651094454461,
+      "distance_statistics": {
+        "mean_distance": 0.03671279765470993,
+        "median_distance": 0.0403307,
+        "std_distance": 0.019496677376194732,
+        "min_distance": 0.0,
+        "max_distance": 0.100768,
+        "distance_count": 25425
+      },
+      "diversity_per_site": 2.1706007924531008e-05,
+      "segregating_sites_proportion": 0.31810490693739424
+    },
+    {
+      "region": "p7",
+      "genotype": "1a",
+      "consensus": "0.01",
+      "sequence_count": 227,
+      "sequence_length": 189,
+      "segregating_sites": 84,
+      "nucleotide_diversity": 0.07495563882190957,
+      "tajima_d": 0.07980433281375564,
+      "mean_gc_content": 61.04516045451927,
+      "distance_statistics": {
+        "mean_distance": 0.06406879910195264,
+        "median_distance": 0.0680503,
+        "std_distance": 0.04310097274594417,
+        "min_distance": 0.0,
+        "max_distance": 0.168766,
+        "distance_count": 24531
+      },
+      "diversity_per_site": 0.00039659068159740514,
+      "segregating_sites_proportion": 0.4444444444444444
+    },
+    {
+      "region": "whole",
+      "genotype": "1a",
+      "consensus": "0.01",
+      "sequence_count": 227,
+      "sequence_length": 9645,
+      "segregating_sites": 4454,
+      "nucleotide_diversity": 0.05388150588388384,
+      "tajima_d": -0.896354436142936,
+      "mean_gc_content": 60.6792704063405,
+      "distance_statistics": {
+        "mean_distance": 0.05596772862314263,
+        "median_distance": 0.0629869,
+        "std_distance": 0.028017285433414824,
+        "min_distance": 0.0,
+        "max_distance": 0.163864,
+        "distance_count": 25641
+      },
+      "diversity_per_site": 5.5864702834508906e-06,
+      "segregating_sites_proportion": 0.46179367547952305
+    }
+  ],
+  "regional_comparisons": {
+    "1a_0.01": {
+      "total_regions": 12,
+      "diversity_ranking": [
+        {
+          "region": "e2",
+          "diversity": 0.08893553334956754
+        },
+        {
+          "region": "ns3",
+          "diversity": 0.07615292508828368
+        },
+        {
+          "region": "p7",
+          "diversity": 0.07495563882190957
+        },
+        {
+          "region": "e1",
+          "diversity": 0.07361465948444285
+        },
+        {
+          "region": "ns4a",
+          "diversity": 0.07343803433520367
+        },
+        {
+          "region": "ns2",
+          "diversity": 0.07302971348542335
+        },
+        {
+          "region": "ns5a",
+          "diversity": 0.06922255500908538
+        },
+        {
+          "region": "whole",
+          "diversity": 0.05388150588388384
+        },
+        {
+          "region": "ns4b",
+          "diversity": 0.05385177672963915
+        },
+        {
+          "region": "core",
+          "diversity": 0.0520671722319341
+        },
+        {
+          "region": "ns5a-ns5b-ns3",
+          "diversity": 0.04809033372803378
+        },
+        {
+          "region": "ns5b",
+          "diversity": 0.03848475205019348
+        }
+      ],
+      "most_diverse_region": "e2",
+      "most_conserved_region": "ns5b",
+      "mean_diversity": 0.06464371668313337,
+      "diversity_range": {
+        "min": 0.03848475205019348,
+        "max": 0.08893553334956754
+      },
+      "segregating_sites_ranking": [
+        {
+          "region": "whole",
+          "sites": 4454
+        },
+        {
+          "region": "ns5a-ns5b-ns3",
+          "sites": 1233
+        },
+        {
+          "region": "ns3",
+          "sites": 679
+        },
+        {
+          "region": "ns5a",
+          "sites": 593
+        },
+        {
+          "region": "ns5b",
+          "sites": 564
+        },
+        {
+          "region": "e2",
+          "sites": 548
+        },
+        {
+          "region": "ns2",
+          "sites": 310
+        },
+        {
+          "region": "e1",
+          "sites": 284
+        },
+        {
+          "region": "ns4b",
+          "sites": 274
+        },
+        {
+          "region": "core",
+          "sites": 127
+        },
+        {
+          "region": "p7",
+          "sites": 84
+        },
+        {
+          "region": "ns4a",
+          "sites": 59
+        }
+      ]
+    }
+  },
+  "concatenated_region_validation": {
+    "1a_0.01_ns5a-ns5b-ns3": {
+      "concatenated_region": "ns5a-ns5b-ns3",
+      "component_regions": [
+        "ns5a",
+        "ns5b",
+        "ns3"
+      ],
+      "concatenated_diversity": 0.04809033372803378,
+      "average_component_diversity": 0.06128674404918751,
+      "diversity_ratio": 0.7846775754547743,
+      "concatenated_segregating_sites": 1233,
+      "average_component_segregating_sites": 612.0,
+      "segregating_sites_ratio": 2.014705882352941,
+      "component_details": [
+        {
+          "region": "ns5a",
+          "genotype": "1a",
+          "consensus": "0.01",
+          "sequence_count": 227,
+          "sequence_length": 1344,
+          "segregating_sites": 593,
+          "nucleotide_diversity": 0.06922255500908538,
+          "tajima_d": -0.1727742586632579,
+          "mean_gc_content": 61.51395786314401,
+          "distance_statistics": {
+            "mean_distance": 0.06220619181762492,
+            "median_distance": 0.07184940000000001,
+            "std_distance": 0.03540773505116187,
+            "min_distance": 0.0,
+            "max_distance": 0.139067,
+            "distance_count": 24976
+          },
+          "diversity_per_site": 5.150487723890281e-05,
+          "segregating_sites_proportion": 0.4412202380952381
+        },
+        {
+          "region": "ns5b",
+          "genotype": "1a",
+          "consensus": "0.01",
+          "sequence_count": 227,
+          "sequence_length": 1773,
+          "segregating_sites": 564,
+          "nucleotide_diversity": 0.03848475205019348,
+          "tajima_d": -0.763621841996729,
+          "mean_gc_content": 57.27651094454461,
+          "distance_statistics": {
+            "mean_distance": 0.03671279765470993,
+            "median_distance": 0.0403307,
+            "std_distance": 0.019496677376194732,
+            "min_distance": 0.0,
+            "max_distance": 0.100768,
+            "distance_count": 25425
+          },
+          "diversity_per_site": 2.1706007924531008e-05,
+          "segregating_sites_proportion": 0.31810490693739424
+        },
+        {
+          "region": "ns3",
+          "genotype": "1a",
+          "consensus": "0.01",
+          "sequence_count": 227,
+          "sequence_length": 1893,
+          "segregating_sites": 679,
+          "nucleotide_diversity": 0.07615292508828368,
+          "tajima_d": 0.2812653768401353,
+          "mean_gc_content": 61.73976673677367,
+          "distance_statistics": {
+            "mean_distance": 0.046602415280329657,
+            "median_distance": 0.0523726,
+            "std_distance": 0.027184221108003396,
+            "min_distance": 0.0,
+            "max_distance": 0.108887,
+            "distance_count": 24753
+          },
+          "diversity_per_site": 4.022869788076264e-05,
+          "segregating_sites_proportion": 0.35868991019545693
+        }
+      ]
+    }
+  },
+  "failed_analyses": []
+}
