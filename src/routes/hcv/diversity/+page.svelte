@@ -8,7 +8,7 @@
   import diversityData from '../../../data/hcv/autotune/diversity_analysis.json';
   
   let selectedGenotype = writable('1a');
-  let selectedThreshold = writable('0.01');
+  let selectedThreshold = writable('0.2');
   let isLoading = writable(false);
   
   let nucleotideDiversityOptions = writable({});
@@ -22,9 +22,14 @@
   
   $: combinationKey = `${$selectedGenotype}_${$selectedThreshold}`;
   $: {
-    // Filter data for current selection
+    // Filter data for current selection, excluding invalid regions
     currentData = diversityData.individual_results.filter(
-      d => d.genotype === $selectedGenotype && d.consensus === $selectedThreshold
+      d => d.genotype === $selectedGenotype && 
+          d.consensus === $selectedThreshold && 
+          d.region && 
+          d.region !== "0" && 
+          d.region.trim() !== "" &&
+          d.region !== "null"
     );
     updateVisualizations();
   }
@@ -111,7 +116,8 @@
     // Create histogram data from distance statistics
     const histogramData = [];
     currentData.forEach(d => {
-      if (d.distance_statistics) {
+      // Filter out invalid regions including "0", empty strings, or null
+      if (d.distance_statistics && d.region && d.region !== "0" && d.region.trim() !== "") {
         histogramData.push({
           region: d.region,
           mean_distance: d.distance_statistics.mean_distance,
@@ -361,13 +367,13 @@
           <SvelteTable 
             columns={[
               { key: 'region', title: 'Region', sortable: true, value: (row) => row.region || 'N/A', headerClass: 'px-4 py-2 text-left text-sm font-medium text-gray-700', class: 'px-4 py-2 text-sm text-gray-700' },
-              { key: 'sequence_count', title: 'Sequences', sortable: true, value: (row) => row.sequence_count || 'N/A', headerClass: 'px-4 py-2 text-left text-sm font-medium text-gray-700', class: 'px-4 py-2 text-sm text-gray-700' },
-              { key: 'sequence_length', title: 'Length', sortable: true, value: (row) => row.sequence_length || 'N/A', headerClass: 'px-4 py-2 text-left text-sm font-medium text-gray-700', class: 'px-4 py-2 text-sm text-gray-700' },
-              { key: 'nucleotide_diversity', title: 'Nucleotide Diversity', sortable: true, value: (row) => typeof row.nucleotide_diversity === 'number' ? row.nucleotide_diversity.toFixed(5) : 'N/A', headerClass: 'px-4 py-2 text-left text-sm font-medium text-gray-700', class: 'px-4 py-2 text-sm text-gray-700' },
-              { key: 'segregating_sites', title: 'Segregating Sites', sortable: true, value: (row) => row.segregating_sites || 'N/A', headerClass: 'px-4 py-2 text-left text-sm font-medium text-gray-700', class: 'px-4 py-2 text-sm text-gray-700' },
-              { key: 'tajima_d', title: "Tajima's D", sortable: true, value: (row) => typeof row.tajima_d === 'number' ? row.tajima_d.toFixed(3) : 'N/A', headerClass: 'px-4 py-2 text-left text-sm font-medium text-gray-700', class: 'px-4 py-2 text-sm text-gray-700' },
-              { key: 'mean_gc_content', title: 'GC Content (%)', sortable: true, value: (row) => typeof row.mean_gc_content === 'number' ? row.mean_gc_content.toFixed(2) : 'N/A', headerClass: 'px-4 py-2 text-left text-sm font-medium text-gray-700', class: 'px-4 py-2 text-sm text-gray-700' },
-              { key: 'mean_distance', title: 'Mean TN93 Distance', sortable: true, value: (row) => row.distance_statistics?.mean_distance ? row.distance_statistics.mean_distance.toFixed(5) : 'N/A', headerClass: 'px-4 py-2 text-left text-sm font-medium text-gray-700', class: 'px-4 py-2 text-sm text-gray-700' }
+              { key: 'sequence_count', title: 'Sequences', sortable: true, value: (row) => row.sequence_count || 'N/A', sortValue: (row) => row.sequence_count || 0, headerClass: 'px-4 py-2 text-left text-sm font-medium text-gray-700', class: 'px-4 py-2 text-sm text-gray-700' },
+              { key: 'sequence_length', title: 'Length', sortable: true, value: (row) => row.sequence_length || 'N/A', sortValue: (row) => row.sequence_length || 0, headerClass: 'px-4 py-2 text-left text-sm font-medium text-gray-700', class: 'px-4 py-2 text-sm text-gray-700' },
+              { key: 'nucleotide_diversity', title: 'Nucleotide Diversity', sortable: true, value: (row) => typeof row.nucleotide_diversity === 'number' ? row.nucleotide_diversity.toFixed(5) : 'N/A', sortValue: (row) => row.nucleotide_diversity || 0, headerClass: 'px-4 py-2 text-left text-sm font-medium text-gray-700', class: 'px-4 py-2 text-sm text-gray-700' },
+              { key: 'segregating_sites', title: 'Segregating Sites', sortable: true, value: (row) => row.segregating_sites || 'N/A', sortValue: (row) => row.segregating_sites || 0, headerClass: 'px-4 py-2 text-left text-sm font-medium text-gray-700', class: 'px-4 py-2 text-sm text-gray-700' },
+              { key: 'tajima_d', title: "Tajima's D", sortable: true, value: (row) => typeof row.tajima_d === 'number' ? row.tajima_d.toFixed(3) : 'N/A', sortValue: (row) => row.tajima_d || 0, headerClass: 'px-4 py-2 text-left text-sm font-medium text-gray-700', class: 'px-4 py-2 text-sm text-gray-700' },
+              { key: 'mean_gc_content', title: 'GC Content (%)', sortable: true, value: (row) => typeof row.mean_gc_content === 'number' ? row.mean_gc_content.toFixed(2) : 'N/A', sortValue: (row) => row.mean_gc_content || 0, headerClass: 'px-4 py-2 text-left text-sm font-medium text-gray-700', class: 'px-4 py-2 text-sm text-gray-700' },
+              { key: 'mean_distance', title: 'Mean TN93 Distance', sortable: true, value: (row) => row.distance_statistics?.mean_distance ? row.distance_statistics.mean_distance.toFixed(5) : 'N/A', sortValue: (row) => row.distance_statistics?.mean_distance || 0, headerClass: 'px-4 py-2 text-left text-sm font-medium text-gray-700', class: 'px-4 py-2 text-sm text-gray-700' }
             ]}
             rows={currentData}
             classNameTable={['min-w-full']}

@@ -100,13 +100,19 @@
         Plot.barY(regionAlphas, {
           x: "region",
           y: "average_alpha",
-          fill: d => d.average_alpha > 0.5 ? "#22c55e" : d.average_alpha > 0.2 ? "#f59e0b" : "#ef4444",
+          fill: "average_alpha",
           title: d => `${d.region}\nAvg Alpha: ${d.average_alpha.toFixed(3)}\nComparisons: ${d.comparison_count}`
         }),
         Plot.ruleY([0], { stroke: "black", strokeDasharray: "2,2" }),
         Plot.ruleY([0.2], { stroke: "orange", strokeDasharray: "2,2" }),
         Plot.ruleY([0.5], { stroke: "green", strokeDasharray: "2,2" })
-      ]
+      ],
+      color: {
+        legend: true,
+        scheme: "RdYlBu",
+        domain: [-0.3, 0.8],
+        label: "Average Alpha"
+      }
     });
   }
   
@@ -306,8 +312,8 @@
           <RenderPlot options={$alphaPlotOptions} />
           <p class="text-sm text-gray-600 mt-2">
             Higher values indicate better agreement with other regions. 
-            <span class="text-green-600">Green line (0.5): Good agreement</span>, 
-            <span class="text-orange-500">Orange line (0.2): Moderate agreement</span>
+            Blue colors indicate high agreement, yellow indicates moderate agreement, and red indicates low agreement.
+            Dashed lines mark thresholds at 0.2 (moderate) and 0.5 (good).
           </p>
         </div>
         
@@ -335,12 +341,12 @@
           <SvelteTable 
             columns={[
               { key: 'region', title: 'Region', sortable: true, value: (row) => row.region || 'N/A', headerClass: 'px-4 py-2 text-left text-sm font-medium text-gray-700', class: 'px-4 py-2 text-sm text-gray-700' },
-              { key: 'total_sequences', title: 'Total Sequences', sortable: true, value: (row) => row.total_sequences || 'N/A', headerClass: 'px-4 py-2 text-left text-sm font-medium text-gray-700', class: 'px-4 py-2 text-sm text-gray-700' },
-              { key: 'networked_sequences', title: 'Networked', sortable: true, value: (row) => row.networked_sequences || 'N/A', headerClass: 'px-4 py-2 text-left text-sm font-medium text-gray-700', class: 'px-4 py-2 text-sm text-gray-700' },
-              { key: 'singleton_sequences', title: 'Singletons', sortable: true, value: (row) => row.singleton_sequences || 'N/A', headerClass: 'px-4 py-2 text-left text-sm font-medium text-gray-700', class: 'px-4 py-2 text-sm text-gray-700' },
-              { key: 'network_proportion', title: 'Network Proportion', sortable: true, value: (row) => typeof row.network_proportion === 'number' ? row.network_proportion.toFixed(3) : 'N/A', headerClass: 'px-4 py-2 text-left text-sm font-medium text-gray-700', class: 'px-4 py-2 text-sm text-gray-700' },
-              { key: 'total_clusters', title: 'Clusters', sortable: true, value: (row) => row.total_clusters || 'N/A', headerClass: 'px-4 py-2 text-left text-sm font-medium text-gray-700', class: 'px-4 py-2 text-sm text-gray-700' },
-              { key: 'edges', title: 'Edges', sortable: true, value: (row) => row.edges || 'N/A', headerClass: 'px-4 py-2 text-left text-sm font-medium text-gray-700', class: 'px-4 py-2 text-sm text-gray-700' }
+              { key: 'total_sequences', title: 'Total Sequences', sortable: true, value: (row) => row.total_sequences || 'N/A', sortValue: (row) => row.total_sequences || 0, headerClass: 'px-4 py-2 text-left text-sm font-medium text-gray-700', class: 'px-4 py-2 text-sm text-gray-700' },
+              { key: 'networked_sequences', title: 'Networked', sortable: true, value: (row) => row.networked_sequences || 'N/A', sortValue: (row) => row.networked_sequences || 0, headerClass: 'px-4 py-2 text-left text-sm font-medium text-gray-700', class: 'px-4 py-2 text-sm text-gray-700' },
+              { key: 'singleton_sequences', title: 'Singletons', sortable: true, value: (row) => row.singleton_sequences || 'N/A', sortValue: (row) => row.singleton_sequences || 0, headerClass: 'px-4 py-2 text-left text-sm font-medium text-gray-700', class: 'px-4 py-2 text-sm text-gray-700' },
+              { key: 'network_proportion', title: 'Network Proportion', sortable: true, value: (row) => typeof row.network_proportion === 'number' ? row.network_proportion.toFixed(3) : 'N/A', sortValue: (row) => row.network_proportion || 0, headerClass: 'px-4 py-2 text-left text-sm font-medium text-gray-700', class: 'px-4 py-2 text-sm text-gray-700' },
+              { key: 'total_clusters', title: 'Clusters', sortable: true, value: (row) => row.total_clusters || 'N/A', sortValue: (row) => row.total_clusters || 0, headerClass: 'px-4 py-2 text-left text-sm font-medium text-gray-700', class: 'px-4 py-2 text-sm text-gray-700' },
+              { key: 'edges', title: 'Edges', sortable: true, value: (row) => row.edges || 'N/A', sortValue: (row) => row.edges || 0, headerClass: 'px-4 py-2 text-left text-sm font-medium text-gray-700', class: 'px-4 py-2 text-sm text-gray-700' }
             ]}
             rows={networkStatsData}
             classNameTable={['min-w-full']}
@@ -356,7 +362,7 @@
           <SvelteTable 
             columns={[
               { key: 'comparison', title: 'Region Comparison', sortable: true, value: (row) => row.comparison?.replace('_vs_', ' vs ') || 'N/A', headerClass: 'px-4 py-2 text-left text-sm font-medium text-gray-700', class: 'px-4 py-2 text-sm text-gray-700' },
-              { key: 'alpha', title: "Krippendorff's Alpha", sortable: true, value: (row) => typeof row.alpha === 'number' ? row.alpha.toFixed(3) : 'N/A', headerClass: 'px-4 py-2 text-left text-sm font-medium text-gray-700', class: 'px-4 py-2 text-sm text-gray-700' },
+              { key: 'alpha', title: "Krippendorff's Alpha", sortable: true, value: (row) => typeof row.alpha === 'number' ? row.alpha.toFixed(3) : 'N/A', sortValue: (row) => row.alpha || 0, headerClass: 'px-4 py-2 text-left text-sm font-medium text-gray-700', class: 'px-4 py-2 text-sm text-gray-700' },
               { key: 'interpretation', title: 'Interpretation', sortable: false, value: (row) => {
                 if (typeof row.alpha !== 'number') return 'N/A';
                 if (row.alpha >= 0.5) return 'Good Agreement';
