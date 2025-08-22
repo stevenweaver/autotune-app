@@ -14,7 +14,18 @@ const config = {
 				{ src: './node_modules/**/files/*.tsv', dest: './node_modules/.vite/deps/files' }
 			]
 		})
-	]
+	],
+	optimizeDeps: {
+		exclude: ['hyphy-scope']
+	},
+	ssr: {
+		noExternal: ['hyphy-scope']
+	},
+	build: {
+		rollupOptions: {
+			external: ['hyphy-scope']
+		}
+	}
 };
 
 export default config;

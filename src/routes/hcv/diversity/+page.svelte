@@ -264,6 +264,12 @@
         <a href="/hcv/diversity" class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors">
           Diversity Analysis
         </a>
+        <a href="/hcv/fel" class="px-4 py-2 bg-orange-600 text-white rounded-md hover:bg-orange-700 transition-colors">
+          FEL Analysis
+        </a>
+        <a href="/hcv/meme" class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors">
+          MEME Analysis
+        </a>
       </div>
       
       <!-- Parameter Selection -->

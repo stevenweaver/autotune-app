@@ -439,13 +439,19 @@
         <a href="/hcv/diversity" class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors">
           Diversity Analysis
         </a>
+        <a href="/hcv/fel" class="px-4 py-2 bg-orange-600 text-white rounded-md hover:bg-orange-700 transition-colors">
+          FEL Analysis
+        </a>
+        <a href="/hcv/meme" class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors">
+          MEME Analysis
+        </a>
       </div>
 
 
       <div class="flex pt-4 space-x-6 items-center bg-gray-50 p-4 rounded-lg">
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">Select Genotype</label>
-          <select bind:value={$selectedGenotype} class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+          <label for="genotype-select" class="block text-sm font-medium text-gray-700 mb-1">Select Genotype</label>
+          <select id="genotype-select" bind:value={$selectedGenotype} class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
             {#each Array.from(new Set(allThresholds.map(d => d.genotype).filter(g => g))) as genotype}
               <option value={genotype}>{genotype}</option>
             {/each}
@@ -453,8 +459,8 @@
         </div>
 
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">Select Consensus Threshold</label>
-          <select bind:value={$selectedThreshold} class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+          <label for="threshold-select" class="block text-sm font-medium text-gray-700 mb-1">Select Consensus Threshold</label>
+          <select id="threshold-select" bind:value={$selectedThreshold} class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
             {#each Array.from(new Set(allThresholds.map(d => d.consensus).filter(c => c))) as threshold}
               <option value={threshold}>{threshold}</option>
             {/each}

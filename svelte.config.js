@@ -17,7 +17,21 @@ const config = {
         })
 	},
 	extensions: ['.svelte', '.svx', '.md'],
-	preprocess: [windi({}), mdsvex(mdsvexConfig)]
+	preprocess: [
+		preprocess({
+			typescript: {
+				compilerOptions: {
+					target: 'es2020',
+					skipLibCheck: true,
+					allowJs: true,
+					strict: false,
+					noImplicitAny: false
+				}
+			}
+		}),
+		windi({}), 
+		mdsvex(mdsvexConfig)
+	]
 };
 
 export default config;
