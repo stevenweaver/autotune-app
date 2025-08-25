@@ -548,12 +548,12 @@
   resolved "https://registry.yarnpkg.com/@sveltejs/acorn-typescript/-/acorn-typescript-1.0.5.tgz#f518101d1b2e12ce80854f1cd850d3b9fb91d710"
   integrity sha512-IwQk4yfwLdibDlrXVE04jTZYlLnwsTT2PIOQQGNLWfjavGifnk1JD1LcZjZaBTRcxZu2FfPfNLOE04DSu9lqtQ==
 
-"@sveltejs/adapter-auto@^6.1.0":
+"@sveltejs/adapter-auto@6.1.0":
   version "6.1.0"
   resolved "https://registry.yarnpkg.com/@sveltejs/adapter-auto/-/adapter-auto-6.1.0.tgz#614955b8a447eb92dac910cd1db245b82da4fb91"
   integrity sha512-shOuLI5D2s+0zTv2ab5M5PqfknXqWbKi+0UwB9yLTRIdzsK1R93JOO8jNhIYSHdW+IYXIYnLniu+JZqXs7h9Wg==
 
-"@sveltejs/adapter-node@^5.3.1":
+"@sveltejs/adapter-node@5.3.1":
   version "5.3.1"
   resolved "https://registry.yarnpkg.com/@sveltejs/adapter-node/-/adapter-node-5.3.1.tgz#dfe8202d8bb2abf890d241d009f946f2d53e9a69"
   integrity sha512-PSoGfa9atkmuixe7jvuS2tsUohVZF20So87ASzfMRGTTNqEd8s48KAodlv3CzHwq9XO/BM8KsQLpqqsr/6dmuA==
@@ -563,7 +563,7 @@
     "@rollup/plugin-node-resolve" "^16.0.0"
     rollup "^4.9.5"
 
-"@sveltejs/kit@^2.36.1":
+"@sveltejs/kit@2.36.1":
   version "2.36.1"
   resolved "https://registry.yarnpkg.com/@sveltejs/kit/-/kit-2.36.1.tgz#7f74dc7a583237d314484600911c98f092fd3d8a"
   integrity sha512-dldNCtSIpaGxQMEfHaUxSPH/k3uU28pTZwtKzfkn8fqpOjWufKlMBeIL7FJ/s93dOrhEq41zaQYkXh+XTgEgVw==
