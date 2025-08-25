@@ -25,7 +25,8 @@ const config = {
 					skipLibCheck: true,
 					allowJs: true,
 					strict: false,
-					noImplicitAny: false
+					noImplicitAny: false,
+					verbatimModuleSyntax: true
 				}
 			}
 		}),
