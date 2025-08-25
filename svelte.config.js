@@ -1,6 +1,6 @@
 //import adapter from '@sveltejs/adapter-auto';
 import adapter from '@sveltejs/adapter-node';
-import preprocess from 'svelte-preprocess';
+import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 import { windi } from 'svelte-windicss-preprocess';
 import { mdsvex } from 'mdsvex';
 import mdsvexConfig from './mdsvex.config.js';
@@ -18,18 +18,7 @@ const config = {
 	},
 	extensions: ['.svelte', '.svx', '.md'],
 	preprocess: [
-		preprocess({
-			typescript: {
-				compilerOptions: {
-					target: 'es2020',
-					skipLibCheck: true,
-					allowJs: true,
-					strict: false,
-					noImplicitAny: false,
-					verbatimModuleSyntax: true
-				}
-			}
-		}),
+		vitePreprocess(),
 		windi({}), 
 		mdsvex(mdsvexConfig)
 	]
