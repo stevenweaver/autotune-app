@@ -2864,10 +2864,10 @@ http-signature@~1.1.0:
     jsprim "^1.2.2"
     sshpk "^1.7.0"
 
-hyphy-scope@1.2.3:
-  version "1.2.3"
-  resolved "https://registry.yarnpkg.com/hyphy-scope/-/hyphy-scope-1.2.3.tgz#d82528e9e0d2bfaa302be0b0a36230bd62d1d833"
-  integrity sha512-AyxRRZVzduT4FOQWE9B69rjbtZxvchwn7IRN3Rx4u3uFDSTPzZd6H6KstqDLze10HBvcUIwqpLf1wRDq1Lvm9Q==
+hyphy-scope@1.2.5:
+  version "1.2.5"
+  resolved "https://registry.yarnpkg.com/hyphy-scope/-/hyphy-scope-1.2.5.tgz#75097d612b7b11262876396228a47938d5826561"
+  integrity sha512-txNJ42FhcrmuyQH+A8ctxzyFfqbpPU9zeHtIk72ckut3pbAHp/SygAPvZEFp/XLQoLEZnCYdQ0iydrETqn0lhw==
   dependencies:
     "@observablehq/plot" "^0.6.11"
     d3 "^7.8.5"
