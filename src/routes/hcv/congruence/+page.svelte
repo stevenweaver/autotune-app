@@ -4,12 +4,11 @@
   import * as Plot from '@observablehq/plot';
   import RenderPlot from '../../../Plot.svelte';
   import SvelteTable from 'svelte-table';
-  
+  import { selectedGenotype, selectedThreshold, genotypes, thresholds } from '$lib/hcvStore.js';
+
   import congruenceData from '../../../data/hcv/autotune/network_congruence_analysis.json';
   import treeComparisonData from '../../../data/hcv/autotune/tree_comparison_analysis.json';
-  
-  let selectedGenotype = writable('1a');
-  let selectedThreshold = writable('0.2');
+
   let isLoading = writable(false);
   
   let alphaPlotOptions = writable({});
@@ -28,7 +27,7 @@
     updateVisualizations();
   }
   
-  function updateVisualizations() {
+  async function updateVisualizations() {
     if (!currentData.krippendorff_alpha_pairwise) {
       console.log("No krippendorff_alpha_pairwise data found in currentData:", currentData);
       return;
@@ -50,18 +49,45 @@
     console.log("Generated pairwiseData:", pairwiseData.length, "entries");
     console.log("Sample pairwise entries:", pairwiseData.slice(0, 3));
     
-    // Prepare network statistics data, excluding ns5a-ns5b-ns3
-    networkStatsData = Object.entries(currentData.network_statistics || {})
-      .filter(([region]) => region !== 'ns5a-ns5b-ns3')
-      .map(([region, stats]) => ({
-        region,
-        total_sequences: stats.total_sequences_analyzed,
-        networked_sequences: stats.networked_sequences,
-        singleton_sequences: stats.singleton_sequences,
-        network_proportion: stats.network_proportion,
-        total_clusters: stats.total_clusters,
-        edges: stats.edges
-      }));
+    // Helper function to load cluster sizes from HIVTrace files
+    async function getClusterSizes(region) {
+      try {
+        const response = await fetch(`/results/${combinationKey}_${region}.hivtrace.json`);
+        if (response.ok) {
+          const hivtraceData = await response.json();
+          const clusterSizes = hivtraceData['Cluster sizes'] || [];
+          const sortedSizes = clusterSizes.sort((a, b) => b - a); // Sort descending
+          return {
+            largest: sortedSizes[0] || 0,
+            secondLargest: sortedSizes[1] || 0
+          };
+        }
+      } catch (error) {
+        console.warn(`Could not load cluster sizes for ${region}:`, error);
+      }
+      return { largest: 0, secondLargest: 0 };
+    }
+    
+    // Prepare network statistics data with cluster sizes, excluding ns5a-ns5b-ns3
+    const networkStatsEntries = Object.entries(currentData.network_statistics || {})
+      .filter(([region]) => region !== 'ns5a-ns5b-ns3');
+    
+    networkStatsData = await Promise.all(
+      networkStatsEntries.map(async ([region, stats]) => {
+        const clusterSizes = await getClusterSizes(region);
+        return {
+          region,
+          total_sequences: stats.total_sequences_analyzed,
+          networked_sequences: stats.networked_sequences,
+          singleton_sequences: stats.singleton_sequences,
+          network_proportion: stats.network_proportion,
+          total_clusters: stats.total_clusters,
+          edges: stats.edges,
+          largest_cluster: clusterSizes.largest,
+          second_largest_cluster: clusterSizes.secondLargest
+        };
+      })
+    );
     
     generateAlphaPlot();
     generateNetworkStatsPlot();
@@ -361,9 +387,8 @@
       return { genotype, threshold, key };
     });
   
-  const genotypes = [...new Set(availableCombinations.map(c => c.genotype))];
-  const thresholds = [...new Set(availableCombinations.map(c => c.threshold))];
-  
+  // Using shared genotypes and thresholds from store
+
   onMount(() => {
     updateVisualizations();
   });
@@ -374,7 +399,28 @@
     <div class="col-start-1 col-span-2">
       <h1 class="text-5xl">HCV Network Congruence Analysis</h1>
       <p>Analysis of network agreement across different HCV gene regions using Krippendorff's Alpha reliability measurement. This helps understand how consistent clustering patterns are between different genomic regions.</p>
-      
+
+      <!-- Global Selection Controls (persist across all HCV pages) -->
+      <div class="flex pt-4 space-x-6 items-center bg-indigo-50 border border-indigo-200 p-4 rounded-lg mt-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Select Genotype</label>
+          <select bind:value={$selectedGenotype} class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+            {#each genotypes as genotype}
+              <option value={genotype}>{genotype}</option>
+            {/each}
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Select Consensus Threshold</label>
+          <select bind:value={$selectedThreshold} class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+            {#each thresholds as threshold}
+              <option value={threshold}>{threshold}</option>
+            {/each}
+          </select>
+        </div>
+      </div>
+
       <!-- Navigation Links -->
       <div class="flex space-x-4 mt-4 mb-6">
         <a href="/hcv" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors">
@@ -393,7 +439,7 @@
           MEME Analysis
         </a>
       </div>
-      
+
       <!-- Analysis Information -->
       {#if currentData.genotype_consensus}
         <div class="bg-blue-50 p-4 rounded-lg mb-6">
@@ -431,28 +477,7 @@
           {/if}
         </div>
       {/if}
-      
-      <!-- Parameter Selection -->
-      <div class="flex pt-4 space-x-6 items-center bg-gray-50 p-4 rounded-lg">
-        <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">Select Genotype</label>
-          <select bind:value={$selectedGenotype} class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-            {#each genotypes as genotype}
-              <option value={genotype}>{genotype}</option>
-            {/each}
-          </select>
-        </div>
 
-        <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">Select Consensus Threshold</label>
-          <select bind:value={$selectedThreshold} class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-            {#each thresholds as threshold}
-              <option value={threshold}>{threshold}</option>
-            {/each}
-          </select>
-        </div>
-      </div>
-      
       {#if currentData.genotype_consensus}
         <!-- Summary Statistics -->
         <div class="bg-white p-4 rounded-lg shadow mt-6">
@@ -460,11 +485,11 @@
           <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
             <div class="bg-gray-50 p-3 rounded">
               <div class="text-sm text-gray-600">Global Alpha</div>
-              <div class="text-2xl font-bold">{currentData.krippendorff_alpha_global?.toFixed(3) || 'N/A'}</div>
+              <div class="text-2xl font-bold">{currentData.krippendorff_alpha_global?.toFixed(4) || 'N/A'}</div>
             </div>
             <div class="bg-gray-50 p-3 rounded">
               <div class="text-sm text-gray-600">Mean Pairwise Alpha</div>
-              <div class="text-2xl font-bold">{currentData.pairwise_summary?.mean_pairwise_alpha?.toFixed(3) || 'N/A'}</div>
+              <div class="text-2xl font-bold">{currentData.pairwise_summary?.mean_pairwise_alpha?.toFixed(4) || 'N/A'}</div>
             </div>
             <div class="bg-gray-50 p-3 rounded">
               <div class="text-sm text-gray-600">Regions Compared</div>
@@ -478,9 +503,9 @@
           <h2 class="text-2xl font-semibold mb-4">Average Krippendorff's Alpha by Region</h2>
           <RenderPlot options={$alphaPlotOptions} />
           <p class="text-sm text-gray-600 mt-2">
-            Higher values indicate better agreement with other regions. 
-            Blue colors indicate high agreement, yellow indicates moderate agreement, and red indicates low agreement.
-            Dashed lines mark thresholds at 0.2 (moderate) and 0.5 (good).
+            Higher values indicate better agreement with other regions.
+            Purple colors indicate lower agreement values (closer to 0.75), while green and yellow indicate higher agreement (closer to 1.0).
+            Orange dashed line marks 0.8 (good agreement), green dashed line marks 0.9 (excellent agreement).
           </p>
         </div>
         
@@ -498,7 +523,7 @@
           <h2 class="text-2xl font-semibold mb-4">Pairwise Region Agreement Heatmap</h2>
           <RenderPlot options={$pairwiseHeatmapOptions} />
           <p class="text-sm text-gray-600 mt-2">
-            Krippendorff's Alpha values for each pair of regions. Blue indicates high agreement, red indicates low agreement.
+            Krippendorff's Alpha values for each pair of regions. Darker purple/blue indicates lower agreement, while green/yellow indicates higher agreement.
           </p>
         </div>
         
@@ -510,22 +535,25 @@
             <p class="text-sm text-gray-600 mt-2">
               Normalized Robinson-Foulds distance between phylogenetic trees from different genomic regions. Lower values (darker) indicate more similar tree topologies, while higher values (lighter) indicate more different tree structures. This helps identify which genomic regions produce similar phylogenetic relationships.
             </p>
+            <p class="text-sm text-gray-500 mt-2 italic">
+              Note: This heatmap may include compound regions (e.g., "core-e2-ns5a-ns3") that represent concatenated multi-region alignments, which are not present in the Krippendorff's Alpha analysis above. The Alpha analysis compares network clustering patterns between individual genomic regions, while this analysis compares phylogenetic tree topologies from both single and concatenated region alignments.
+            </p>
           {:else}
             <div class="p-8 bg-gray-50 rounded-lg">
               <h3 class="text-lg font-semibold text-gray-700 mb-3">Limited Tree Comparison Data</h3>
               <p class="text-gray-600 mb-3">No cross-region tree comparison data available for genotype <strong>{$selectedGenotype}</strong> at threshold <strong>{$selectedThreshold}</strong>.</p>
               
               <div class="text-sm text-gray-600">
-                <p class="font-medium mb-2">Data Coverage for Genotype 1a:</p>
+                <p class="font-medium mb-2">Note about Data Coverage:</p>
                 <ul class="list-disc list-inside space-y-1 mb-3">
-                  <li><strong>Network Analysis:</strong> 15 regions available (core, e1, e2, ns2, ns3, ns4a, ns4b, ns5a, ns5b, p7, etc.)</li>
-                  <li><strong>Tree Comparisons:</strong> Only 4-7 regions per threshold with cross-region phylogenetic comparisons</li>
-                  <li><strong>At threshold 0.2:</strong> Only 4 regions (core-e2-ns5a-ns3, e1, ns4b, ns5a-ns3) have tree comparisons</li>
+                  <li><strong>Network Analysis:</strong> Multiple regions available per genotype</li>
+                  <li><strong>Tree Comparisons:</strong> Some regions may have limited cross-region phylogenetic comparisons</li>
                 </ul>
-                
+
                 <p class="text-gray-500">
-                  The Robinson-Foulds analysis requires phylogenetic trees from multiple regions, but genotype 1a has limited sequence data 
-                  or insufficient tree generation across all genomic regions. Try genotype <strong>3a</strong> or <strong>2b</strong> for more comprehensive coverage.
+                  The Robinson-Foulds analysis requires phylogenetic trees from multiple regions.
+                  Some genotype/threshold combinations have limited sequence data or insufficient tree generation.
+                  Try different genotypes (e.g., 3a or 2b) for more comprehensive coverage.
                 </p>
               </div>
             </div>
@@ -543,6 +571,8 @@
               { key: 'singleton_sequences', title: 'Singletons', sortable: true, value: (row) => row.singleton_sequences || 'N/A', sortValue: (row) => row.singleton_sequences || 0, headerClass: 'px-4 py-2 text-left text-sm font-medium text-gray-700', class: 'px-4 py-2 text-sm text-gray-700' },
               { key: 'network_proportion', title: 'Network Proportion', sortable: true, value: (row) => typeof row.network_proportion === 'number' ? row.network_proportion.toFixed(3) : 'N/A', sortValue: (row) => row.network_proportion || 0, headerClass: 'px-4 py-2 text-left text-sm font-medium text-gray-700', class: 'px-4 py-2 text-sm text-gray-700' },
               { key: 'total_clusters', title: 'Clusters', sortable: true, value: (row) => row.total_clusters || 'N/A', sortValue: (row) => row.total_clusters || 0, headerClass: 'px-4 py-2 text-left text-sm font-medium text-gray-700', class: 'px-4 py-2 text-sm text-gray-700' },
+              { key: 'largest_cluster', title: 'Largest Cluster', sortable: true, value: (row) => row.largest_cluster || 'N/A', sortValue: (row) => row.largest_cluster || 0, headerClass: 'px-4 py-2 text-left text-sm font-medium text-gray-700', class: 'px-4 py-2 text-sm text-gray-700' },
+              { key: 'second_largest_cluster', title: 'Second Largest Cluster', sortable: true, value: (row) => row.second_largest_cluster || 'N/A', sortValue: (row) => row.second_largest_cluster || 0, headerClass: 'px-4 py-2 text-left text-sm font-medium text-gray-700', class: 'px-4 py-2 text-sm text-gray-700' },
               { key: 'edges', title: 'Edges', sortable: true, value: (row) => row.edges || 'N/A', sortValue: (row) => row.edges || 0, headerClass: 'px-4 py-2 text-left text-sm font-medium text-gray-700', class: 'px-4 py-2 text-sm text-gray-700' }
             ]}
             rows={networkStatsData}
@@ -551,8 +581,11 @@
             classNameTbody={['']}
             classNameRow={['hover:bg-gray-50']}
           />
+          <p class="text-sm text-gray-500 mt-2">
+            Note: "Largest Cluster" and "Second Largest Cluster" may show N/A when cluster size data is not available for certain regions or when all sequences form a single connected component.
+          </p>
         </div>
-        
+
         <!-- Pairwise Comparisons Table -->
         <div class="bg-white p-4 rounded-lg shadow mt-6">
           <h2 class="text-2xl font-semibold mb-4">Pairwise Alpha Values</h2>

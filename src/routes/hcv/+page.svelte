@@ -7,7 +7,7 @@
 
 	import * as Plot from '@observablehq/plot';
 	import RenderPlot from '../../Plot.svelte';
-
+  import { selectedGenotype, selectedThreshold, genotypes, thresholds } from '$lib/hcvStore.js';
 
   import allThresholds from '../../data/hcv/all_thresholds.json';
 
@@ -33,8 +33,6 @@
   // twenty percent only
   let plotData = [];
 
-  let selectedThreshold = writable('0.2');  // Default value as an example
-  let selectedGenotype = writable('1a');  // Default value as an example
   let isLoading = writable(false);
   let selectedPoint = writable(null);
 
@@ -62,7 +60,7 @@
       label: "Gene Region"
     },
     y: {
-      label: "Threshold"
+      label: "Best Threshold"
     },
     marks: [
       Plot.frame(),
@@ -193,7 +191,7 @@
 			marginRight: 40,
 			x: {
 				nice: true,
-				label: "Threshold",
+				label: "Best Threshold",
 				domain: [0, 0.05]
 			},
 			y: {
@@ -246,7 +244,7 @@
 			marginRight: 40,
 			x: {
 				nice: true,
-				label: "Threshold",
+				label: "Best Threshold",
 				domain: [0, 0.05]
 			},
 			y: {
@@ -297,7 +295,7 @@
 			marginRight: 40,
 			x: {
 				nice: true,
-				label: "Threshold",
+				label: "Best Threshold",
 				domain: [0, 0.05]
 			},
 			y: {
@@ -348,7 +346,7 @@
 			marginRight: 40,
 			x: {
 				nice: true,
-				label: "Threshold",
+				label: "Best Threshold",
 				domain: [0, 0.05]
 			},
 			y: {
@@ -427,7 +425,35 @@
     <div class="col-start-1 col-span-2">
       <h1 class="text-5xl">CIENI HCV Report</h1>
       <p>This page visualizes data related to Hepatitis C Virus (HCV) genetic variations, focusing on consensus thresholds and genes and their implications for inferring clustering thresholds. Below, you can interact with the data by selecting different points on the plot and viewing detailed plots that describe the components that contributed to their AUTO-TUNE scores.</p>
-      
+
+      <!-- Global Selection Controls (persist across all HCV pages) -->
+      <div class="flex pt-4 space-x-6 items-center bg-indigo-50 border border-indigo-200 p-4 rounded-lg mt-4">
+        <div>
+          <label for="genotype-select" class="block text-sm font-medium text-gray-700 mb-1">Select Genotype</label>
+          <select id="genotype-select" bind:value={$selectedGenotype} class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+            {#each genotypes as genotype}
+              <option value={genotype}>{genotype}</option>
+            {/each}
+          </select>
+        </div>
+
+        <div>
+          <label for="threshold-select" class="block text-sm font-medium text-gray-700 mb-1">Select Consensus Threshold</label>
+          <select id="threshold-select" bind:value={$selectedThreshold} class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+            {#each thresholds as threshold}
+              <option value={threshold}>{threshold}</option>
+            {/each}
+          </select>
+        </div>
+
+        {#if $selectedPoint}
+          <div class="bg-white p-3 rounded border">
+            <div class="text-sm font-medium text-gray-700">Selected Point:</div>
+            <div class="text-sm text-gray-600">{$selectedPoint.genotype} - {$selectedPoint.consensus} - {$selectedPoint.gene}</div>
+          </div>
+        {/if}
+      </div>
+
       <!-- Navigation Links -->
       <div class="flex space-x-4 mt-4 mb-6">
         <a href="/hcv" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors">
@@ -446,35 +472,6 @@
           MEME Analysis
         </a>
       </div>
-
-
-      <div class="flex pt-4 space-x-6 items-center bg-gray-50 p-4 rounded-lg">
-        <div>
-          <label for="genotype-select" class="block text-sm font-medium text-gray-700 mb-1">Select Genotype</label>
-          <select id="genotype-select" bind:value={$selectedGenotype} class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-            {#each Array.from(new Set(allThresholds.map(d => d.genotype).filter(g => g))) as genotype}
-              <option value={genotype}>{genotype}</option>
-            {/each}
-          </select>
-        </div>
-
-        <div>
-          <label for="threshold-select" class="block text-sm font-medium text-gray-700 mb-1">Select Consensus Threshold</label>
-          <select id="threshold-select" bind:value={$selectedThreshold} class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-            {#each Array.from(new Set(allThresholds.map(d => d.consensus).filter(c => c))) as threshold}
-              <option value={threshold}>{threshold}</option>
-            {/each}
-          </select>
-        </div>
-
-        {#if $selectedPoint}
-          <div class="bg-white p-3 rounded border">
-            <div class="text-sm font-medium text-gray-700">Selected Point:</div>
-            <div class="text-sm text-gray-600">{$selectedPoint.genotype} - {$selectedPoint.consensus} - {$selectedPoint.gene}</div>
-          </div>
-        {/if}
-      </div>
-
 
       <div class="pt-6">
         <h2 class="text-2xl font-semibold mb-4">Gene Region Overview</h2>

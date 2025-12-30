@@ -7,7 +7,6 @@
 	import RenderPlot from '../../Plot.svelte';
 
 	import chiapasFile from '../../data/chiapas_seguro_report.tsv?raw';
-	import { init } from 'svelte/internal';
 
 	const PAIRWISE_DIST_FILE_NAME = 'pairwise_distances.tn93.csv';
 	const ALIGNMENT_FILE_NAME = 'alignment.fasta';
