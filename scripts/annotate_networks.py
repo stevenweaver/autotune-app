@@ -112,8 +112,10 @@ def annotate_network_file(filepath, annotations, output_path=None):
     # Add cluster comparison attributes for other regions
     for region in REGIONS:
         if region != current_region:
+            # Add (Recommended) suffix for recommended regions
+            suffix = " (Recommended)" if region in RECOMMENDED_REGIONS else ""
             schema[f"cluster_in_{region}"] = {
-                "label": f"Cluster in {region.upper()}",
+                "label": f"Cluster in {region.upper()}{suffix}",
                 "type": "String"
             }
 
