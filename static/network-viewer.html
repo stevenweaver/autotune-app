@@ -119,11 +119,11 @@
         color: #b91c1c;
       }
 
-      /* Network info overlay - positioned below toolbar */
+      /* Network info overlay - positioned in lower right */
       .network-info {
         position: absolute;
-        top: 80px;
-        left: 10px;
+        bottom: 20px;
+        right: 20px;
         background: rgba(255, 255, 255, 0.95);
         border: 1px solid #e5e7eb;
         border-radius: 6px;
@@ -185,42 +185,60 @@
         display: none;
         position: absolute;
         top: 70px;
-        left: 10px;
-        z-index: 100;
+        left: 200px;
+        z-index: 150;
       }
 
       #colorPickerRow {
-        background-color: #fefce8;
+        background-color: rgba(255, 255, 255, 0.98);
         padding: 12px 15px;
         border-radius: 6px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-        min-width: 200px;
-        max-width: 350px;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+        border: 1px solid #e5e7eb;
+        min-width: 180px;
       }
 
-      #colorPickerRow .form-group,
-      #colorPickerRow > span {
-        display: flex;
+      /* Each color picker item as a flex row */
+      #colorPickerRow > span,
+      #colorPickerRow .color-picker-item {
+        display: flex !important;
         align-items: center;
-        gap: 8px;
-        margin-bottom: 6px;
-        font-size: 13px;
+        gap: 10px;
+        margin-bottom: 8px;
+        white-space: nowrap;
       }
 
-      #colorPickerRow input[type="color"] {
-        width: 36px;
-        height: 26px;
+      #colorPickerRow > span:last-child {
+        margin-bottom: 0;
+      }
+
+      #colorPickerRow input[type="color"],
+      #colorPickerRow .hivtrace-color-picker {
+        width: 32px;
+        height: 24px;
         padding: 0;
         border: 1px solid #d1d5db;
         border-radius: 4px;
         cursor: pointer;
         flex-shrink: 0;
+        -webkit-appearance: none;
+        appearance: none;
+      }
+
+      #colorPickerRow input[type="color"]::-webkit-color-swatch-wrapper {
+        padding: 2px;
+      }
+
+      #colorPickerRow input[type="color"]::-webkit-color-swatch {
+        border-radius: 2px;
+        border: none;
       }
 
       #colorPickerRow label {
-        font-size: 12px;
+        font-size: 13px;
         color: #374151;
         margin: 0;
+        font-weight: 500;
       }
 
       .color-picker-toggle {
