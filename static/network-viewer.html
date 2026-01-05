@@ -147,6 +147,39 @@
         margin-right: 12px;
       }
 
+      /* Region classification badge */
+      .region-badge {
+        display: inline-block;
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+        margin-left: 8px;
+        vertical-align: middle;
+      }
+
+      .region-badge.recommended {
+        background: #dcfce7;
+        color: #166534;
+        border: 1px solid #86efac;
+      }
+
+      .region-badge.not-recommended {
+        background: #fef3c7;
+        color: #92400e;
+        border: 1px solid #fcd34d;
+      }
+
+      .region-rationale {
+        margin-top: 6px;
+        font-size: 11px;
+        color: #6b7280;
+        line-height: 1.4;
+        max-width: 280px;
+      }
+
       /* Fix bootstrap navbar interference */
       .navbar {
         display: none !important;
@@ -170,12 +203,16 @@
 
       <!-- Network info overlay -->
       <div id="network-info" class="network-info" style="display: none;">
-        <div class="title" id="info-title">Network</div>
+        <div class="title">
+          <span id="info-title">Network</span>
+          <span id="region-badge" class="region-badge" style="display: none;"></span>
+        </div>
         <div class="stats">
           <span id="info-nodes">0 nodes</span>
           <span id="info-edges">0 edges</span>
           <span id="info-clusters">0 clusters</span>
         </div>
+        <div id="region-rationale" class="region-rationale" style="display: none;"></div>
       </div>
 
       <!-- Button bar (required by hivtrace) -->
@@ -275,6 +312,46 @@
         document.getElementById('loading-overlay').style.display = 'none';
       }
 
+      // Region classification based on manuscript findings
+      var REGION_CLASSIFICATION = {
+        // Recommended regions: 5-7 distinct clusters, balanced R1/R2 ratios (2.0-2.7)
+        // Cross-region stability, low singleton prevalence, strong internal consistency
+        recommended: {
+          regions: ['e1', 'e2', 'ns2', 'ns3', 'ns5b'],
+          label: 'Recommended',
+          rationale: 'Optimal for clustering: produces distinct clusters with balanced R1/R2 ratios, cross-region stability, and strong internal consistency.'
+        },
+        // Regions to avoid: high R1/R2 ratios, single dominant clusters
+        notRecommended: {
+          regions: ['core', 'ns4a', 'ns4b', 'ns5a'],
+          label: 'Not Recommended',
+          rationale: 'Conserved region: forms single dominant clusters regardless of threshold, offering poor epidemiological resolution.'
+        }
+      };
+
+      function getRegionClassification(gene) {
+        if (!gene) return null;
+        var geneLower = gene.toLowerCase();
+
+        if (REGION_CLASSIFICATION.recommended.regions.includes(geneLower)) {
+          return {
+            type: 'recommended',
+            label: REGION_CLASSIFICATION.recommended.label,
+            rationale: REGION_CLASSIFICATION.recommended.rationale
+          };
+        }
+
+        if (REGION_CLASSIFICATION.notRecommended.regions.includes(geneLower)) {
+          return {
+            type: 'not-recommended',
+            label: REGION_CLASSIFICATION.notRecommended.label,
+            rationale: REGION_CLASSIFICATION.notRecommended.rationale
+          };
+        }
+
+        return null; // Unknown region
+      }
+
       function showNetworkInfo(data, meta) {
         var summary = data['Network Summary'] || {};
         var infoEl = document.getElementById('network-info');
@@ -282,6 +359,23 @@
         if (meta && meta.gene) {
           document.getElementById('info-title').textContent =
             meta.gene.toUpperCase() + ' (' + meta.genotype + ' @ ' + meta.threshold + ')';
+
+          // Show region classification
+          var classification = getRegionClassification(meta.gene);
+          var badgeEl = document.getElementById('region-badge');
+          var rationaleEl = document.getElementById('region-rationale');
+
+          if (classification) {
+            badgeEl.textContent = classification.label;
+            badgeEl.className = 'region-badge ' + classification.type;
+            badgeEl.style.display = 'inline-block';
+
+            rationaleEl.textContent = classification.rationale;
+            rationaleEl.style.display = 'block';
+          } else {
+            badgeEl.style.display = 'none';
+            rationaleEl.style.display = 'none';
+          }
         }
 
         document.getElementById('info-nodes').textContent = (summary.Nodes || 0) + ' nodes';
