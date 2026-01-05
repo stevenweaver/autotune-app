@@ -385,6 +385,108 @@
         infoEl.style.display = 'block';
       }
 
+      // Custom color scales for specific attributes
+      var CUSTOM_COLOR_SCALES = {
+        'recommended_congruent': {
+          'Yes': '#22c55e',    // green-500
+          'No': '#ef4444',     // red-500
+          'Missing': '#9ca3af' // gray-400
+        },
+        'main_cluster_congruent': {
+          'Yes': '#22c55e',    // green-500
+          'No': '#ef4444',     // red-500
+          'Missing': '#9ca3af' // gray-400
+        }
+      };
+
+      function applyCustomColorScales() {
+        if (!user_graph) return;
+
+        // Watch for color changes via dropdown selection
+        $(document).on('click', '[data-hivtrace-ui-role="attributes"] li a', function() {
+          var linkText = $(this).text().trim();
+          var attrName = mapLabelToAttribute(linkText);
+
+          // Delay to let hivtrace apply its colors first, then override
+          if (attrName) {
+            setTimeout(function() { recolorNodesIfCustom(attrName); }, 100);
+            setTimeout(function() { recolorNodesIfCustom(attrName); }, 300);
+            setTimeout(function() { recolorNodesIfCustom(attrName); }, 600);
+          }
+        });
+      }
+
+      function mapLabelToAttribute(label) {
+        if (!label) return null;
+        if (label.indexOf('Recommended Regions Congruent') >= 0) return 'recommended_congruent';
+        if (label.indexOf('Main Cluster Congruent') >= 0) return 'main_cluster_congruent';
+        return null;
+      }
+
+      function getCurrentColorAttribute() {
+        // Try to detect current color attribute from the dropdown button text
+        var btnText = $('[data-hivtrace-ui-role="attributes_label"]').text();
+        if (btnText && btnText !== 'Color') {
+          // Map label back to attribute name
+          if (btnText.indexOf('Recommended Regions Congruent') >= 0) return 'recommended_congruent';
+          if (btnText.indexOf('Main Cluster Congruent') >= 0) return 'main_cluster_congruent';
+        }
+        return null;
+      }
+
+      function recolorNodesIfCustom(attrName) {
+        if (!CUSTOM_COLOR_SCALES[attrName]) return;
+
+        var colorMap = CUSTOM_COLOR_SCALES[attrName];
+
+        // Recolor nodes based on their attribute value
+        d3.selectAll('#network_tag svg .node circle, #network_tag svg .node ellipse').each(function() {
+          var node = d3.select(this);
+          var nodeData = node.datum();
+
+          if (nodeData && nodeData.patient_attributes) {
+            var value = nodeData.patient_attributes[attrName];
+            if (value && colorMap[value]) {
+              node.style('fill', colorMap[value]);
+            } else if (colorMap['Missing']) {
+              node.style('fill', colorMap['Missing']);
+            }
+          }
+        });
+
+        // Update legend colors
+        updateLegendColors(attrName, colorMap);
+      }
+
+      function updateLegendColors(attrName, colorMap) {
+        // Find legend items and update their colors
+        d3.selectAll('.legend-item, .hivtrace-legend-item').each(function() {
+          var item = d3.select(this);
+          var text = item.text().trim();
+
+          // Match legend text to color map
+          for (var key in colorMap) {
+            if (text === key || text.indexOf(key) >= 0) {
+              item.select('circle, rect, .legend-color').style('fill', colorMap[key]);
+              break;
+            }
+          }
+        });
+
+        // Also try updating any legend circles/rects directly within the SVG
+        d3.selectAll('#network_tag svg .legend circle, #network_tag svg .legend rect').each(function() {
+          var el = d3.select(this);
+          var parentText = d3.select(this.parentNode).text();
+
+          for (var key in colorMap) {
+            if (parentText && parentText.indexOf(key) >= 0) {
+              el.style('fill', colorMap[key]);
+              break;
+            }
+          }
+        });
+      }
+
       function initNetwork(data, meta) {
         console.log('initNetwork called with data:', data);
 
@@ -462,6 +564,9 @@
           // Success - hide loading, show info
           hideLoading();
           showNetworkInfo(graph, meta);
+
+          // Apply custom color scales for specific attributes
+          applyCustomColorScales();
 
           // Notify parent that network is ready
           window.parent.postMessage({ type: 'NETWORK_READY' }, '*');
