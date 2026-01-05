@@ -463,6 +463,28 @@
         }
       };
 
+      function repositionLegend() {
+        // Move legend from top-left to bottom-left
+        // The legend is the first <g> child of the network SVG with class containing 'legend' references
+        setTimeout(function() {
+          var svg = document.querySelector('#network_tag svg');
+          if (!svg) return;
+
+          var svgHeight = svg.getBoundingClientRect().height;
+          var legendGroup = svg.querySelector('g'); // First g element is the legend container
+
+          if (legendGroup) {
+            // Get legend bounding box to calculate proper offset
+            var legendBBox = legendGroup.getBBox();
+            var legendHeight = legendBBox.height || 150;
+
+            // Position at bottom-left with some padding
+            var newY = svgHeight - legendHeight - 30;
+            legendGroup.setAttribute('transform', 'translate(10,' + Math.max(newY, 100) + ')');
+          }
+        }, 300);
+      }
+
       function applyCustomColorScales() {
         if (!user_graph) return;
 
@@ -644,6 +666,9 @@
 
           // Apply custom color scales for specific attributes
           applyCustomColorScales();
+
+          // Reposition legend to bottom-left
+          repositionLegend();
 
           // Notify parent that network is ready
           window.parent.postMessage({ type: 'NETWORK_READY' }, '*');
