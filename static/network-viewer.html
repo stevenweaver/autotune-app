@@ -181,47 +181,46 @@
       }
 
       /* Color picker styling */
-      #colorPickerRow {
-        background-color: #fefce8;
-        padding: 10px 15px;
-        margin: 0;
+      #colorPickerOption {
+        display: none;
         position: absolute;
         top: 70px;
         left: 10px;
         z-index: 100;
-        border-radius: 6px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-        max-width: 400px;
       }
 
-      #colorPickerRow.in {
-        display: block;
+      #colorPickerRow {
+        background-color: #fefce8;
+        padding: 12px 15px;
+        border-radius: 6px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        min-width: 200px;
+        max-width: 350px;
+      }
+
+      #colorPickerRow .form-group,
+      #colorPickerRow > span {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 6px;
+        font-size: 13px;
       }
 
       #colorPickerRow input[type="color"] {
-        width: 40px;
-        height: 28px;
+        width: 36px;
+        height: 26px;
         padding: 0;
         border: 1px solid #d1d5db;
         border-radius: 4px;
         cursor: pointer;
+        flex-shrink: 0;
       }
 
       #colorPickerRow label {
         font-size: 12px;
-        margin-right: 8px;
         color: #374151;
-      }
-
-      #colorPickerRow .form-group {
-        margin-bottom: 8px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-      }
-
-      #colorPickerOption {
-        display: block;
+        margin: 0;
       }
 
       .color-picker-toggle {
@@ -278,7 +277,7 @@
               Color <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" role="menu" data-hivtrace-ui-role="attributes"></ul>
-            <button type="button" class="btn btn-default" data-toggle="collapse" href="#colorPickerRow" title="Select Color Palette">
+            <button type="button" class="btn btn-default" id="color-picker-btn" title="Select Color Palette">
               <span class="color-picker-toggle" style="color: #22c55e; font-weight: bold;">●</span>
             </button>
             <button type="button" class="btn btn-default" style="display:none" data-hivtrace-ui-role="attributes_invert">Invert</button>
@@ -323,9 +322,9 @@
         </div>
       </div>
 
-      <!-- Color picker row (collapsible) -->
+      <!-- Color picker row -->
       <div id="colorPickerOption">
-        <div id="colorPickerRow" class="row collapse"></div>
+        <div id="colorPickerRow"></div>
       </div>
 
       <!-- Main SVG container (required by hivtrace) -->
@@ -457,6 +456,19 @@
 
       function applyCustomColorScales() {
         if (!user_graph) return;
+
+        // Toggle color picker visibility
+        $('#color-picker-btn').on('click', function() {
+          var $picker = $('#colorPickerOption');
+          if ($picker.is(':visible')) {
+            $picker.hide();
+          } else {
+            // Only show if there's content (an attribute is selected)
+            if ($('#colorPickerRow').html().trim()) {
+              $picker.show();
+            }
+          }
+        });
 
         // Watch for color changes via dropdown selection
         $(document).on('click', '[data-hivtrace-ui-role="attributes"] li a', function() {
