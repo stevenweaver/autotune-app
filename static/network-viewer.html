@@ -184,61 +184,52 @@
       #colorPickerOption {
         display: none;
         position: absolute;
-        top: 70px;
-        left: 200px;
+        top: 60px;
+        left: 10px;
         z-index: 150;
+        clear: both;
       }
 
       #colorPickerRow {
         background-color: rgba(255, 255, 255, 0.98);
-        padding: 12px 15px;
+        padding: 10px 12px;
         border-radius: 6px;
         box-shadow: 0 2px 12px rgba(0,0,0,0.2);
         border: 1px solid #e5e7eb;
-        min-width: 180px;
+        display: inline-flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        max-width: 300px;
       }
 
-      /* Each color picker item as a flex row */
-      #colorPickerRow > span,
-      #colorPickerRow .color-picker-item {
-        display: flex !important;
+      /* Each color picker item */
+      #colorPickerRow > span {
+        display: inline-flex !important;
         align-items: center;
-        gap: 10px;
-        margin-bottom: 8px;
-        white-space: nowrap;
-      }
-
-      #colorPickerRow > span:last-child {
-        margin-bottom: 0;
+        gap: 4px;
+        font-size: 12px;
+        color: #374151;
       }
 
       #colorPickerRow input[type="color"],
       #colorPickerRow .hivtrace-color-picker {
-        width: 32px;
-        height: 24px;
+        width: 24px;
+        height: 20px;
         padding: 0;
         border: 1px solid #d1d5db;
-        border-radius: 4px;
+        border-radius: 3px;
         cursor: pointer;
-        flex-shrink: 0;
         -webkit-appearance: none;
         appearance: none;
       }
 
       #colorPickerRow input[type="color"]::-webkit-color-swatch-wrapper {
-        padding: 2px;
+        padding: 1px;
       }
 
       #colorPickerRow input[type="color"]::-webkit-color-swatch {
         border-radius: 2px;
         border: none;
-      }
-
-      #colorPickerRow label {
-        font-size: 13px;
-        color: #374151;
-        margin: 0;
-        font-weight: 500;
       }
 
       .color-picker-toggle {
