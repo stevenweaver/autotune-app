@@ -7,9 +7,18 @@
 
 	import * as Plot from '@observablehq/plot';
 	import RenderPlot from '../../Plot.svelte';
-  import { selectedGenotype, selectedThreshold, genotypes, thresholds } from '$lib/hcvStore.js';
+  import Tooltip from '$lib/Tooltip.svelte';
+  import NetworkViewer from '$lib/NetworkViewer.svelte';
+  import { selectedGenotype, selectedThreshold, genotypes, thresholds, selectedNetworkRegion } from '$lib/hcvStore.js';
+  import {
+    getThresholdSource,
+    getThresholdSourceDisplay,
+    getRegionClassification,
+    getClassificationDisplay
+  } from '$lib/regionClassification.js';
 
   import allThresholds from '../../data/hcv/all_thresholds.json';
+  import networkCongruence from '../../data/hcv/autotune/network_congruence_analysis.json';
 
   //"filename": "results/1a_0.01_core.threshold.txt",
   // From the filename, extract the genotype, consensus threshold, and gene region and add to each object
@@ -36,7 +45,84 @@
   let isLoading = writable(false);
   let selectedPoint = writable(null);
 
-  $: plotData = allThresholds.filter(d => d.consensus === $selectedThreshold && d.genotype == $selectedGenotype);
+  // Network viewer modal state
+  let showNetworkModal = false;
+
+  function openNetworkViewer(row) {
+    if (!row.gene) return;
+    selectedNetworkRegion.set({
+      gene: row.gene,
+      genotype: $selectedGenotype,
+      threshold: $selectedThreshold
+    });
+    showNetworkModal = true;
+  }
+
+  function closeNetworkViewer() {
+    showNetworkModal = false;
+    selectedNetworkRegion.set(null);
+  }
+
+  // Get the network congruence key for the current selection
+$: congruenceKey = `${$selectedGenotype}_${$selectedThreshold}`;
+$: currentCongruence = networkCongruence[congruenceKey] || {};
+$: networkStats = currentCongruence.network_statistics || {};
+$: handpickedThresholds = currentCongruence.autotune_thresholds || {};
+
+// Build plotData from handpicked thresholds when available, falling back to allThresholds
+$: plotData = (() => {
+  // If we have handpicked thresholds, use those as the primary source
+  if (Object.keys(handpickedThresholds).length > 0) {
+    return Object.entries(handpickedThresholds)
+      .filter(([gene]) => gene !== 'ns5a-ns5b-ns3') // Exclude compound regions
+      .map(([gene, threshold]) => {
+        const stats = networkStats[gene] || {};
+        const thresholdValue = parseFloat(threshold);
+        const thresholdSource = getThresholdSource(thresholdValue);
+        const sourceDisplay = getThresholdSourceDisplay(thresholdSource);
+
+        // Find matching score from allThresholds
+        const matchingEntry = allThresholds.find(
+          d => d.gene === gene && d.genotype === $selectedGenotype && d.consensus === $selectedThreshold
+        );
+
+        return {
+          gene,
+          genotype: $selectedGenotype,
+          consensus: $selectedThreshold,
+          threshold: thresholdValue,
+          score: matchingEntry?.score || null,
+          // Network statistics
+          clusters: stats.total_clusters || null,
+          singletons: stats.singleton_sequences || null,
+          networkedPct: stats.network_proportion ? (stats.network_proportion * 100).toFixed(1) : null,
+          totalSequences: stats.total_sequences_analyzed || null,
+          // Threshold source
+          thresholdSource,
+          sourceDisplay
+        };
+      });
+  }
+
+  // Fallback to allThresholds if no handpicked thresholds available
+  return allThresholds
+    .filter(d => d.consensus === $selectedThreshold && d.genotype == $selectedGenotype)
+    .map(d => {
+      const stats = networkStats[d.gene] || {};
+      const thresholdSource = getThresholdSource(d.threshold);
+      const sourceDisplay = getThresholdSourceDisplay(thresholdSource);
+
+      return {
+        ...d,
+        clusters: stats.total_clusters || null,
+        singletons: stats.singleton_sequences || null,
+        networkedPct: stats.network_proportion ? (stats.network_proportion * 100).toFixed(1) : null,
+        totalSequences: stats.total_sequences_analyzed || null,
+        thresholdSource,
+        sourceDisplay
+      };
+    });
+})();
 
   $: reportData = writable([]);
 
@@ -94,9 +180,12 @@
 
   let eventListener = async (event) => {
       let plot = event.target;
+      // Guard against clicking on empty space
+      if (!plot.value) return;
       let genotype = plot.value.genotype;
       let consensus = plot.value.consensus;
       let gene = plot.value.gene;
+      if (!genotype || !consensus || !gene) return;
       let filename = `${genotype}_${consensus}_${gene}.aligned.report`;
       
       // Set loading state and selected point
@@ -427,7 +516,7 @@
       <p>This page visualizes data related to Hepatitis C Virus (HCV) genetic variations, focusing on consensus thresholds and genes and their implications for inferring clustering thresholds. Below, you can interact with the data by selecting different points on the plot and viewing detailed plots that describe the components that contributed to their AUTO-TUNE scores.</p>
 
       <!-- Global Selection Controls (persist across all HCV pages) -->
-      <div class="flex pt-4 space-x-6 items-center bg-indigo-50 border border-indigo-200 p-4 rounded-lg mt-4">
+      <div class="flex flex-col sm:flex-row gap-4 items-start sm:items-center bg-indigo-50 border border-indigo-200 p-4 rounded-lg mt-4">
         <div>
           <label for="genotype-select" class="block text-sm font-medium text-gray-700 mb-1">Select Genotype</label>
           <select id="genotype-select" bind:value={$selectedGenotype} class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
@@ -455,20 +544,23 @@
       </div>
 
       <!-- Navigation Links -->
-      <div class="flex space-x-4 mt-4 mb-6">
-        <a href="/hcv" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors">
+      <div class="flex flex-wrap gap-2 mt-4 mb-6">
+        <a href="/hcv" class="px-3 py-1.5 sm:px-4 sm:py-2 text-sm sm:text-base bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors">
           Analysis Dashboard
         </a>
-        <a href="/hcv/congruence" class="px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors">
+        <a href="/hcv/congruence" class="px-3 py-1.5 sm:px-4 sm:py-2 text-sm sm:text-base bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors">
           Congruence Analysis
         </a>
-        <a href="/hcv/diversity" class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors">
+        <a href="/hcv/diversity" class="px-3 py-1.5 sm:px-4 sm:py-2 text-sm sm:text-base bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors">
           Diversity Analysis
         </a>
-        <a href="/hcv/fel" class="px-4 py-2 bg-orange-600 text-white rounded-md hover:bg-orange-700 transition-colors">
+        <a href="/hcv/comparison" class="px-3 py-1.5 sm:px-4 sm:py-2 text-sm sm:text-base bg-teal-600 text-white rounded-md hover:bg-teal-700 transition-colors">
+          Genotype Comparison
+        </a>
+        <a href="/hcv/fel" class="px-3 py-1.5 sm:px-4 sm:py-2 text-sm sm:text-base bg-orange-600 text-white rounded-md hover:bg-orange-700 transition-colors">
           FEL Analysis
         </a>
-        <a href="/hcv/meme" class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors">
+        <a href="/hcv/meme" class="px-3 py-1.5 sm:px-4 sm:py-2 text-sm sm:text-base bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors">
           MEME Analysis
         </a>
       </div>
@@ -493,25 +585,25 @@
             <h3 class="text-lg font-medium mb-4">Analysis for {$selectedPoint.genotype} - {$selectedPoint.consensus} - {$selectedPoint.gene}</h3>
             <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-6">
               <div class="bg-gray-50 p-4 rounded">
-                <h4 class="text-md font-medium mb-2">Threshold Score Analysis</h4>
+                <h4 class="text-md font-medium mb-2">AUTO-TUNE Score<Tooltip text="A composite score (0-2.0) that evaluates clustering threshold performance based on network structure metrics. Higher scores indicate better threshold choices. Scores of 0 indicate analysis errors." /></h4>
                 <RenderPlot options={$thresholdPlotOptions} />
                 <p class="text-sm text-gray-600 mt-2">AUTO-TUNE scores across candidate thresholds. Higher scores indicate better clustering performance.</p>
               </div>
 
               <div class="bg-gray-50 p-4 rounded">
-                <h4 class="text-md font-medium mb-2">Cluster Count Analysis</h4>
+                <h4 class="text-md font-medium mb-2">Cluster Count<Tooltip text="The number of distinct transmission clusters formed at each threshold. Too few clusters may miss transmission chains; too many may split related sequences." /></h4>
                 <RenderPlot options={$clusterPlotOptions} />
                 <p class="text-sm text-gray-600 mt-2">Number of clusters formed at different thresholds. Optimal thresholds balance cluster count with biological relevance.</p>
               </div>
 
               <div class="bg-gray-50 p-4 rounded">
-                <h4 class="text-md font-medium mb-2">Cluster Size Ratio</h4>
+                <h4 class="text-md font-medium mb-2">Cluster Size Ratio<Tooltip text="Ratio of the largest cluster to the second largest. High ratios indicate one dominant cluster; more even ratios suggest diverse clustering patterns." /></h4>
                 <RenderPlot options={$ratioPlotOptions} />
                 <p class="text-sm text-gray-600 mt-2">Ratio of largest to second largest cluster. Higher ratios may indicate dominant cluster structures.</p>
               </div>
 
               <div class="bg-gray-50 p-4 rounded">
-                <h4 class="text-md font-medium mb-2">Singletons Analysis</h4>
+                <h4 class="text-md font-medium mb-2">Singletons<Tooltip text="Sequences that don't cluster with any other sequences at the given threshold. High singleton counts may indicate the threshold is too stringent." /></h4>
                 <RenderPlot options={$singletonsPlotOptions} />
                 <p class="text-sm text-gray-600 mt-2">Number of singleton sequences at different thresholds. Singletons are sequences that don't cluster with others.</p>
               </div>
@@ -524,25 +616,72 @@
         {/if}
       </div>
 
-      <!-- Best Candidate Thresholds Table -->
+      <!-- Selected Candidate Thresholds Table -->
       <div class="pt-6">
-        <h2 class="text-2xl font-semibold mb-4">Best Candidate Thresholds</h2>
-        <div class="bg-white p-4 rounded-lg shadow">
-          <SvelteTable 
-            columns={[
-              { key: 'gene', title: 'Gene Region', sortable: true, value: (row) => row.gene || 'N/A', headerClass: 'px-4 py-2 text-left text-sm font-medium text-gray-700', class: 'px-4 py-2 text-sm text-gray-700' },
-              { key: 'threshold', title: 'Best Threshold', sortable: true, value: (row) => typeof row.threshold === 'number' ? row.threshold.toFixed(5) : 'N/A', sortValue: (row) => typeof row.threshold === 'number' ? row.threshold : -Infinity, headerClass: 'px-4 py-2 text-left text-sm font-medium text-gray-700', class: 'px-4 py-2 text-sm text-gray-700' },
-              { key: 'score', title: 'AUTO-TUNE Score', sortable: true, value: (row) => typeof row.score === 'number' ? row.score.toFixed(5) : 'N/A', sortValue: (row) => typeof row.score === 'number' ? row.score : -Infinity, headerClass: 'px-4 py-2 text-left text-sm font-medium text-gray-700', class: 'px-4 py-2 text-sm text-gray-700' },
-              { key: 'genotype', title: 'Genotype', sortable: true, value: (row) => row.genotype || 'N/A', headerClass: 'px-4 py-2 text-left text-sm font-medium text-gray-700', class: 'px-4 py-2 text-sm text-gray-700' },
-              { key: 'consensus', title: 'Consensus', sortable: true, value: (row) => row.consensus || 'N/A', headerClass: 'px-4 py-2 text-left text-sm font-medium text-gray-700', class: 'px-4 py-2 text-sm text-gray-700' }
-            ]}
-            rows={plotData.filter(item => item.threshold !== undefined && item.score !== undefined)}
-            classNameTable={['min-w-full']}
-            classNameThead={['bg-gray-50']}
-            classNameTbody={['']}
-            classNameRow={['hover:bg-gray-50']}
-          />
-          <p class="text-sm text-gray-600 mt-2">This table shows the optimal clustering thresholds identified by AUTO-TUNE for each gene region. Click column headers to sort.</p>
+        <h2 class="text-2xl font-semibold mb-4">Selected Candidate Thresholds<Tooltip text="Handpicked thresholds based on the manuscript's 3-criteria framework: (1) optimal cluster count, (2) low singleton prevalence, and (3) balanced cluster sizes." /></h2>
+        <div class="bg-white p-4 rounded-lg shadow overflow-x-auto">
+          <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+              <tr>
+                <th class="px-3 py-2 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Gene Region</th>
+                <th class="px-3 py-2 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Recommended</th>
+                <th class="px-3 py-2 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Selected Threshold</th>
+                <th class="px-3 py-2 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Source</th>
+                <th class="px-3 py-2 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">AUTO-TUNE Score</th>
+                <th class="px-3 py-2 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Clusters</th>
+                <th class="px-3 py-2 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Singletons</th>
+                <th class="px-3 py-2 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">% Networked</th>
+                <th class="px-3 py-2 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Network</th>
+              </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+              {#each plotData.filter(item => item.threshold !== undefined) as row}
+                {@const regionClass = getRegionClassification(row.gene)}
+                {@const classDisplay = getClassificationDisplay(regionClass)}
+                <tr class="hover:bg-indigo-50 cursor-pointer transition-colors" on:click={() => openNetworkViewer(row)}>
+                  <td class="px-3 py-2 text-sm text-gray-700 font-medium">{row.gene?.toUpperCase() || 'N/A'}</td>
+                  <td class="px-3 py-2 text-sm">
+                    {#if regionClass === 'optimal'}
+                      <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-700 border border-green-300">
+                        Yes
+                      </span>
+                    {:else}
+                      <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-600 border border-gray-300">
+                        No
+                      </span>
+                    {/if}
+                  </td>
+                  <td class="px-3 py-2 text-sm text-gray-700 font-mono">{typeof row.threshold === 'number' ? row.threshold.toFixed(5) : 'N/A'}</td>
+                  <td class="px-3 py-2 text-sm">
+                    <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium {row.sourceDisplay?.bgColor} {row.sourceDisplay?.color} border {row.sourceDisplay?.borderColor}">
+                      {row.sourceDisplay?.label || 'Unknown'}
+                    </span>
+                  </td>
+                  <td class="px-3 py-2 text-sm text-gray-700">{typeof row.score === 'number' ? row.score.toFixed(5) : 'N/A'}</td>
+                  <td class="px-3 py-2 text-sm text-gray-700">{row.clusters ?? 'N/A'}</td>
+                  <td class="px-3 py-2 text-sm text-gray-700">{row.singletons ?? 'N/A'}</td>
+                  <td class="px-3 py-2 text-sm text-gray-700">
+                    {#if row.networkedPct}
+                      <span class="{parseFloat(row.networkedPct) >= 90 ? 'text-green-600' : parseFloat(row.networkedPct) >= 80 ? 'text-yellow-600' : 'text-red-600'}">
+                        {row.networkedPct}%
+                      </span>
+                    {:else}
+                      N/A
+                    {/if}
+                  </td>
+                  <td class="px-3 py-2 text-sm">
+                    <span class="inline-flex items-center text-indigo-600 hover:text-indigo-800">
+                      <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                      </svg>
+                      View
+                    </span>
+                  </td>
+                </tr>
+              {/each}
+            </tbody>
+          </table>
+          <p class="text-sm text-gray-600 mt-2">Click on any row to view the interactive network visualization for that gene region.</p>
         </div>
       </div>
 
@@ -576,6 +715,17 @@
     </div>
   </div>
 </div>
+
+<!-- Network Viewer Modal -->
+{#if showNetworkModal && $selectedNetworkRegion}
+  <NetworkViewer
+    visible={showNetworkModal}
+    networkUrl={`/results/${$selectedNetworkRegion.genotype}_${$selectedNetworkRegion.threshold}_${$selectedNetworkRegion.gene}.annotated.json`}
+    meta={$selectedNetworkRegion}
+    onClose={closeNetworkViewer}
+  />
+{/if}
+
 <style>
 	:global(#data) {
 		display: none;
