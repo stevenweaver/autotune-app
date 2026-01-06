@@ -40,3 +40,7 @@ export const selectedRegion = createPersistentStore('region', defaults.region);
 export const genotypes = ['1a', '1b', '2a', '2b', '3a', '4d'];
 export const thresholds = ['0.01', '0.02', '0.05', '0.1', '0.2', '0.25'];
 export const regions = ['core', 'e1', 'e2', 'ns2', 'ns3', 'ns4a', 'ns4b', 'ns5a', 'ns5b', 'p7', 'whole'];
+
+// Network viewer state (not persisted - transient)
+// Format: { gene: string, genotype: string, threshold: string } | null
+export const selectedNetworkRegion = writable(null);
