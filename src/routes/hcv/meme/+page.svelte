@@ -3,20 +3,13 @@
   import { writable } from 'svelte/store';
   import { browser } from '$app/environment';
   import MemeWrapper from '../../../lib/MemeWrapper.svelte';
+  import { selectedGenotype, selectedThreshold, selectedRegion, genotypes, thresholds, regions } from '$lib/hcvStore.js';
 
-  let selectedGenotype = writable('1a');
-  let selectedThreshold = writable('0.2');
-  let selectedRegion = writable('ns5a');
   let memeData = writable(null);
   let isLoading = writable(false);
   let error = writable(null);
 
-  // Available options based on MEME files found
-  const genotypes = ['1a', '1b', '2a', '2b', '3a', '4d'];
-  const thresholds = ['0.01', '0.02', '0.05', '0.1', '0.2', '0.25'];
-  const regions = ['core', 'e1', 'e2', 'ns2', 'ns3', 'ns4a', 'ns4b', 'ns5a', 'ns5b', 'p7', 'whole'];
-
-  $: memeFilePath = `/src/data/hcv/autotune/${$selectedGenotype}_${$selectedThreshold}_${$selectedRegion}.MEME.json`;
+  $: memeFilePath = `/data/hcv/autotune/${$selectedGenotype}_${$selectedThreshold}_${$selectedRegion}.MEME.json`;
 
   async function loadMEMEData() {
     isLoading.set(true);
@@ -66,31 +59,12 @@
     <div class="col-start-1 col-span-2">
       <h1 class="text-5xl">HCV MEME Analysis Results</h1>
       <p>Mixed Effects Model of Evolution (MEME) analysis results for detecting episodic diversifying selection in HCV sequences. MEME identifies individual sites that have experienced episodic positive selection across a portion of the phylogeny.</p>
-      
-      <!-- Navigation Links -->
-      <div class="flex space-x-4 mt-4 mb-6">
-        <a href="/hcv" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors">
-          Analysis Dashboard
-        </a>
-        <a href="/hcv/congruence" class="px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors">
-          Congruence Analysis
-        </a>
-        <a href="/hcv/diversity" class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors">
-          Diversity Analysis
-        </a>
-        <a href="/hcv/fel" class="px-4 py-2 bg-orange-600 text-white rounded-md hover:bg-orange-700 transition-colors">
-          FEL Analysis
-        </a>
-        <a href="/hcv/meme" class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors">
-          MEME Analysis
-        </a>
-      </div>
-      
-      <!-- Parameter Selection -->
-      <div class="flex pt-4 space-x-6 items-center bg-gray-50 p-4 rounded-lg">
+
+      <!-- Global Selection Controls (persist across all HCV pages) -->
+      <div class="flex flex-col sm:flex-row gap-4 items-start sm:items-center bg-indigo-50 border border-indigo-200 p-4 rounded-lg mt-4">
         <div>
           <label for="meme-genotype-select" class="block text-sm font-medium text-gray-700 mb-1">Select Genotype</label>
-          <select id="meme-genotype-select" bind:value={$selectedGenotype} class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm">
+          <select id="meme-genotype-select" bind:value={$selectedGenotype} class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
             {#each genotypes as genotype}
               <option value={genotype}>{genotype}</option>
             {/each}
@@ -99,7 +73,7 @@
 
         <div>
           <label for="meme-threshold-select" class="block text-sm font-medium text-gray-700 mb-1">Select Consensus Threshold</label>
-          <select id="meme-threshold-select" bind:value={$selectedThreshold} class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm">
+          <select id="meme-threshold-select" bind:value={$selectedThreshold} class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
             {#each thresholds as threshold}
               <option value={threshold}>{threshold}</option>
             {/each}
@@ -108,12 +82,31 @@
 
         <div>
           <label for="meme-region-select" class="block text-sm font-medium text-gray-700 mb-1">Select Region</label>
-          <select id="meme-region-select" bind:value={$selectedRegion} class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm">
+          <select id="meme-region-select" bind:value={$selectedRegion} class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
             {#each regions as region}
               <option value={region}>{region}</option>
             {/each}
           </select>
         </div>
+      </div>
+
+      <!-- Navigation Links -->
+      <div class="flex flex-wrap gap-2 mt-4 mb-6">
+        <a href="/hcv" class="px-3 py-1.5 sm:px-4 sm:py-2 text-sm sm:text-base bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors">
+          Analysis Dashboard
+        </a>
+        <a href="/hcv/congruence" class="px-3 py-1.5 sm:px-4 sm:py-2 text-sm sm:text-base bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors">
+          Congruence Analysis
+        </a>
+        <a href="/hcv/diversity" class="px-3 py-1.5 sm:px-4 sm:py-2 text-sm sm:text-base bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors">
+          Diversity Analysis
+        </a>
+        <a href="/hcv/fel" class="px-3 py-1.5 sm:px-4 sm:py-2 text-sm sm:text-base bg-orange-600 text-white rounded-md hover:bg-orange-700 transition-colors">
+          FEL Analysis
+        </a>
+        <a href="/hcv/meme" class="px-3 py-1.5 sm:px-4 sm:py-2 text-sm sm:text-base bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors">
+          MEME Analysis
+        </a>
       </div>
 
       <!-- Loading/Error States -->
@@ -127,13 +120,18 @@
       {/if}
 
       {#if $error}
-        <div class="bg-red-50 p-4 rounded-lg mt-6">
-          <h3 class="text-lg font-semibold text-red-700 mb-2">Error Loading MEME Data</h3>
+        <div class="bg-red-50 border border-red-200 p-4 rounded-lg mt-6">
+          <h3 class="text-lg font-semibold text-red-700 mb-2">Unable to Load MEME Analysis</h3>
           <p class="text-red-600 mb-3">{$error}</p>
-          <p class="text-sm text-red-500">
-            This may occur if the MEME analysis failed for this combination or if the file doesn't exist. 
-            Try selecting a different genotype, threshold, or region combination.
-          </p>
+          <div class="text-sm text-red-500">
+            <p class="font-medium mb-1">Suggestions:</p>
+            <ul class="list-disc list-inside space-y-1">
+              <li>Check that the selected combination exists in the dataset</li>
+              <li>Try a different region (e.g., ns5a, core, or whole)</li>
+              <li>Some genotype/threshold combinations may have insufficient data</li>
+              <li>Current selection: <strong>{$selectedGenotype}</strong> / <strong>{$selectedThreshold}</strong> / <strong>{$selectedRegion}</strong></li>
+            </ul>
+          </div>
         </div>
       {/if}
 
@@ -167,15 +165,32 @@
         <h3 class="text-lg font-semibold text-gray-700 mb-3">About MEME Analysis</h3>
         <div class="text-sm text-gray-600">
           <p class="mb-3">
-            Mixed Effects Model of Evolution (MEME) identifies individual sites that have experienced episodic positive selection. 
+            Mixed Effects Model of Evolution (MEME) identifies individual sites that have experienced episodic positive selection.
             Unlike FEL, MEME can detect sites where positive selection occurred only in a subset of lineages.
           </p>
-          <ul class="list-disc list-inside space-y-1">
-            <li><strong>β+:</strong> Rate of nonsynonymous substitution under positive selection</li>
-            <li><strong>β-:</strong> Rate of nonsynonymous substitution under negative/neutral selection</li>
-            <li><strong>p-value:</strong> Statistical significance of episodic selection detection</li>
-            <li><strong>Data Available:</strong> 960 MEME analysis files across different genotypes, thresholds, and regions</li>
-          </ul>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <div class="bg-white p-3 rounded border">
+              <h4 class="font-medium text-gray-700 mb-2">Key Parameters</h4>
+              <ul class="list-disc list-inside space-y-1 text-xs">
+                <li><strong>α (alpha):</strong> Synonymous substitution rate</li>
+                <li><strong>β+:</strong> Non-synonymous rate (positive selection class)</li>
+                <li><strong>β-:</strong> Non-synonymous rate (negative/neutral class)</li>
+                <li><strong>p+:</strong> Proportion of branches under positive selection</li>
+              </ul>
+            </div>
+            <div class="bg-white p-3 rounded border">
+              <h4 class="font-medium text-gray-700 mb-2">Interpretation Guide</h4>
+              <ul class="list-disc list-inside space-y-1 text-xs">
+                <li><strong>Significant site (p&lt;0.05):</strong> Evidence of episodic selection</li>
+                <li><strong>High p+:</strong> Selection affects many lineages</li>
+                <li><strong>Low p+:</strong> Selection limited to few branches</li>
+                <li><strong>MEME vs FEL:</strong> MEME more sensitive to diversifying selection</li>
+              </ul>
+            </div>
+          </div>
+          <p class="text-xs text-gray-500">
+            <strong>Reference:</strong> Murrell B et al. (2012). Detecting individual sites subject to episodic diversifying selection. PLoS Genet. 8(7):e1002764.
+          </p>
         </div>
       </div>
     </div>

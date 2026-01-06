@@ -2,14 +2,23 @@
 	import * as Plot from '@observablehq/plot';
 
 	export let options;
-	export let eventL;
+	export let eventL = null;
 
 	function myplot(node) {
+		if (!options || Object.keys(options).length === 0) return;
 
-    let plot = Plot.plot(options);
+		let plot = Plot.plot(options);
 		node.appendChild(plot);
-    plot.addEventListener("input", eventL);
 
+		if (eventL) {
+			plot.addEventListener("input", eventL);
+		}
+
+		return {
+			destroy() {
+				plot.remove();
+			}
+		};
 	}
 </script>
 

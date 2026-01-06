@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Network Viewer</title>
+
+    <!-- hivtrace-viz CSS -->
+    <link href="/hivtrace-viz/dist/hivtrace.css" rel="stylesheet" />
+
+    <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow: hidden;
+        font-family: system-ui, -apple-system, sans-serif;
+      }
+
+      /* Container takes full height */
+      .network-wrapper {
+        width: 100%;
+        height: 100vh;
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* Network container - must have explicit dimensions for D3 */
+      #network_tag {
+        width: 100%;
+        height: calc(100vh - 20px);
+        min-height: 500px;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+
+      #network_tag svg {
+        width: 100%;
+        height: 100%;
+      }
+
+      /* Toolbar styling */
+      .nav-trace {
+        position: absolute;
+        top: 20px;
+        left: 10px;
+        z-index: 100;
+        background: rgba(255,255,255,0.98);
+        border-radius: 6px;
+        padding: 8px 12px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      }
+
+      /* Let Bootstrap handle the input-group layout naturally */
+      #network_ui_bar .dropdown-menu {
+        font-size: 13px;
+      }
+
+      /* Loading state */
+      .loading-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(255, 255, 255, 0.95);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+      }
+
+      .loading-spinner {
+        width: 40px;
+        height: 40px;
+        border: 4px solid #e5e7eb;
+        border-top-color: #4f46e5;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+
+      .loading-text {
+        margin-top: 16px;
+        color: #6b7280;
+        font-size: 14px;
+      }
+
+      /* Error state */
+      .error-message {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: #fef2f2;
+        border: 1px solid #fecaca;
+        color: #991b1b;
+        padding: 20px 30px;
+        border-radius: 8px;
+        text-align: center;
+        max-width: 400px;
+        z-index: 1001;
+      }
+
+      .error-message h3 {
+        margin: 0 0 10px 0;
+        font-size: 16px;
+      }
+
+      .error-message p {
+        margin: 0;
+        font-size: 14px;
+        color: #b91c1c;
+      }
+
+      /* Network info overlay - positioned in lower right */
+      .network-info {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+        background: rgba(255, 255, 255, 0.95);
+        border: 1px solid #e5e7eb;
+        border-radius: 6px;
+        padding: 10px 14px;
+        font-size: 13px;
+        z-index: 100;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      }
+
+      .network-info .title {
+        font-weight: 600;
+        color: #374151;
+        margin-bottom: 4px;
+      }
+
+      .network-info .stats {
+        color: #6b7280;
+      }
+
+      .network-info .stats span {
+        margin-right: 12px;
+      }
+
+      /* Region classification badge */
+      .region-badge {
+        display: inline-block;
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+        margin-left: 8px;
+        vertical-align: middle;
+      }
+
+      .region-badge.recommended {
+        background: #dcfce7;
+        color: #166534;
+        border: 1px solid #86efac;
+      }
+
+      .region-badge.not-recommended {
+        background: #fef3c7;
+        color: #92400e;
+        border: 1px solid #fcd34d;
+      }
+
+      .region-rationale {
+        margin-top: 6px;
+        font-size: 11px;
+        color: #6b7280;
+        line-height: 1.4;
+        max-width: 280px;
+      }
+
+      /* Color picker styling */
+      #colorPickerOption {
+        display: none;
+        position: absolute;
+        top: 60px;
+        left: 10px;
+        z-index: 150;
+        clear: both;
+      }
+
+      #colorPickerRow {
+        background-color: rgba(255, 255, 255, 0.98);
+        padding: 10px 12px;
+        border-radius: 6px;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+        border: 1px solid #e5e7eb;
+        display: inline-flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        max-width: 300px;
+      }
+
+      /* Each color picker item */
+      #colorPickerRow > span {
+        display: inline-flex !important;
+        align-items: center;
+        gap: 4px;
+        font-size: 12px;
+        color: #374151;
+      }
+
+      #colorPickerRow input[type="color"],
+      #colorPickerRow .hivtrace-color-picker {
+        width: 24px;
+        height: 20px;
+        padding: 0;
+        border: 1px solid #d1d5db;
+        border-radius: 3px;
+        cursor: pointer;
+        -webkit-appearance: none;
+        appearance: none;
+      }
+
+      #colorPickerRow input[type="color"]::-webkit-color-swatch-wrapper {
+        padding: 1px;
+      }
+
+      #colorPickerRow input[type="color"]::-webkit-color-swatch {
+        border-radius: 2px;
+        border: none;
+      }
+
+      .color-picker-toggle {
+        font-size: 14px;
+      }
+
+      /* Fix bootstrap navbar interference */
+      .navbar {
+        display: none !important;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="network-wrapper">
+      <!-- Loading overlay -->
+      <div id="loading-overlay" class="loading-overlay">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">Waiting for network data...</div>
+      </div>
+
+      <!-- Error message (hidden by default) -->
+      <div id="error-message" class="error-message" style="display: none;">
+        <h3>Error Loading Network</h3>
+        <p id="error-text">Unable to render network visualization.</p>
+      </div>
+
+      <!-- Network info overlay -->
+      <div id="network-info" class="network-info" style="display: none;">
+        <div class="title">
+          <span id="info-title">Network</span>
+          <span id="region-badge" class="region-badge" style="display: none;"></span>
+        </div>
+        <div class="stats">
+          <span id="info-nodes">0 nodes</span>
+          <span id="info-edges">0 edges</span>
+          <span id="info-clusters">0 clusters</span>
+        </div>
+        <div id="region-rationale" class="region-rationale" style="display: none;"></div>
+      </div>
+
+      <!-- Button bar (required by hivtrace) -->
+      <div class="nav-trace">
+        <div class="input-group input-group-sm" id="network_ui_bar" data-hivtrace-button-bar="yes">
+          <div class="input-group-btn" data-hivtrace-ui-role="button_group"></div>
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" data-hivtrace-ui-role="cluster_operations_button">
+              Clusters <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu" data-hivtrace-ui-role="cluster_operations_container"></ul>
+          </span>
+          <div class="input-group-btn">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" data-hivtrace-ui-role="attributes_label">
+              Color <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu" data-hivtrace-ui-role="attributes"></ul>
+            <button type="button" class="btn btn-default" id="color-picker-btn" title="Select Color Palette">
+              <span class="color-picker-toggle" style="color: #22c55e; font-weight: bold;">●</span>
+            </button>
+            <button type="button" class="btn btn-default" style="display:none" data-hivtrace-ui-role="attributes_invert">Invert</button>
+          </div>
+          <div class="input-group-btn">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" data-hivtrace-ui-role="shapes_label">
+              Shape <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu" data-hivtrace-ui-role="shapes"></ul>
+          </div>
+          <div class="input-group-btn">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" data-hivtrace-ui-role="opacity_label">
+              Opacity <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu" data-hivtrace-ui-role="opacity"></ul>
+            <button type="button" class="btn btn-default" style="display:none" data-hivtrace-ui-role="opacity_invert">Invert</button>
+          </div>
+          <div class="input-group-btn" style="display: none" data-hivtrace-ui-role="extra_operations_enclosure">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" data-hivtrace-ui-role="extra_label">
+              Action <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu" data-hivtrace-ui-role="extra_operations_container"></ul>
+          </div>
+          <div class="input-group-btn">
+            <button type="button" class="btn btn-default" id="export-svg-btn" title="Export as SVG">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px; margin-right: 4px;">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              SVG
+            </button>
+            <button type="button" class="btn btn-default" id="export-png-btn" title="Export as PNG">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px; margin-right: 4px;">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              PNG
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Color picker row -->
+      <div id="colorPickerOption">
+        <div id="colorPickerRow"></div>
+      </div>
+
+      <!-- Main SVG container (required by hivtrace) -->
+      <div id="network_tag">
+        <div class="my_progress">
+          <div class="progress-bar" style="width: 100%; height: 50px; display: flex; align-items: center; justify-content: center; background: #f3f4f6; color: #6b7280;">
+            Initializing network...
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- hivtrace-viz JavaScript (vendor.js includes jQuery + Bootstrap) -->
+    <script src="/hivtrace-viz/dist/vendor.js"></script>
+    <script src="/hivtrace-viz/dist/hivtrace.js"></script>
+
+    <script>
+      var user_graph = null;
+
+      // Listen for network data from parent frame
+      window.addEventListener('message', function(event) {
+        // Validate origin for security
+        if (event.origin !== window.location.origin) {
+          console.warn('Received message from unexpected origin:', event.origin);
+          return;
+        }
+
+        if (event.data && event.data.type === 'LOAD_NETWORK') {
+          initNetwork(event.data.data, event.data.meta);
+        }
+      });
+
+      function showError(message) {
+        document.getElementById('loading-overlay').style.display = 'none';
+        document.getElementById('error-message').style.display = 'block';
+        document.getElementById('error-text').textContent = message;
+      }
+
+      function hideLoading() {
+        document.getElementById('loading-overlay').style.display = 'none';
+      }
+
+      // Region classification based on manuscript findings
+      var REGION_CLASSIFICATION = {
+        // Recommended regions: 5-7 distinct clusters, balanced R1/R2 ratios (2.0-2.7)
+        // Cross-region stability, low singleton prevalence, strong internal consistency
+        recommended: {
+          regions: ['e1', 'e2', 'ns2', 'ns3', 'ns5b'],
+          label: 'Recommended',
+          rationale: 'Optimal for clustering: produces distinct clusters with balanced R1/R2 ratios, cross-region stability, and strong internal consistency.'
+        },
+        // Regions to avoid: high R1/R2 ratios, single dominant clusters
+        notRecommended: {
+          regions: ['core', 'ns4a', 'ns4b', 'ns5a'],
+          label: 'Not Recommended',
+          rationale: 'Conserved region: forms single dominant clusters regardless of threshold, offering poor epidemiological resolution.'
+        }
+      };
+
+      function getRegionClassification(gene) {
+        if (!gene) return null;
+        var geneLower = gene.toLowerCase();
+
+        if (REGION_CLASSIFICATION.recommended.regions.includes(geneLower)) {
+          return {
+            type: 'recommended',
+            label: REGION_CLASSIFICATION.recommended.label,
+            rationale: REGION_CLASSIFICATION.recommended.rationale
+          };
+        }
+
+        if (REGION_CLASSIFICATION.notRecommended.regions.includes(geneLower)) {
+          return {
+            type: 'not-recommended',
+            label: REGION_CLASSIFICATION.notRecommended.label,
+            rationale: REGION_CLASSIFICATION.notRecommended.rationale
+          };
+        }
+
+        return null; // Unknown region
+      }
+
+      function showNetworkInfo(data, meta) {
+        var summary = data['Network Summary'] || {};
+        var infoEl = document.getElementById('network-info');
+
+        if (meta && meta.gene) {
+          document.getElementById('info-title').textContent =
+            meta.gene.toUpperCase() + ' (' + meta.genotype + ' @ ' + meta.threshold + ')';
+
+          // Show region classification
+          var classification = getRegionClassification(meta.gene);
+          var badgeEl = document.getElementById('region-badge');
+          var rationaleEl = document.getElementById('region-rationale');
+
+          if (classification) {
+            badgeEl.textContent = classification.label;
+            badgeEl.className = 'region-badge ' + classification.type;
+            badgeEl.style.display = 'inline-block';
+
+            rationaleEl.textContent = classification.rationale;
+            rationaleEl.style.display = 'block';
+          } else {
+            badgeEl.style.display = 'none';
+            rationaleEl.style.display = 'none';
+          }
+        }
+
+        document.getElementById('info-nodes').textContent = (summary.Nodes || 0) + ' nodes';
+        document.getElementById('info-edges').textContent = (summary.Edges || 0) + ' edges';
+        document.getElementById('info-clusters').textContent = (summary.Clusters || 0) + ' clusters';
+
+        infoEl.style.display = 'block';
+      }
+
+      // Custom color scales for specific attributes
+      var CUSTOM_COLOR_SCALES = {
+        'recommended_congruent': {
+          'Yes': '#22c55e',    // green-500
+          'No': '#ef4444',     // red-500
+          'Missing': '#9ca3af' // gray-400
+        },
+        'main_cluster_congruent': {
+          'Yes': '#22c55e',    // green-500
+          'No': '#ef4444',     // red-500
+          'Missing': '#9ca3af' // gray-400
+        }
+      };
+
+      function repositionLegend() {
+        // Move legend from top-left to bottom-left
+        // The legend is the first <g> child of the network SVG with class containing 'legend' references
+        setTimeout(function() {
+          var svg = document.querySelector('#network_tag svg');
+          if (!svg) return;
+
+          var svgHeight = svg.getBoundingClientRect().height;
+          var legendGroup = svg.querySelector('g'); // First g element is the legend container
+
+          if (legendGroup) {
+            // Get legend bounding box to calculate proper offset
+            var legendBBox = legendGroup.getBBox();
+            var legendHeight = legendBBox.height || 150;
+
+            // Position at bottom-left with some padding
+            var newY = svgHeight - legendHeight - 30;
+            legendGroup.setAttribute('transform', 'translate(10,' + Math.max(newY, 100) + ')');
+          }
+        }, 300);
+      }
+
+      function applyCustomColorScales() {
+        if (!user_graph) return;
+
+        // Toggle color picker visibility
+        $('#color-picker-btn').on('click', function() {
+          var $picker = $('#colorPickerOption');
+          if ($picker.is(':visible')) {
+            $picker.hide();
+          } else {
+            // Only show if there's content (an attribute is selected)
+            if ($('#colorPickerRow').html().trim()) {
+              $picker.show();
+            }
+          }
+        });
+
+        // Watch for color changes via dropdown selection
+        $(document).on('click', '[data-hivtrace-ui-role="attributes"] li a', function() {
+          var linkText = $(this).text().trim();
+          var attrName = mapLabelToAttribute(linkText);
+
+          // Delay to let hivtrace apply its colors first, then override
+          if (attrName) {
+            setTimeout(function() { recolorNodesIfCustom(attrName); }, 100);
+            setTimeout(function() { recolorNodesIfCustom(attrName); }, 300);
+            setTimeout(function() { recolorNodesIfCustom(attrName); }, 600);
+          }
+        });
+      }
+
+      function mapLabelToAttribute(label) {
+        if (!label) return null;
+        if (label.indexOf('Recommended Regions Congruent') >= 0) return 'recommended_congruent';
+        if (label.indexOf('Main Cluster Congruent') >= 0) return 'main_cluster_congruent';
+        return null;
+      }
+
+      function getCurrentColorAttribute() {
+        // Try to detect current color attribute from the dropdown button text
+        var btnText = $('[data-hivtrace-ui-role="attributes_label"]').text();
+        if (btnText && btnText !== 'Color') {
+          // Map label back to attribute name
+          if (btnText.indexOf('Recommended Regions Congruent') >= 0) return 'recommended_congruent';
+          if (btnText.indexOf('Main Cluster Congruent') >= 0) return 'main_cluster_congruent';
+        }
+        return null;
+      }
+
+      function recolorNodesIfCustom(attrName) {
+        if (!CUSTOM_COLOR_SCALES[attrName]) return;
+
+        var colorMap = CUSTOM_COLOR_SCALES[attrName];
+
+        // Recolor nodes based on their attribute value
+        d3.selectAll('#network_tag svg .node circle, #network_tag svg .node ellipse').each(function() {
+          var node = d3.select(this);
+          var nodeData = node.datum();
+
+          if (nodeData && nodeData.patient_attributes) {
+            var value = nodeData.patient_attributes[attrName];
+            if (value && colorMap[value]) {
+              node.style('fill', colorMap[value]);
+            } else if (colorMap['Missing']) {
+              node.style('fill', colorMap['Missing']);
+            }
+          }
+        });
+
+        // Update legend colors
+        updateLegendColors(attrName, colorMap);
+      }
+
+      function updateLegendColors(attrName, colorMap) {
+        // Find legend items and update their colors
+        d3.selectAll('.legend-item, .hivtrace-legend-item').each(function() {
+          var item = d3.select(this);
+          var text = item.text().trim();
+
+          // Match legend text to color map
+          for (var key in colorMap) {
+            if (text === key || text.indexOf(key) >= 0) {
+              item.select('circle, rect, .legend-color').style('fill', colorMap[key]);
+              break;
+            }
+          }
+        });
+
+        // Also try updating any legend circles/rects directly within the SVG
+        d3.selectAll('#network_tag svg .legend circle, #network_tag svg .legend rect').each(function() {
+          var el = d3.select(this);
+          var parentText = d3.select(this.parentNode).text();
+
+          for (var key in colorMap) {
+            if (parentText && parentText.indexOf(key) >= 0) {
+              el.style('fill', colorMap[key]);
+              break;
+            }
+          }
+        });
+      }
+
+      function initNetwork(data, meta) {
+        console.log('initNetwork called with data:', data);
+
+        // Ensure DOM is ready
+        if (document.readyState !== 'complete') {
+          console.log('DOM not ready, waiting...');
+          window.addEventListener('load', function() {
+            initNetwork(data, meta);
+          });
+          return;
+        }
+
+        try {
+          // Handle wrapped data format
+          var graph = data.trace_results ? data.trace_results : data;
+
+          // Validate data
+          if (!graph || !graph.Nodes || graph.Nodes.length === 0) {
+            showError('Network data is empty or invalid.');
+            return;
+          }
+
+          console.log('Graph has', graph.Nodes.length, 'nodes and', graph.Edges ? graph.Edges.length : 0, 'edges');
+
+          // Clear any existing network
+          if (user_graph) {
+            try {
+              d3.select('#network_tag').selectAll('*').remove();
+            } catch (e) {
+              console.warn('Error clearing network:', e);
+            }
+            user_graph = null;
+          }
+
+          // Clear the progress bar
+          d3.select('#network_tag').selectAll('.my_progress').remove();
+
+          // Initialize the network visualization
+          console.log('Calling hivtrace.clusterNetwork...');
+
+          // Get container dimensions
+          var container = document.getElementById('network_tag');
+          var containerWidth = container.clientWidth || window.innerWidth;
+          var containerHeight = container.clientHeight || window.innerHeight;
+
+          console.log('Container dimensions:', containerWidth, 'x', containerHeight);
+
+          user_graph = new hivtrace.clusterNetwork(
+            graph,
+            "#network_tag",      // network container
+            null,                // network status string
+            null,                // network warning
+            "network_ui_bar",    // button bar prefix
+            null,                // attributes
+            null,                // filter edges toggle
+            null,                // cluster table
+            null,                // node table
+            null,                // parent container
+            {
+              no_cdc: true,
+              "minimum size": 2,
+              secondary: false,
+              width: containerWidth,
+              height: containerHeight
+            }
+          );
+
+          console.log('clusterNetwork returned:', user_graph);
+
+          if (!user_graph || user_graph.is_empty()) {
+            showError('This network contains no displayable clusters.');
+            return;
+          }
+
+          // Success - hide loading, show info
+          hideLoading();
+          showNetworkInfo(graph, meta);
+
+          // Apply custom color scales for specific attributes
+          applyCustomColorScales();
+
+          // Reposition legend to bottom-left
+          repositionLegend();
+
+          // Notify parent that network is ready
+          window.parent.postMessage({ type: 'NETWORK_READY' }, '*');
+
+        } catch (err) {
+          console.error('Error initializing network:', err);
+          showError('Failed to initialize network: ' + err.message);
+        }
+      }
+
+      // SVG Export function
+      function exportSVG() {
+        var svg = document.querySelector('#network_tag svg');
+        if (!svg) {
+          alert('No network visualization to export.');
+          return;
+        }
+
+        // Clone the SVG to avoid modifying the original
+        var clonedSvg = svg.cloneNode(true);
+
+        // Get computed styles and inline them for standalone SVG
+        var styleSheets = document.styleSheets;
+        var cssRules = [];
+
+        // Extract relevant CSS rules
+        for (var i = 0; i < styleSheets.length; i++) {
+          try {
+            var rules = styleSheets[i].cssRules || styleSheets[i].rules;
+            if (rules) {
+              for (var j = 0; j < rules.length; j++) {
+                cssRules.push(rules[j].cssText);
+              }
+            }
+          } catch (e) {
+            // Cross-origin stylesheets may throw - ignore
+          }
+        }
+
+        // Add a style element with the CSS
+        var defs = clonedSvg.querySelector('defs') || document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+        if (!clonedSvg.querySelector('defs')) {
+          clonedSvg.insertBefore(defs, clonedSvg.firstChild);
+        }
+
+        var styleEl = document.createElementNS('http://www.w3.org/2000/svg', 'style');
+        styleEl.textContent = cssRules.join('\n');
+        defs.appendChild(styleEl);
+
+        // Set explicit dimensions if not present
+        if (!clonedSvg.getAttribute('width')) {
+          clonedSvg.setAttribute('width', svg.getBoundingClientRect().width);
+        }
+        if (!clonedSvg.getAttribute('height')) {
+          clonedSvg.setAttribute('height', svg.getBoundingClientRect().height);
+        }
+
+        // Add white background
+        var bgRect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+        bgRect.setAttribute('width', '100%');
+        bgRect.setAttribute('height', '100%');
+        bgRect.setAttribute('fill', 'white');
+        clonedSvg.insertBefore(bgRect, clonedSvg.firstChild);
+
+        // Serialize to string
+        var serializer = new XMLSerializer();
+        var svgString = serializer.serializeToString(clonedSvg);
+
+        // Add XML declaration
+        svgString = '<?xml version="1.0" encoding="UTF-8"?>\n' + svgString;
+
+        // Create download
+        var blob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
+        var url = URL.createObjectURL(blob);
+
+        // Generate filename from metadata
+        var urlParams = new URLSearchParams(window.location.search);
+        var gene = urlParams.get('gene') || 'network';
+        var genotype = urlParams.get('genotype') || '';
+        var threshold = urlParams.get('threshold') || '';
+        var filename = gene.toLowerCase();
+        if (genotype) filename += '_gt' + genotype;
+        if (threshold) filename += '_t' + threshold;
+        filename += '_network.svg';
+
+        var link = document.createElement('a');
+        link.href = url;
+        link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        // Clean up
+        setTimeout(function() {
+          URL.revokeObjectURL(url);
+        }, 100);
+      }
+
+      // PNG Export function
+      function exportPNG() {
+        var svg = document.querySelector('#network_tag svg');
+        if (!svg) {
+          alert('No network visualization to export.');
+          return;
+        }
+
+        // Clone the SVG
+        var clonedSvg = svg.cloneNode(true);
+
+        // Get computed styles and inline them
+        var styleSheets = document.styleSheets;
+        var cssRules = [];
+
+        for (var i = 0; i < styleSheets.length; i++) {
+          try {
+            var rules = styleSheets[i].cssRules || styleSheets[i].rules;
+            if (rules) {
+              for (var j = 0; j < rules.length; j++) {
+                cssRules.push(rules[j].cssText);
+              }
+            }
+          } catch (e) {
+            // Cross-origin stylesheets may throw - ignore
+          }
+        }
+
+        // Add styles to SVG
+        var defs = clonedSvg.querySelector('defs') || document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+        if (!clonedSvg.querySelector('defs')) {
+          clonedSvg.insertBefore(defs, clonedSvg.firstChild);
+        }
+
+        var styleEl = document.createElementNS('http://www.w3.org/2000/svg', 'style');
+        styleEl.textContent = cssRules.join('\n');
+        defs.appendChild(styleEl);
+
+        // Get dimensions
+        var bbox = svg.getBoundingClientRect();
+        var width = bbox.width;
+        var height = bbox.height;
+
+        // Set explicit dimensions
+        clonedSvg.setAttribute('width', width);
+        clonedSvg.setAttribute('height', height);
+
+        // Add white background
+        var bgRect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+        bgRect.setAttribute('width', '100%');
+        bgRect.setAttribute('height', '100%');
+        bgRect.setAttribute('fill', 'white');
+        clonedSvg.insertBefore(bgRect, clonedSvg.firstChild);
+
+        // Serialize SVG
+        var serializer = new XMLSerializer();
+        var svgString = serializer.serializeToString(clonedSvg);
+
+        // Create data URL
+        var svgBlob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
+        var svgUrl = URL.createObjectURL(svgBlob);
+
+        // Create image and canvas
+        var img = new Image();
+        var scale = 2; // 2x resolution for better quality
+
+        img.onload = function() {
+          var canvas = document.createElement('canvas');
+          canvas.width = width * scale;
+          canvas.height = height * scale;
+
+          var ctx = canvas.getContext('2d');
+          ctx.scale(scale, scale);
+          ctx.fillStyle = 'white';
+          ctx.fillRect(0, 0, width, height);
+          ctx.drawImage(img, 0, 0, width, height);
+
+          // Generate filename
+          var urlParams = new URLSearchParams(window.location.search);
+          var gene = urlParams.get('gene') || 'network';
+          var genotype = urlParams.get('genotype') || '';
+          var threshold = urlParams.get('threshold') || '';
+          var filename = gene.toLowerCase();
+          if (genotype) filename += '_gt' + genotype;
+          if (threshold) filename += '_t' + threshold;
+          filename += '_network.png';
+
+          // Download
+          canvas.toBlob(function(blob) {
+            var url = URL.createObjectURL(blob);
+            var link = document.createElement('a');
+            link.href = url;
+            link.download = filename;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            setTimeout(function() {
+              URL.revokeObjectURL(url);
+              URL.revokeObjectURL(svgUrl);
+            }, 100);
+          }, 'image/png');
+        };
+
+        img.onerror = function() {
+          alert('Failed to generate PNG. Try using SVG export instead.');
+          URL.revokeObjectURL(svgUrl);
+        };
+
+        img.src = svgUrl;
+      }
+
+      // Set up export buttons
+      document.getElementById('export-svg-btn').addEventListener('click', exportSVG);
+      document.getElementById('export-png-btn').addEventListener('click', exportPNG);
+
+      // Also support loading via URL parameter (for direct access/testing)
+      (function() {
+        var urlParams = new URLSearchParams(window.location.search);
+        var dataUrl = urlParams.get('data');
+
+        if (dataUrl) {
+          document.querySelector('.loading-text').textContent = 'Loading network data...';
+
+          fetch(dataUrl)
+            .then(function(response) {
+              if (!response.ok) throw new Error('Failed to load: ' + response.status);
+              return response.json();
+            })
+            .then(function(data) {
+              var meta = {
+                gene: urlParams.get('gene'),
+                genotype: urlParams.get('genotype'),
+                threshold: urlParams.get('threshold')
+              };
+              initNetwork(data, meta);
+            })
+            .catch(function(err) {
+              showError('Failed to load network data: ' + err.message);
+            });
+        }
+      })();
+    </script>
+  </body>
+</html>
