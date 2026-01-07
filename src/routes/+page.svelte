@@ -12,7 +12,7 @@
 			</div>
 			<div class="col-start-4 col-span-6 row-span-1">
 				<h4 class="text-xl">
-					<i>By Datamonkey </i><img class="object-scale-down h-10 w-8 inline" src={header} />
+					<i>By Datamonkey</i><img style="height: 2.5rem; width: 2rem; object-fit: scale-down; display: inline;" src={header} alt="Datamonkey logo" />
 				</h4>
 			</div>
 		</div>
