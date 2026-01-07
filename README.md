@@ -8,11 +8,6 @@ AUTO-TUNE provides interactive visualizations and analysis tools for:
 
 - **Threshold Optimization**: Automatically determine optimal genetic distance thresholds for HIV-TRACE clustering analysis
 - **Network Visualization**: Interactive molecular transmission network graphs powered by hivtrace-viz
-- **HCV Analysis**: Specialized analysis pages for Hepatitis C virus data including:
-  - Diversity analysis across gene regions
-  - Cross-region cluster congruence analysis
-  - FEL and MEME selection analysis
-  - Genotype comparison tools
 - **Subsampling Analysis**: Evaluate clustering stability across different sample sizes
 
 ## Features
@@ -96,7 +91,7 @@ server {
 
 ## Data Files
 
-The application expects HCV analysis data in the `static/results/` directory. Network JSON files should follow the HIV-TRACE output format.
+Network JSON files should follow the HIV-TRACE output format and be placed in the `static/results/` directory.
 
 ## License
 
