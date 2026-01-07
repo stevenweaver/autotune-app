@@ -1,38 +1,107 @@
-# create-svelte
+# AUTO-TUNE
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+A web application for optimizing HIV-TRACE genetic distance thresholds and visualizing molecular transmission networks.
 
-## Creating a project
+## Overview
 
-If you're seeing this, you've probably already done this step. Congrats!
+AUTO-TUNE provides interactive visualizations and analysis tools for:
+
+- **Threshold Optimization**: Automatically determine optimal genetic distance thresholds for HIV-TRACE clustering analysis
+- **Network Visualization**: Interactive molecular transmission network graphs powered by hivtrace-viz
+- **HCV Analysis**: Specialized analysis pages for Hepatitis C virus data including:
+  - Diversity analysis across gene regions
+  - Cross-region cluster congruence analysis
+  - FEL and MEME selection analysis
+  - Genotype comparison tools
+- **Subsampling Analysis**: Evaluate clustering stability across different sample sizes
+
+## Features
+
+- Interactive D3.js-powered network visualizations
+- SVG and PNG export for publication-quality figures
+- Cross-region cluster congruence annotations
+- Region classification (optimal vs conserved regions for epidemiological clustering)
+- Persistent selection controls for genotype and threshold parameters
+
+## Requirements
+
+- Node.js 18+
+- npm
+
+## Development
+
+Install dependencies:
 
 ```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
+npm install
 ```
 
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+Start the development server:
 
 ```bash
 npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
 ```
 
-## Building
+The app will be available at `http://localhost:5173`.
 
-To create a production version of your app:
+## Building for Production
+
+Build the production bundle (requires extra memory for large datasets):
 
 ```bash
-npm run build
+NODE_OPTIONS="--max-old-space-size=16384" npm run build
 ```
 
-You can preview the production build with `npm run preview`.
+## Deployment
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+### Using the Release Tarball
+
+1. Download the latest release tarball from [Releases](https://github.com/stevenweaver/autotune-app/releases)
+
+2. Extract and install:
+   ```bash
+   tar -xzf autotune-app-vX.X.X-XXXXXXX-XXXXXXXX.tar.gz
+   cd build
+   npm ci --omit=dev
+   ```
+
+3. Run the server:
+   ```bash
+   PORT=3000 node index.js
+   ```
+
+### Using PM2 (Recommended for Production)
+
+```bash
+PORT=3000 pm2 start index.js --name autotune-app
+```
+
+### With Nginx Reverse Proxy
+
+```nginx
+server {
+    listen 80;
+    server_name your-domain.com;
+
+    location / {
+        proxy_pass http://127.0.0.1:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
+```
+
+## Data Files
+
+The application expects HCV analysis data in the `static/results/` directory. Network JSON files should follow the HIV-TRACE output format.
+
+## License
+
+MIT
+
+## Author
+
+[Steven Weaver](http://stevenweaver.org/)
