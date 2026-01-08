@@ -346,9 +346,10 @@
       </div>
     </div>
 
-    <!-- jQuery and Bootstrap (vendor dependencies for hivtrace-viz) -->
+    <!-- jQuery is required globally for hivtrace-viz -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js"></script>
+    <!-- NOTE: Do NOT load Bootstrap separately - hivtrace.js bundles Bootstrap 3.4.1 internally.
+         Loading it twice causes duplicate event handlers and dropdown first-click bugs. -->
     <script src="/hivtrace-viz/dist/hivtrace.js"></script>
 
     <script>
@@ -673,13 +674,6 @@
 
           // Notify parent that network is ready
           window.parent.postMessage({ type: 'NETWORK_READY' }, '*');
-
-          // Fix Bootstrap 3 dropdown intermittent first-click bug
-          // Reset any stale dropdown state that may cause clearMenus() to misfire
-          setTimeout(function() {
-            $('.open').removeClass('open');
-            $('[data-toggle="dropdown"]').attr('aria-expanded', 'false');
-          }, 50);
 
         } catch (err) {
           console.error('Error initializing network:', err);
