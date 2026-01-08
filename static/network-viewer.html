@@ -674,6 +674,13 @@
           // Notify parent that network is ready
           window.parent.postMessage({ type: 'NETWORK_READY' }, '*');
 
+          // Fix Bootstrap 3 dropdown intermittent first-click bug
+          // Reset any stale dropdown state that may cause clearMenus() to misfire
+          setTimeout(function() {
+            $('.open').removeClass('open');
+            $('[data-toggle="dropdown"]').attr('aria-expanded', 'false');
+          }, 50);
+
         } catch (err) {
           console.error('Error initializing network:', err);
           showError('Failed to initialize network: ' + err.message);
