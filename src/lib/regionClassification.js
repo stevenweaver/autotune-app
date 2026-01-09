@@ -2,19 +2,19 @@
  * Region Classification Utility
  *
  * Based on manuscript findings, regions are classified as:
- * - Optimal: Good clustering potential for epidemiological analysis (E1, E2, NS2, NS3, NS5B)
+ * - Optimal: Good clustering potential for epidemiological analysis (E2, NS2, NS3, NS5B)
  * - Poor: Limited clustering potential due to conserved sequences (core, NS4A, NS4B, NS5A, whole)
- * - Neutral: Moderate clustering potential (P7)
+ * - Neutral: Moderate clustering potential (E1, P7)
  */
 
 // Optimal regions for epidemiological analysis (R1/R2 ratios 2.0-2.7)
-export const OPTIMAL_REGIONS = ['e1', 'e2', 'ns2', 'ns3', 'ns5b'];
+export const OPTIMAL_REGIONS = ['e2', 'ns2', 'ns3', 'ns5b'];
 
 // Poor clustering regions (conserved sequences, R1/R2 ratios 13.7-19.8)
 export const POOR_REGIONS = ['core', 'ns4a', 'ns4b', 'ns5a', 'whole'];
 
 // Neutral regions
-export const NEUTRAL_REGIONS = ['p7'];
+export const NEUTRAL_REGIONS = ['e1', 'p7'];
 
 // Compound regions (excluded from some analyses)
 export const COMPOUND_REGIONS = ['ns5a-ns5b-ns3'];

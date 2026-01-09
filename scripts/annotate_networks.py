@@ -22,7 +22,83 @@ REGIONS = ['core', 'e1', 'e2', 'ns2', 'ns3', 'ns4a', 'ns4b', 'ns5a', 'ns5b', 'p7
 
 # Recommended regions for epidemiological clustering (from manuscript findings)
 # These regions produce distinct clusters with balanced R1/R2 ratios and cross-region stability
-RECOMMENDED_REGIONS = ['e1', 'e2', 'ns2', 'ns3', 'ns5b']
+RECOMMENDED_REGIONS = ['e2', 'ns2', 'ns3', 'ns5b']
+
+# Minimum Jaccard similarity threshold for membership congruence
+JACCARD_THRESHOLD = 0.8
+
+
+def jaccard_similarity(set_a, set_b):
+    """Calculate Jaccard similarity between two sets."""
+    if not set_a and not set_b:
+        return 1.0  # Both empty = identical
+    if not set_a or not set_b:
+        return 0.0  # One empty, one not = no similarity
+    intersection = len(set_a & set_b)
+    union = len(set_a | set_b)
+    return intersection / union if union > 0 else 0.0
+
+
+def collect_cluster_membership(results_dir, genotype, threshold):
+    """Collect cluster membership (set of cluster-mates) for each node across regions."""
+    node_cluster_mates = defaultdict(dict)  # node_id -> {region: set of cluster_mates}
+
+    for region in REGIONS:
+        filepath = os.path.join(results_dir, f"{genotype}_{threshold}_{region}.hivtrace.json")
+        if os.path.exists(filepath):
+            with open(filepath) as f:
+                data = json.load(f)
+
+            # Build cluster -> nodes map
+            cluster_nodes = defaultdict(set)
+            for node in data.get("Nodes", []):
+                node_id = node["id"]
+                # Skip region reference nodes
+                if node_id == region or node_id.endswith(f"_{region}"):
+                    continue
+                cluster_id = node.get("cluster")
+                if cluster_id is not None:
+                    cluster_nodes[cluster_id].add(node_id)
+
+            # For each node, store its cluster-mates
+            for node in data.get("Nodes", []):
+                node_id = node["id"]
+                # Skip region reference nodes
+                if node_id == region or node_id.endswith(f"_{region}"):
+                    continue
+                cluster_id = node.get("cluster")
+                if cluster_id is not None:
+                    # Cluster-mates = all nodes in same cluster, excluding self
+                    cluster_mates = cluster_nodes[cluster_id] - {node_id}
+                    node_cluster_mates[node_id][region] = cluster_mates
+                else:
+                    # Singleton - no cluster-mates
+                    node_cluster_mates[node_id][region] = set()
+
+    return node_cluster_mates
+
+
+def calculate_membership_jaccard(node_cluster_mates, node_id, regions):
+    """Calculate average Jaccard similarity of cluster-mates across regions."""
+    region_mates = {r: node_cluster_mates[node_id].get(r) for r in regions}
+
+    # Get regions where node has cluster data
+    available_regions = [r for r in regions if region_mates.get(r) is not None]
+
+    if len(available_regions) < 2:
+        return None  # Can't compare with fewer than 2 regions
+
+    # Calculate pairwise Jaccard similarities
+    similarities = []
+    for i, r1 in enumerate(available_regions):
+        for r2 in available_regions[i+1:]:
+            sim = jaccard_similarity(region_mates[r1], region_mates[r2])
+            similarities.append(sim)
+
+    if not similarities:
+        return None
+
+    return sum(similarities) / len(similarities)
 
 
 def collect_cross_region_clusters(results_dir, genotype, threshold):
@@ -44,8 +120,12 @@ def collect_cross_region_clusters(results_dir, genotype, threshold):
     return node_clusters
 
 
-def create_annotations(node_clusters):
-    """Create annotation dictionary from cross-region cluster data."""
+def create_annotations(node_clusters, node_cluster_mates):
+    """Create annotation dictionary from cross-region cluster data.
+
+    Uses membership-based congruence: compares which nodes cluster together
+    across regions using Jaccard similarity, rather than comparing cluster IDs.
+    """
     annotations = {}
 
     for node_id, clusters in node_clusters.items():
@@ -53,21 +133,27 @@ def create_annotations(node_clusters):
         cluster_values = [c for c in clusters.values() if c is not None]
         all_main = all(c == 1 for c in cluster_values) if cluster_values else False
 
-        # Check recommended regions congruence (same cluster across all recommended regions)
-        recommended_clusters = {r: c for r, c in clusters.items()
-                                if r in RECOMMENDED_REGIONS and c is not None}
-        recommended_regions_present = len(recommended_clusters)
+        # Count recommended regions present (non-singleton)
+        recommended_clusters = {r: clusters.get(r) for r in RECOMMENDED_REGIONS}
+        recommended_regions_present = len([c for c in recommended_clusters.values() if c is not None])
 
-        if recommended_clusters:
-            cluster_values_recommended = list(recommended_clusters.values())
-            # Congruent if all clusters are the same (regardless of which cluster number)
-            recommended_congruent = len(set(cluster_values_recommended)) == 1
+        # Calculate membership-based congruence using Jaccard similarity
+        # This compares which nodes cluster together, not cluster ID numbers
+        membership_jaccard = calculate_membership_jaccard(
+            node_cluster_mates, node_id, RECOMMENDED_REGIONS
+        )
+
+        # Node is congruent if average Jaccard >= threshold (0.8)
+        # None means insufficient data to compare
+        if membership_jaccard is not None:
+            recommended_congruent = membership_jaccard >= JACCARD_THRESHOLD
         else:
             recommended_congruent = False
 
         annotations[node_id] = {
             "main_cluster_congruent": "Yes" if all_main else "No",
             "recommended_congruent": "Yes" if recommended_congruent else "No",
+            "membership_jaccard": round(membership_jaccard, 3) if membership_jaccard is not None else None,
             "regions_present": regions_present,
             "recommended_regions_present": recommended_regions_present,
             "clusters": clusters
@@ -96,8 +182,12 @@ def annotate_network_file(filepath, annotations, output_path=None):
             "type": "String"
         },
         "recommended_congruent": {
-            "label": "Recommended Regions Congruent",
+            "label": "Membership Congruent (Jaccard >= 0.8)",
             "type": "String"
+        },
+        "membership_jaccard": {
+            "label": "Membership Jaccard Similarity",
+            "type": "Number"
         },
         "regions_present": {
             "label": "Regions Present",
@@ -129,6 +219,7 @@ def annotate_network_file(filepath, annotations, output_path=None):
             patient_attrs = {
                 "main_cluster_congruent": ann["main_cluster_congruent"],
                 "recommended_congruent": ann["recommended_congruent"],
+                "membership_jaccard": ann["membership_jaccard"],
                 "regions_present": ann["regions_present"],
                 "recommended_regions_present": ann["recommended_regions_present"]
             }
@@ -164,11 +255,20 @@ def main():
     node_clusters = collect_cross_region_clusters(args.results_dir, args.genotype, args.threshold)
     print(f"Found {len(node_clusters)} unique nodes across regions")
 
-    annotations = create_annotations(node_clusters)
+    print(f"Collecting cluster membership data for Jaccard comparison...")
+    node_cluster_mates = collect_cluster_membership(args.results_dir, args.genotype, args.threshold)
+
+    annotations = create_annotations(node_clusters, node_cluster_mates)
     main_count = sum(1 for a in annotations.values() if a["main_cluster_congruent"] == "Yes")
     recommended_count = sum(1 for a in annotations.values() if a["recommended_congruent"] == "Yes")
+
+    # Calculate average Jaccard for nodes that have it
+    jaccard_values = [a["membership_jaccard"] for a in annotations.values() if a["membership_jaccard"] is not None]
+    avg_jaccard = sum(jaccard_values) / len(jaccard_values) if jaccard_values else 0
+
     print(f"Nodes always in main cluster (all regions): {main_count}/{len(annotations)}")
-    print(f"Nodes congruent in recommended regions (E1,E2,NS2,NS3,NS5B): {recommended_count}/{len(annotations)}")
+    print(f"Nodes membership-congruent (Jaccard >= 0.8): {recommended_count}/{len(annotations)}")
+    print(f"Average membership Jaccard similarity: {avg_jaccard:.3f}")
 
     # Annotate each region's network file
     for region in REGIONS:

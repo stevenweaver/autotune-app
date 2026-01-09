@@ -21,6 +21,9 @@
   let sortColumn = 'cluster';
   let sortDirection = 'asc';
 
+  // Expanded cluster rows (for pattern details)
+  let expandedClusters = new Set();
+
   // Fetch network data for table view
   async function fetchNetworkData() {
     if (!networkUrl || networkData) return;
@@ -48,26 +51,62 @@
   }
 
   // Get sorted table rows
+  // Region names to filter out (reference sequences)
+  const ALL_REGIONS = ['core', 'e1', 'e2', 'ns2', 'ns3', 'ns4a', 'ns4b', 'ns5a', 'ns5b', 'p7'];
+
+  // Check if a node ID is a region reference (should be filtered out)
+  function isRegionReference(nodeId) {
+    const id = nodeId?.toLowerCase() || '';
+    return ALL_REGIONS.includes(id) || ALL_REGIONS.some(r => id.endsWith(`_${r}`));
+  }
+
   $: tableRows = (() => {
     if (!networkData?.Nodes) return [];
 
+    // Filter out region reference nodes
+    const filteredNodes = networkData.Nodes.filter(node => !isRegionReference(node.id));
+
     // Build cluster size map
     const clusterSizes = {};
-    networkData.Nodes.forEach(node => {
+    filteredNodes.forEach(node => {
       const cluster = node.cluster ?? 'singleton';
       clusterSizes[cluster] = (clusterSizes[cluster] || 0) + 1;
     });
 
+    const currentGene = meta?.gene?.toLowerCase() || '';
+    const recommendedRegions = ['e2', 'ns2', 'ns3', 'ns5b'];
+
     // Map nodes to table rows
-    const rows = networkData.Nodes.map((node, index) => ({
-      id: node.id || `Node ${index}`,
-      cluster: node.cluster ?? 'singleton',
-      clusterSize: clusterSizes[node.cluster] || 1,
-      recommendedCongruent: node.patient_attributes?.recommended_congruent || 'N/A',
-      mainClusterCongruent: node.patient_attributes?.main_cluster_congruent || 'N/A',
-      regionsPresent: node.patient_attributes?.regions_present ?? 'N/A',
-      recommendedRegionsPresent: node.patient_attributes?.recommended_regions_present ?? 'N/A'
-    }));
+    const rows = filteredNodes.map((node, index) => {
+      const pa = node.patient_attributes || {};
+      const currentCluster = String(node.cluster);
+
+      // Calculate which recommended regions share the same cluster
+      const matchingRegions = [];
+      for (const region of recommendedRegions) {
+        if (region === currentGene) {
+          // Current region always matches itself
+          matchingRegions.push(region.toUpperCase());
+        } else {
+          const clusterInRegion = pa[`cluster_in_${region}`];
+          if (clusterInRegion === currentCluster) {
+            matchingRegions.push(region.toUpperCase());
+          }
+        }
+      }
+
+      return {
+        id: node.id || `Node ${index}`,
+        cluster: node.cluster ?? 'singleton',
+        clusterSize: clusterSizes[node.cluster] || 1,
+        recommendedCongruent: pa.recommended_congruent || 'N/A',
+        membershipJaccard: pa.membership_jaccard,
+        regionsPresent: pa.regions_present ?? 'N/A',
+        recommendedRegionsPresent: pa.recommended_regions_present ?? 'N/A',
+        matchingRegions: matchingRegions,
+        matchingRegionsStr: matchingRegions.join(', ') || 'None'
+      };
+    });
 
     // Sort rows
     return rows.sort((a, b) => {
@@ -106,6 +145,149 @@
 
   // Get network summary stats
   $: networkSummary = networkData?.['Network Summary'] || {};
+
+  // Calculate per-cluster statistics
+  $: clusterStats = (() => {
+    if (!networkData?.Nodes) return [];
+
+    // Filter out region reference nodes
+    const filteredNodes = networkData.Nodes.filter(node => !isRegionReference(node.id));
+
+    const currentGene = meta?.gene?.toLowerCase() || '';
+    const recommendedRegions = ['e2', 'ns2', 'ns3', 'ns5b'];
+
+    // Group nodes by cluster
+    const clusterMap = {};
+    filteredNodes.forEach(node => {
+      const cluster = node.cluster ?? 'singleton';
+      if (!clusterMap[cluster]) {
+        clusterMap[cluster] = {
+          clusterId: cluster,
+          nodes: [],
+          size: 0,
+          recommendedCongruentYes: 0,
+          recommendedCongruentNo: 0,
+          totalRegionsPresent: 0,
+          totalRecommendedRegions: 0,
+          regionsCount: 0,
+          recommendedRegionsCount: 0,
+          // Counts for Jaccard score ranges (aligned with congruence)
+          jaccardHigh: 0,    // >= 0.8 (congruent)
+          jaccardMedium: 0,  // 0.5 - 0.8
+          jaccardLow: 0,     // < 0.5
+          jaccardNA: 0,      // null/undefined
+          // Pattern distribution: pattern string -> count
+          patterns: {}
+        };
+      }
+
+      const stats = clusterMap[cluster];
+      stats.nodes.push(node);
+      stats.size++;
+
+      // Count congruence
+      const recCong = node.patient_attributes?.recommended_congruent;
+      if (recCong === 'Yes') stats.recommendedCongruentYes++;
+      else if (recCong === 'No') stats.recommendedCongruentNo++;
+
+      // Sum regions for averaging
+      const regions = node.patient_attributes?.regions_present;
+      if (typeof regions === 'number') {
+        stats.totalRegionsPresent += regions;
+        stats.regionsCount++;
+      }
+
+      const recRegions = node.patient_attributes?.recommended_regions_present;
+      if (typeof recRegions === 'number') {
+        stats.totalRecommendedRegions += recRegions;
+        stats.recommendedRegionsCount++;
+      }
+
+      const pa = node.patient_attributes || {};
+
+      // Count by Jaccard score range (aligned with congruence threshold of 0.8)
+      const jaccard = pa.membership_jaccard;
+      if (jaccard === null || jaccard === undefined) {
+        stats.jaccardNA++;
+      } else if (jaccard >= 0.8) {
+        stats.jaccardHigh++;
+      } else if (jaccard >= 0.5) {
+        stats.jaccardMedium++;
+      } else {
+        stats.jaccardLow++;
+      }
+
+      // Track pattern distribution based on recommended_congruent status
+      // Group by Yes/No/N/A for consistency
+      const congStatus = pa.recommended_congruent || 'N/A';
+      const jaccardStr = jaccard !== null && jaccard !== undefined ? jaccard.toFixed(2) : 'N/A';
+      const patternKey = `${congStatus} (J=${jaccardStr})`;
+      stats.patterns[patternKey] = (stats.patterns[patternKey] || 0) + 1;
+    });
+
+    // Calculate percentages and averages
+    return Object.values(clusterMap)
+      .map(stats => {
+        // Convert patterns to sorted array for display
+        const patternArray = Object.entries(stats.patterns)
+          .map(([pattern, count]) => ({ pattern, count }))
+          .sort((a, b) => b.count - a.count);
+
+        return {
+          clusterId: stats.clusterId,
+          size: stats.size,
+          recommendedCongruentYes: stats.recommendedCongruentYes,
+          recommendedCongruentNo: stats.recommendedCongruentNo,
+          recommendedCongruentPct: stats.size > 0
+            ? ((stats.recommendedCongruentYes / stats.size) * 100).toFixed(1)
+            : 0,
+          avgRegionsPresent: stats.regionsCount > 0
+            ? (stats.totalRegionsPresent / stats.regionsCount).toFixed(1)
+            : 'N/A',
+          avgRecommendedRegions: stats.recommendedRegionsCount > 0
+            ? (stats.totalRecommendedRegions / stats.recommendedRegionsCount).toFixed(1)
+            : 'N/A',
+          // Jaccard score distribution (aligned with congruence)
+          jaccardHigh: stats.jaccardHigh,
+          jaccardMedium: stats.jaccardMedium,
+          jaccardLow: stats.jaccardLow,
+          jaccardNA: stats.jaccardNA,
+          // Pattern distribution
+          patterns: patternArray
+        };
+      })
+      .sort((a, b) => {
+        // Sort singletons to end, then by size descending
+        if (a.clusterId === 'singleton') return 1;
+        if (b.clusterId === 'singleton') return -1;
+        return b.size - a.size;
+      });
+  })();
+
+  // Overall recommended congruence stats
+  $: overallStats = (() => {
+    if (!clusterStats.length) return null;
+
+    const nonSingletons = clusterStats.filter(c => c.clusterId !== 'singleton');
+    const totalNodes = nonSingletons.reduce((sum, c) => sum + c.size, 0);
+    const totalRecYes = nonSingletons.reduce((sum, c) => sum + c.recommendedCongruentYes, 0);
+
+    return {
+      clusteredNodes: totalNodes,
+      singletonCount: clusterStats.find(c => c.clusterId === 'singleton')?.size || 0,
+      overallRecommendedPct: totalNodes > 0 ? ((totalRecYes / totalNodes) * 100).toFixed(1) : 0
+    };
+  })();
+
+  // Toggle cluster row expansion for pattern details
+  function toggleClusterExpanded(clusterId) {
+    if (expandedClusters.has(clusterId)) {
+      expandedClusters.delete(clusterId);
+    } else {
+      expandedClusters.add(clusterId);
+    }
+    expandedClusters = expandedClusters; // Trigger reactivity
+  }
 
   // Handle escape key to close
   function handleKeydown(event) {
@@ -151,6 +333,7 @@
     errorMessage = '';
     viewMode = 'network';
     networkData = null;
+    expandedClusters = new Set();
   }
 
   onMount(() => {
@@ -299,7 +482,7 @@
                 </div>
               </div>
             {:else if tableRows.length > 0}
-              <!-- Summary stats -->
+              <!-- Overall Summary stats -->
               <div class="mb-4 flex flex-wrap gap-4 text-sm">
                 <div class="bg-white px-4 py-2 rounded-lg shadow-sm border border-gray-200">
                   <span class="text-gray-500">Nodes:</span>
@@ -317,9 +500,122 @@
                   <span class="text-gray-500">Singletons:</span>
                   <span class="font-semibold text-gray-900 ml-1">{networkSummary.Singletons || 0}</span>
                 </div>
+                {#if overallStats}
+                  <div class="bg-white px-4 py-2 rounded-lg shadow-sm border border-gray-200">
+                    <span class="text-gray-500">Recommended Congruent:</span>
+                    <span class="font-semibold ml-1 {parseFloat(overallStats.overallRecommendedPct) >= 80 ? 'text-green-600' : parseFloat(overallStats.overallRecommendedPct) >= 60 ? 'text-yellow-600' : 'text-red-600'}">
+                      {overallStats.overallRecommendedPct}%
+                    </span>
+                  </div>
+                {/if}
               </div>
 
-              <!-- Data table -->
+              <!-- Per-Cluster Summary Table -->
+              {#if clusterStats.length > 0}
+                <div class="mb-6">
+                  <h3 class="text-sm font-semibold text-gray-700 mb-2">
+                    Cluster Summary (Recommended Regions)
+                    <span class="font-normal text-gray-400 ml-2">Click row to see pattern distribution</span>
+                  </h3>
+                  <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+                    <div class="overflow-x-auto">
+                      <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                          <tr>
+                            <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" title="Cluster identifier">Cluster</th>
+                            <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" title="Number of nodes in cluster">Size</th>
+                            <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" title="Nodes with membership Jaccard >= 0.8 across recommended regions (Yes/No counts)">Rec. Cong.</th>
+                            <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" title="Percentage of nodes with Jaccard similarity >= 0.8 across recommended regions">% Cong.</th>
+                            <th class="px-3 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider border-l border-gray-200" title="Nodes with high membership Jaccard (>= 0.8) - marked congruent">J≥0.8</th>
+                            <th class="px-3 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider" title="Nodes with medium membership Jaccard (0.5 - 0.8)">J 0.5-0.8</th>
+                            <th class="px-3 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider" title="Nodes with low membership Jaccard (less than 0.5)">{"J<0.5"}</th>
+                            <th class="px-3 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider" title="Nodes without Jaccard score (insufficient data)">N/A</th>
+                          </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                          {#each clusterStats as cluster}
+                            <tr
+                              class="hover:bg-gray-50 cursor-pointer"
+                              on:click={() => toggleClusterExpanded(cluster.clusterId)}
+                              on:keydown={(e) => e.key === 'Enter' && toggleClusterExpanded(cluster.clusterId)}
+                              tabindex="0"
+                              role="button"
+                              aria-expanded={expandedClusters.has(cluster.clusterId)}
+                            >
+                              <td class="px-3 py-2 text-sm">
+                                <div class="flex items-center gap-1">
+                                  <svg
+                                    class="w-3 h-3 text-gray-400 transition-transform {expandedClusters.has(cluster.clusterId) ? 'rotate-90' : ''}"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                  >
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                  </svg>
+                                  {#if cluster.clusterId === 'singleton'}
+                                    <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-600">
+                                      Singletons
+                                    </span>
+                                  {:else}
+                                    <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-indigo-100 text-indigo-700">
+                                      Cluster {cluster.clusterId}
+                                    </span>
+                                  {/if}
+                                </div>
+                              </td>
+                              <td class="px-3 py-2 text-sm text-gray-700 font-medium">{cluster.size}</td>
+                              <td class="px-3 py-2 text-sm text-gray-700">
+                                <span class="text-green-600">{cluster.recommendedCongruentYes}</span>
+                                <span class="text-gray-400">/</span>
+                                <span class="text-red-600">{cluster.recommendedCongruentNo}</span>
+                              </td>
+                              <td class="px-3 py-2 text-sm">
+                                <div class="flex items-center gap-2">
+                                  <div class="w-12 h-2 bg-gray-200 rounded-full overflow-hidden">
+                                    <div
+                                      class="h-full rounded-full {parseFloat(cluster.recommendedCongruentPct) >= 80 ? 'bg-green-500' : parseFloat(cluster.recommendedCongruentPct) >= 60 ? 'bg-yellow-500' : 'bg-red-500'}"
+                                      style="width: {cluster.recommendedCongruentPct}%"
+                                    ></div>
+                                  </div>
+                                  <span class="text-xs font-medium {parseFloat(cluster.recommendedCongruentPct) >= 80 ? 'text-green-600' : parseFloat(cluster.recommendedCongruentPct) >= 60 ? 'text-yellow-600' : 'text-red-600'}">
+                                    {cluster.recommendedCongruentPct}%
+                                  </span>
+                                </div>
+                              </td>
+                              <!-- Jaccard score distribution -->
+                              <td class="px-3 py-2 text-sm text-center border-l border-gray-100 {cluster.jaccardHigh > 0 ? 'text-green-700 font-medium bg-green-50' : 'text-gray-400'}">{cluster.jaccardHigh}</td>
+                              <td class="px-3 py-2 text-sm text-center {cluster.jaccardMedium > 0 ? 'text-yellow-600 font-medium' : 'text-gray-400'}">{cluster.jaccardMedium}</td>
+                              <td class="px-3 py-2 text-sm text-center {cluster.jaccardLow > 0 ? 'text-orange-600 font-medium' : 'text-gray-400'}">{cluster.jaccardLow}</td>
+                              <td class="px-3 py-2 text-sm text-center {cluster.jaccardNA > 0 ? 'text-gray-500' : 'text-gray-400'}">{cluster.jaccardNA}</td>
+                            </tr>
+                            <!-- Expanded pattern details row -->
+                            {#if expandedClusters.has(cluster.clusterId)}
+                              <tr class="bg-gray-50">
+                                <td colspan="8" class="px-4 py-3">
+                                  <div class="text-xs">
+                                    <div class="font-medium text-gray-700 mb-2">Pattern Distribution:</div>
+                                    <div class="flex flex-wrap gap-2">
+                                      {#each cluster.patterns as p}
+                                        <span class="inline-flex items-center gap-1 px-2 py-1 rounded bg-white border border-gray-200 shadow-sm">
+                                          <span class="font-mono text-gray-600">{p.pattern}</span>
+                                          <span class="font-semibold text-indigo-600">{p.count}</span>
+                                        </span>
+                                      {/each}
+                                    </div>
+                                  </div>
+                                </td>
+                              </tr>
+                            {/if}
+                          {/each}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              {/if}
+
+              <!-- Node-level Data table -->
+              <h3 class="text-sm font-semibold text-gray-700 mb-2">Node Details</h3>
               <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
                 <div class="overflow-x-auto">
                   <table class="min-w-full divide-y divide-gray-200">
@@ -363,7 +659,7 @@
                           on:click={() => handleSort('recommendedCongruent')}
                         >
                           <div class="flex items-center gap-1">
-                            Recommended Congruent
+                            Rec. Congruent
                             {#if sortColumn === 'recommendedCongruent'}
                               <span class="text-indigo-600">{sortDirection === 'asc' ? '↑' : '↓'}</span>
                             {/if}
@@ -371,11 +667,24 @@
                         </th>
                         <th
                           class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 select-none"
-                          on:click={() => handleSort('mainClusterCongruent')}
+                          on:click={() => handleSort('membershipJaccard')}
+                          title="Membership Jaccard similarity across recommended regions (>= 0.8 = congruent)"
                         >
                           <div class="flex items-center gap-1">
-                            Main Cluster Congruent
-                            {#if sortColumn === 'mainClusterCongruent'}
+                            Jaccard
+                            {#if sortColumn === 'membershipJaccard'}
+                              <span class="text-indigo-600">{sortDirection === 'asc' ? '↑' : '↓'}</span>
+                            {/if}
+                          </div>
+                        </th>
+                        <th
+                          class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 select-none"
+                          on:click={() => handleSort('matchingRegionsStr')}
+                          title="Which recommended regions share the same cluster ID (for debugging)"
+                        >
+                          <div class="flex items-center gap-1">
+                            Cluster ID Match
+                            {#if sortColumn === 'matchingRegionsStr'}
                               <span class="text-indigo-600">{sortDirection === 'asc' ? '↑' : '↓'}</span>
                             {/if}
                           </div>
@@ -387,17 +696,6 @@
                           <div class="flex items-center gap-1">
                             Regions Present
                             {#if sortColumn === 'regionsPresent'}
-                              <span class="text-indigo-600">{sortDirection === 'asc' ? '↑' : '↓'}</span>
-                            {/if}
-                          </div>
-                        </th>
-                        <th
-                          class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 select-none"
-                          on:click={() => handleSort('recommendedRegionsPresent')}
-                        >
-                          <div class="flex items-center gap-1">
-                            Recommended Regions
-                            {#if sortColumn === 'recommendedRegionsPresent'}
                               <span class="text-indigo-600">{sortDirection === 'asc' ? '↑' : '↓'}</span>
                             {/if}
                           </div>
@@ -432,16 +730,32 @@
                             {/if}
                           </td>
                           <td class="px-4 py-2 text-sm">
-                            {#if row.mainClusterCongruent === 'Yes'}
-                              <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-700">Yes</span>
-                            {:else if row.mainClusterCongruent === 'No'}
-                              <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-red-100 text-red-700">No</span>
+                            {#if row.membershipJaccard !== null && row.membershipJaccard !== undefined}
+                              <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium {row.membershipJaccard >= 0.8 ? 'bg-green-100 text-green-700' : row.membershipJaccard >= 0.5 ? 'bg-yellow-100 text-yellow-700' : 'bg-orange-100 text-orange-700'}">
+                                {row.membershipJaccard.toFixed(3)}
+                              </span>
                             {:else}
-                              <span class="text-gray-400">{row.mainClusterCongruent}</span>
+                              <span class="text-gray-400">N/A</span>
+                            {/if}
+                          </td>
+                          <td class="px-4 py-2 text-sm">
+                            {#if row.matchingRegions.length === 4}
+                              <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-700">
+                                {row.matchingRegionsStr}
+                              </span>
+                            {:else if row.matchingRegions.length === 3}
+                              <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-yellow-100 text-yellow-700">
+                                {row.matchingRegionsStr}
+                              </span>
+                            {:else if row.matchingRegions.length >= 1}
+                              <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-red-100 text-red-700">
+                                {row.matchingRegionsStr}
+                              </span>
+                            {:else}
+                              <span class="text-gray-400">None</span>
                             {/if}
                           </td>
                           <td class="px-4 py-2 text-sm text-gray-700">{row.regionsPresent}</td>
-                          <td class="px-4 py-2 text-sm text-gray-700">{row.recommendedRegionsPresent}</td>
                         </tr>
                       {/each}
                     </tbody>
