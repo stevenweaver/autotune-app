@@ -102,7 +102,7 @@
         recommendedCongruent: pa.recommended_congruent || 'N/A',
         membershipJaccard: pa.membership_jaccard,
         regionsPresent: pa.regions_present ?? 'N/A',
-        recommendedRegionsPresent: pa.recommended_regions_present ?? 'N/A',
+        congruentRegionCount: pa.congruent_region_count ?? 'N/A',
         matchingRegions: matchingRegions,
         matchingRegionsStr: matchingRegions.join(', ') || 'None'
       };
@@ -168,9 +168,9 @@
           recommendedCongruentYes: 0,
           recommendedCongruentNo: 0,
           totalRegionsPresent: 0,
-          totalRecommendedRegions: 0,
+          totalCongruentRegions: 0,
           regionsCount: 0,
-          recommendedRegionsCount: 0,
+          congruentRegionsCount: 0,
           // Counts for Jaccard score ranges (aligned with congruence)
           jaccardHigh: 0,    // >= 0.8 (congruent)
           jaccardMedium: 0,  // 0.5 - 0.8
@@ -197,10 +197,10 @@
         stats.regionsCount++;
       }
 
-      const recRegions = node.patient_attributes?.recommended_regions_present;
-      if (typeof recRegions === 'number') {
-        stats.totalRecommendedRegions += recRegions;
-        stats.recommendedRegionsCount++;
+      const congruentCount = node.patient_attributes?.congruent_region_count;
+      if (typeof congruentCount === 'number') {
+        stats.totalCongruentRegions += congruentCount;
+        stats.congruentRegionsCount++;
       }
 
       const pa = node.patient_attributes || {};
@@ -244,8 +244,8 @@
           avgRegionsPresent: stats.regionsCount > 0
             ? (stats.totalRegionsPresent / stats.regionsCount).toFixed(1)
             : 'N/A',
-          avgRecommendedRegions: stats.recommendedRegionsCount > 0
-            ? (stats.totalRecommendedRegions / stats.recommendedRegionsCount).toFixed(1)
+          avgCongruentRegions: stats.congruentRegionsCount > 0
+            ? (stats.totalCongruentRegions / stats.congruentRegionsCount).toFixed(1)
             : 'N/A',
           // Jaccard score distribution (aligned with congruence)
           jaccardHigh: stats.jaccardHigh,

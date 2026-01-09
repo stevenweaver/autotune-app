@@ -16,6 +16,7 @@ import csv
 import os
 import argparse
 from collections import defaultdict
+from itertools import combinations
 
 
 REGIONS = ['core', 'e1', 'e2', 'ns2', 'ns3', 'ns4a', 'ns4b', 'ns5a', 'ns5b', 'p7', 'whole']
@@ -101,6 +102,55 @@ def calculate_membership_jaccard(node_cluster_mates, node_id, regions):
     return sum(similarities) / len(similarities)
 
 
+def count_congruent_regions(node_cluster_mates, node_id, regions, threshold=0.8):
+    """Count how many regions have mutually congruent cluster membership.
+
+    Returns the size of the largest set of regions where all pairwise
+    Jaccard similarities >= threshold.
+    """
+    region_mates = {r: node_cluster_mates[node_id].get(r) for r in regions}
+
+    # Get regions where node has non-empty cluster data (actually clustered, not singleton)
+    available_regions = [r for r in regions
+                        if region_mates.get(r) is not None and len(region_mates.get(r, set())) > 0]
+
+    if len(available_regions) < 2:
+        return len(available_regions)  # 0 or 1 region = that many congruent
+
+    # Build adjacency: which regions are congruent with each other?
+    congruent_pairs = set()
+    for i, r1 in enumerate(available_regions):
+        for r2 in available_regions[i+1:]:
+            sim = jaccard_similarity(region_mates[r1], region_mates[r2])
+            if sim >= threshold:
+                congruent_pairs.add((r1, r2))
+
+    # Find largest clique of mutually congruent regions
+    # For 4 regions, we can just check all subsets
+    max_congruent = 1  # At minimum, each region is congruent with itself
+
+    for size in range(len(available_regions), 1, -1):
+        for subset in combinations(available_regions, size):
+            # Check if all pairs in this subset are congruent
+            all_congruent = True
+            for i, r1 in enumerate(subset):
+                for r2 in subset[i+1:]:
+                    pair = (r1, r2) if r1 < r2 else (r2, r1)
+                    if pair not in congruent_pairs and (r2, r1) not in congruent_pairs:
+                        # Check directly
+                        sim = jaccard_similarity(region_mates[r1], region_mates[r2])
+                        if sim < threshold:
+                            all_congruent = False
+                            break
+                if not all_congruent:
+                    break
+
+            if all_congruent:
+                return size  # Found largest clique
+
+    return max_congruent
+
+
 def collect_cross_region_clusters(results_dir, genotype, threshold):
     """Collect cluster membership for each node across all regions."""
     node_clusters = defaultdict(dict)
@@ -133,9 +183,10 @@ def create_annotations(node_clusters, node_cluster_mates):
         cluster_values = [c for c in clusters.values() if c is not None]
         all_main = all(c == 1 for c in cluster_values) if cluster_values else False
 
-        # Count recommended regions present (non-singleton)
-        recommended_clusters = {r: clusters.get(r) for r in RECOMMENDED_REGIONS}
-        recommended_regions_present = len([c for c in recommended_clusters.values() if c is not None])
+        # Count how many recommended regions have congruent cluster membership
+        congruent_region_count = count_congruent_regions(
+            node_cluster_mates, node_id, RECOMMENDED_REGIONS, JACCARD_THRESHOLD
+        )
 
         # Calculate membership-based congruence using Jaccard similarity
         # This compares which nodes cluster together, not cluster ID numbers
@@ -155,7 +206,7 @@ def create_annotations(node_clusters, node_cluster_mates):
             "recommended_congruent": "Yes" if recommended_congruent else "No",
             "membership_jaccard": round(membership_jaccard, 3) if membership_jaccard is not None else None,
             "regions_present": regions_present,
-            "recommended_regions_present": recommended_regions_present,
+            "congruent_region_count": congruent_region_count,
             "clusters": clusters
         }
 
@@ -193,8 +244,8 @@ def annotate_network_file(filepath, annotations, output_path=None):
             "label": "Regions Present",
             "type": "Number"
         },
-        "recommended_regions_present": {
-            "label": "Recommended Regions Present",
+        "congruent_region_count": {
+            "label": "Congruent Regions (of 4)",
             "type": "Number"
         }
     }
@@ -221,7 +272,7 @@ def annotate_network_file(filepath, annotations, output_path=None):
                 "recommended_congruent": ann["recommended_congruent"],
                 "membership_jaccard": ann["membership_jaccard"],
                 "regions_present": ann["regions_present"],
-                "recommended_regions_present": ann["recommended_regions_present"]
+                "congruent_region_count": ann["congruent_region_count"]
             }
 
             # Add cluster IDs from other regions
