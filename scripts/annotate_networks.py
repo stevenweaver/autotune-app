@@ -18,7 +18,7 @@ import argparse
 from collections import defaultdict
 
 
-REGIONS = ['core', 'e1', 'e2', 'ns2', 'ns3', 'ns4a', 'ns4b', 'ns5a', 'ns5b', 'p7']
+REGIONS = ['core', 'e1', 'e2', 'ns2', 'ns3', 'ns4a', 'ns4b', 'ns5a', 'ns5b', 'p7', 'whole']
 
 # Recommended regions for epidemiological clustering (from manuscript findings)
 # These regions produce distinct clusters with balanced R1/R2 ratios and cross-region stability
