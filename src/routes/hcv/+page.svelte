@@ -194,7 +194,7 @@ $: plotData = (() => {
       
       try {
         // Load individual TSV file and parse it
-        const response = await fetch(`/src/data/hcv/autotune/${genotype}_${consensus}_${gene}.aligned.report.tsv`);
+        const response = await fetch(`/results/${genotype}_${consensus}_${gene}.aligned.report.tsv`);
         if (response.ok) {
           const tsvText = await response.text();
           const lines = tsvText.trim().split('\n');
@@ -231,7 +231,7 @@ $: plotData = (() => {
 	onMount(async () => {
       // Load default report data
       try {
-        const response = await fetch('/src/data/hcv/autotune/1a_0.2_ns5a.aligned.report.tsv');
+        const response = await fetch('/results/1a_0.2_ns5a.aligned.report.tsv');
         if (response.ok) {
           const tsvText = await response.text();
           const lines = tsvText.trim().split('\n');
