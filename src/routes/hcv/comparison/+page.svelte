@@ -37,14 +37,79 @@
   $: thresholds1 = allThresholds.filter(d => d.genotype === genotype1 && d.consensus === $selectedThreshold);
   $: thresholds2 = allThresholds.filter(d => d.genotype === genotype2 && d.consensus === $selectedThreshold);
 
-  // Enrich with network stats
-  function enrichWithStats(thresholdData, networkStats) {
+  // The threshold and score in all_thresholds.json come from the per-region
+  // *.threshold.json fallback ("best guess" emitted with hasError when AUTO-TUNE
+  // finds no strong outlier), which contradicts the networks actually analyzed
+  // (issue #7). Resolve them instead from the same authoritative source the rest of
+  // the page uses: each network's HIV-TRACE output (Settings.threshold — the
+  // threshold the network whose clusters we show was built at) and that threshold's
+  // row in the AUTO-TUNE sweep report (its Score). Only regions with a real sweep
+  // qualify; where AUTO-TUNE produced no network/sweep the threshold is a non-tune
+  // default (e.g. 2a -> 0.005), so it is shown as N/A rather than mislabeled.
+  let resolvedMetrics = {};
+
+  function scoreAtThreshold(tsv, threshold) {
+    const lines = tsv.trim().split('\n');
+    if (lines.length < 2) return null;
+    const header = lines[0].split('\t');
+    const tIdx = header.indexOf('Threshold');
+    const sIdx = header.indexOf('Score');
+    if (tIdx === -1 || sIdx === -1) return null;
+    for (let i = 1; i < lines.length; i++) {
+      const cols = lines[i].split('\t');
+      // The network threshold is always one of the swept rows, so match exactly
+      // (tolerating only binary float noise).
+      if (Math.abs(parseFloat(cols[tIdx]) - threshold) < 1e-9) {
+        const score = parseFloat(cols[sIdx]);
+        return Number.isFinite(score) ? score : null;
+      }
+    }
+    return null;
+  }
+
+  async function resolveOneMetric(genotype, consensus, gene, out) {
+    const base = `${genotype}_${consensus}_${gene}`;
+    try {
+      const hvResp = await fetch(`/results/${base}.hivtrace.json`);
+      if (!hvResp.ok) return;
+      const threshold = (await hvResp.json())?.Settings?.threshold;
+      if (threshold === undefined || threshold === null) return;
+      const repResp = await fetch(`/results/${base}.aligned.report.tsv`);
+      if (!repResp.ok) return; // no AUTO-TUNE sweep -> default threshold, not a tune result
+      out[base] = { threshold, score: scoreAtThreshold(await repResp.text(), threshold) };
+    } catch (error) {
+      console.warn(`Could not resolve AUTO-TUNE metrics for ${base}:`, error);
+    }
+  }
+
+  async function resolveComparisonMetrics(g1, g2, consensus) {
+    const next = {};
+    const genes = (genotype) =>
+      Object.keys(congruenceData[`${genotype}_${consensus}`]?.network_statistics || {});
+    await Promise.all([
+      ...genes(g1).map(gene => resolveOneMetric(g1, consensus, gene, next)),
+      ...genes(g2).map(gene => resolveOneMetric(g2, consensus, gene, next))
+    ]);
+    // A late-arriving fetch for a previous selection must not clobber the current one.
+    if (g1 === genotype1 && g2 === genotype2 && consensus === $selectedThreshold) {
+      resolvedMetrics = next;
+    }
+  }
+
+  $: resolveComparisonMetrics(genotype1, genotype2, $selectedThreshold);
+
+  // Enrich with network stats, overriding the fallback threshold/score with the
+  // authoritative values resolved above (null -> displayed as N/A).
+  function enrichWithStats(thresholdData, networkStats, genotype, consensus, resolved) {
     return thresholdData.map(d => {
       const stats = networkStats?.[d.gene] || {};
       const classification = getRegionClassification(d.gene);
       const classDisplay = getClassificationDisplay(classification);
+      const metrics = resolved[`${genotype}_${consensus}_${d.gene}`];
       return {
         ...d,
+        threshold: metrics ? metrics.threshold : null,
+        score: metrics ? metrics.score : null,
         clusters: stats.total_clusters || null,
         singletons: stats.singleton_sequences || null,
         networkedPct: stats.network_proportion ? (stats.network_proportion * 100).toFixed(1) : null,
@@ -54,8 +119,8 @@
     });
   }
 
-  $: enriched1 = enrichWithStats(thresholds1, data1.network_statistics);
-  $: enriched2 = enrichWithStats(thresholds2, data2.network_statistics);
+  $: enriched1 = enrichWithStats(thresholds1, data1.network_statistics, genotype1, $selectedThreshold, resolvedMetrics);
+  $: enriched2 = enrichWithStats(thresholds2, data2.network_statistics, genotype2, $selectedThreshold, resolvedMetrics);
 
   // Comparison metrics
   $: comparison = {
@@ -74,7 +139,7 @@
   $: combinedData = [
     ...enriched1.map(d => ({ ...d, genotypeLabel: genotype1 })),
     ...enriched2.map(d => ({ ...d, genotypeLabel: genotype2 }))
-  ].filter(d => d.gene && d.threshold);
+  ].filter(d => d.gene && d.threshold != null);
 
   // Check if we have data to display
   $: hasData = combinedData.length > 0;
@@ -114,7 +179,7 @@
   } : null;
 
   // Score comparison plot options
-  $: combinedScores = combinedData.filter(d => d.score);
+  $: combinedScores = combinedData.filter(d => d.score != null);
 
   $: scoreComparisonOptions = combinedScores.length > 0 ? {
     grid: true,
@@ -256,7 +321,7 @@
         {#if thresholdComparisonOptions}
           <RenderPlot options={thresholdComparisonOptions} eventL={noopListener} />
         {:else}
-          <div class="p-8 text-center text-gray-500">Loading comparison data...</div>
+          <div class="p-8 text-center text-gray-500">No network-derived AUTO-TUNE thresholds available for this genotype/threshold combination.</div>
         {/if}
         <p class="text-sm text-gray-600 mt-2">
           Comparison of optimal clustering thresholds for each gene region. Blue dots represent genotype {genotype1}, orange dots represent genotype {genotype2}.
@@ -269,7 +334,7 @@
         {#if scoreComparisonOptions}
           <RenderPlot options={scoreComparisonOptions} eventL={noopListener} />
         {:else}
-          <div class="p-8 text-center text-gray-500">Loading score data...</div>
+          <div class="p-8 text-center text-gray-500">No network-derived AUTO-TUNE scores available for this genotype/threshold combination.</div>
         {/if}
         <p class="text-sm text-gray-600 mt-2">
           Comparison of AUTO-TUNE scores for each gene region. Higher scores indicate better clustering performance.
@@ -303,8 +368,8 @@
                           {row.classDisplay?.label}
                         </span>
                       </td>
-                      <td class="px-2 py-1 font-mono">{row.threshold?.toFixed(5)}</td>
-                      <td class="px-2 py-1 font-mono">{row.score?.toFixed(3)}</td>
+                      <td class="px-2 py-1 font-mono">{row.threshold != null ? row.threshold.toFixed(5) : 'N/A'}</td>
+                      <td class="px-2 py-1 font-mono">{row.score != null ? row.score.toFixed(3) : 'N/A'}</td>
                       <td class="px-2 py-1">{row.clusters ?? 'N/A'}</td>
                     </tr>
                   {/each}
@@ -336,8 +401,8 @@
                           {row.classDisplay?.label}
                         </span>
                       </td>
-                      <td class="px-2 py-1 font-mono">{row.threshold?.toFixed(5)}</td>
-                      <td class="px-2 py-1 font-mono">{row.score?.toFixed(3)}</td>
+                      <td class="px-2 py-1 font-mono">{row.threshold != null ? row.threshold.toFixed(5) : 'N/A'}</td>
+                      <td class="px-2 py-1 font-mono">{row.score != null ? row.score.toFixed(3) : 'N/A'}</td>
                       <td class="px-2 py-1">{row.clusters ?? 'N/A'}</td>
                     </tr>
                   {/each}
