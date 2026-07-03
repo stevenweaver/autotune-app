@@ -23,6 +23,7 @@
   let clusterSizePlotOptions = writable({});
 
   let currentData = {};
+  let autotuneThresholds = [];
   let pairwiseData = [];
   let networkStatsData = [];
   let rfData = [];
@@ -34,9 +35,55 @@
   $: combinationKey = `${$selectedGenotype}_${$selectedThreshold}`;
   $: if (congruenceData[combinationKey]) {
     currentData = congruenceData[combinationKey];
+    resolveAutotuneThresholds();
     updateVisualizations();
   }
-  
+
+  // Format a clustering distance threshold the way the AUTO-TUNE sweep report does
+  // (up to 5 decimals), trimming binary floating-point noise from the JSON value.
+  function formatThreshold(value) {
+    const n = typeof value === 'number' ? value : parseFloat(value);
+    if (!Number.isFinite(n)) return String(value);
+    return parseFloat(n.toFixed(5)).toString();
+  }
+
+  // The "AUTO-TUNE Thresholds Used" panel must show the thresholds the networks on
+  // this page were actually built at. The data file's `autotune_thresholds` is
+  // populated from the per-region *.threshold.json fallback ("best guess" emitted
+  // with hasError when AUTO-TUNE finds no strong outlier), which can contradict the
+  // networks and the manuscript (issue #7). Each network's HIV-TRACE output records
+  // the threshold it was constructed with under Settings.threshold, so read it from
+  // there — the same source as the Network Statistics table below.
+  async function resolveAutotuneThresholds() {
+    const key = combinationKey;
+    const regions = Object.keys(currentData.autotune_thresholds || {});
+    const resolved = {};
+    await Promise.all(regions.map(async (region) => {
+      try {
+        const response = await fetch(`/results/${key}_${region}.hivtrace.json`);
+        if (response.ok) {
+          const hivtraceData = await response.json();
+          const threshold = hivtraceData?.Settings?.threshold;
+          if (threshold !== undefined && threshold !== null) {
+            resolved[region] = formatThreshold(threshold);
+          }
+        }
+      } catch (error) {
+        console.warn(`Could not load network threshold for ${region}:`, error);
+      }
+    }));
+    // A late-arriving fetch for a previous combination must not clobber the current one.
+    if (key !== combinationKey) return;
+    // Preserve the data file's region order; fall back to the stored value only if
+    // the network file is unavailable.
+    autotuneThresholds = regions
+      .map((region) => ({
+        region,
+        threshold: resolved[region] ?? currentData.autotune_thresholds[region]
+      }))
+      .filter(({ threshold }) => threshold !== undefined && threshold !== null);
+  }
+
   async function updateVisualizations() {
     if (!currentData.krippendorff_alpha_pairwise) {
       console.log("No krippendorff_alpha_pairwise data found in currentData:", currentData);
@@ -676,13 +723,13 @@
             <span class="font-medium">Global Krippendorff's Alpha:<Tooltip text="A reliability coefficient measuring agreement between clustering assignments across all regions. Values >0.8 indicate good agreement, >0.9 excellent agreement." /></span>
             <span class="ml-2 font-mono">{currentData.krippendorff_alpha_global?.toFixed(4) || 'N/A'}</span>
           </div>
-          {#if currentData.autotune_thresholds && Object.keys(currentData.autotune_thresholds).length > 0}
+          {#if autotuneThresholds.length > 0}
             <div class="mt-4">
               <h4 class="text-sm font-medium text-blue-700 mb-2">AUTO-TUNE Thresholds Used:</h4>
               <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs">
-                {#each Object.entries(currentData.autotune_thresholds) as [region, threshold]}
+                {#each autotuneThresholds as { region, threshold }}
                   <div class="bg-blue-100 px-2 py-1 rounded">
-                    <span class="font-medium">{region}:</span> 
+                    <span class="font-medium">{region}:</span>
                     <span class="font-mono">{threshold}</span>
                   </div>
                 {/each}
